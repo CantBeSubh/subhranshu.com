@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-import Stats from "three/examples/jsm/libs/stats.module";
+// import Stats from "three/examples/jsm/libs/stats.module";
 
 import galaxy from "./Galaxy.js";
 import camera from "./Camera.js";
