@@ -1,0 +1,51 @@
+@keyframes switch {
+    0% {
+        left: 4px;
+    }
+
+    60% {
+        left: 4px;
+        width: 112px;
+    }
+
+    100% {
+        left: 104px;
+        width: 82px;
+    }
+}
+
+@keyframes reverse {
+    0% {
+        left: 104px;
+        width: 82px;
+    }
+
+    60% {
+        left: 72px;
+        width: 112px;
+    }
+
+    100% {
+        left: 4px;
+    }
+}
+
+@keyframes moveupdown {
+    0% {
+        transform: translateY(0px);
+    }
+
+    ;
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    ;
+
+    100% {
+        transform: translateY(0px);
+    }
+
+    ;
+}

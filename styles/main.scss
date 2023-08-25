@@ -1,0 +1,20 @@
+@charset 'utf-8';
+@use './abstracts' as *;
+@use './base' as *;
+@use './layouts' as *;
+@use './components' as *;
+@use './vendors/unicons' as *;
+
+.animated {
+    animation: moveupdown 1s infinite;
+}
+
+.contacts {
+    font-size: 1.3rem;
+}
+
+.headphone {
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.7s;
+}

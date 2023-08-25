@@ -1,0 +1,20 @@
+{
+  "name": "h0ly",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "sass": "^1.62.1",
+    "three": "^0.152.2",
+    "vite-plugin-glsl": "^1.1.2"
+  }
+}

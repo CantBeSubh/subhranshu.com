@@ -1,0 +1,184 @@
+@media (max-width: 640px) {
+    body {
+        font-size: 1rem;
+
+        .headphone {
+            display: none;
+        }
+
+        .wrapper {
+            .sidebar {
+                width: 0;
+            }
+
+            .main_content {
+                margin-left: 0px;
+            }
+        }
+
+        h1 {
+            font-size: 5rem;
+        }
+
+        section {
+            width: 90%;
+
+        }
+
+        #stats {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+
+        .progress {
+            &-container {
+                background-color: transparent;
+                height: 10px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        h1 {
+            font-size: 4rem;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    body {
+        font-size: 1.2rem;
+
+        section {
+            width: 80%;
+
+        }
+
+    }
+}
+
+@media (min-width: 2200px) {
+    body {
+        font-size: 2rem;
+
+        section {
+            width: 85%;
+
+        }
+
+        .wrapper {
+            .sidebar {
+                font-size: 1.2rem;
+            }
+
+        }
+    }
+}
+
+@media (max-height:755px) {
+    .wrapper {
+        .sidebar {
+            height: 100%;
+            justify-content: flex-start;
+
+        }
+    }
+
+    #stats {
+        display: none;
+    }
+}
+
+@media (max-height:532px) {
+    #canvas-visualizer {
+        display: none;
+    }
+}
+
+@media (max-height:320px) {
+    .wrapper {
+        .sidebar {
+            width: 0;
+        }
+
+        .main_content {
+            margin-left: 0px;
+        }
+    }
+}
+
+// @media(max-width: 1000px) {
+//     body {
+//         align-items: flex-start;
+//         overflow: auto;
+//     }
+
+//     #cards {
+//         max-width: 1000px;
+//         padding: 10px 0px;
+//     }
+
+//     .card {
+//         flex-shrink: 1;
+//         width: calc(50% - 4px);
+//     }
+// }
+
+// @media(max-width: 500px) {
+//     .card {
+//         height: 180px;
+//     }
+
+//     .card-image {
+//         height: 80px;
+//     }
+
+//     .card-image>i {
+//         font-size: 3em;
+//     }
+
+//     .card-info-wrapper {
+//         padding: 0px 10px;
+//     }
+
+//     .card-info>i {
+//         font-size: 0.8em;
+//     }
+
+//     .card-info-title>h3 {
+//         font-size: 0.9em;
+//     }
+
+//     .card-info-title>h4 {
+//         font-size: 0.8em;
+//         margin-top: 4px;
+//     }
+// }
+
+// @media(max-width: 320px) {
+//     .card {
+//         width: 100%;
+//     }
+// }
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
