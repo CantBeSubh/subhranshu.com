@@ -182,3 +182,13 @@
         scroll-behavior: auto !important;
     }
 }
+
+@media (max-width:768px) {
+    nav {
+        width: 0px !important;
+    }
+
+    .main_content {
+        margin-left: 0px !important;
+    }
+}
