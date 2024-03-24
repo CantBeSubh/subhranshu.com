@@ -1,9 +1,10 @@
 'use client'
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
     AdditiveBlending,
     BufferAttribute,
     BufferGeometry,
+    Clock,
     Color,
     ShaderMaterial
 } from 'three';
@@ -15,6 +16,7 @@ import ParticleFragment from '@/shaders/star/fragment.glsl';
 
 const GenerateGalaxy = () => {
     const { gl } = useThree()
+    const uTimeClock = new Clock();
 
     // MATERIAL
     const ParticleMat: ShaderMaterial = new ShaderMaterial({
@@ -83,6 +85,7 @@ const GenerateGalaxy = () => {
     ParticleGeo.setAttribute("aRandomness", new BufferAttribute(randomnessArr, 3));
 
     // const POINTS = new Points(ParticleGeo, ParticleMat)
+    useFrame(() => { ParticleMat.uniforms.uTime.value = uTimeClock.getElapsedTime(); })
 
     return (
         <points geometry={ParticleGeo} material={ParticleMat} />
