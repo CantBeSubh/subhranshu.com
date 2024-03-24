@@ -1,7 +1,9 @@
+import { Galaxy } from "@/components/common/galaxy";
+
 export default function Home() {
   return (
-    <div>
-      Goodbye world!
+    <div className='h-screen'>
+      <Galaxy />
     </div>
   )
 }
