@@ -34,8 +34,8 @@ const GenerateGalaxy = () => {
 
     // CONSTANTS
     const count = 250000;
-    const insideColor = "purple";
-    const outsideColor = "blue";
+    const insideColor = "#44008b";
+    const outsideColor = "#e54ed0";
     const radius = 10;
     const branches = 2;
     const spin = 1;
@@ -108,8 +108,11 @@ export const Galaxy = () => {
                 background: new Color(0x000000),
             }}
         >
+            {/* <mesh>
+                <sphereGeometry args={[0.25, 32, 32]} />
+                <meshBasicMaterial color={'#44008b'} />
+            </mesh> */}
             <mesh>
-                <ambientLight intensity={0.1} />
                 <GenerateGalaxy />
             </mesh>
         </Canvas>
