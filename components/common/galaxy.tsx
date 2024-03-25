@@ -28,18 +28,19 @@ const GenerateGalaxy = () => {
         uniforms: {
             uTime: { value: 0 },
             uSize: { value: 50 * gl.getPixelRatio() },
+            uTransitionTime: { value: 15 },
         },
     })
 
     // CONSTANTS
-    const count = 5000;
+    const count = 250000;
     const insideColor = "purple";
     const outsideColor = "blue";
-    const radius = 1;
+    const radius = 10;
     const branches = 2;
     const spin = 1;
-    const randomness = 10;
-    const randomnessPower = 1;
+    const randomness = 0.25;
+    const randomnessPower = 1.5;
     const dx = 1;
     const dy = 0;
     const dz = 1;
@@ -72,7 +73,7 @@ const GenerateGalaxy = () => {
         ParticlePosition[i3 + 2] = Math.sin(branchAngle + spinAngle) * rad * dz;
 
         const mixedColor = colorInside.clone();
-        mixedColor.lerp(colorOutside, rad / rad);
+        mixedColor.lerp(colorOutside, rad / radius);
         ParticleColors[i3] = mixedColor.r;
         ParticleColors[i3 + 1] = mixedColor.g;
         ParticleColors[i3 + 2] = mixedColor.b;
@@ -98,7 +99,7 @@ export const Galaxy = () => {
         <Canvas
             camera={{
                 fov: 55,
-                near: 0.0001,
+                near: 0.00001,
                 far: 10000,
                 position: [-0.5, 3, 6],
                 // rotateOnAxis: [-0.3, 0, 0],
