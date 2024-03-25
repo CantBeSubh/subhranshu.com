@@ -15,7 +15,7 @@ import ParticleVertex from '@/shaders/star/vertex.glsl';
 import ParticleFragment from '@/shaders/star/fragment.glsl';
 
 const GenerateGalaxy = () => {
-    const { gl } = useThree()
+    const { gl, camera } = useThree()
     const uTimeClock = new Clock();
 
     // MATERIAL
@@ -86,7 +86,11 @@ const GenerateGalaxy = () => {
     ParticleGeo.setAttribute("aRandomness", new BufferAttribute(randomnessArr, 3));
 
     // const POINTS = new Points(ParticleGeo, ParticleMat)
-    useFrame(() => { ParticleMat.uniforms.uTime.value = uTimeClock.getElapsedTime(); })
+    useFrame(() => {
+        ParticleMat.uniforms.uTime.value = uTimeClock.getElapsedTime();
+        // roate camera along z axis
+        camera.rotation.z += 0.001;
+    })
 
     return (
         <points geometry={ParticleGeo} material={ParticleMat} />
