@@ -1,14 +1,17 @@
 'use client'
 import { scaleValue } from "@/components/utils/scale";
 import { cn } from "@/lib/utils";
-import { ArticleMedium, Browsers, Envelope, Flask, GithubLogo, House, Notebook, TwitterLogo, User } from "@phosphor-icons/react/dist/ssr";
+import { ArticleMedium, Browsers, Envelope, Flask, GithubLogo, House, Notebook, SpeakerSimpleHigh, SpeakerSimpleX, TwitterLogo, User } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const maxAdditionalSize = 5;
 
 function Dock() {
+    const [audio] = useState(new Audio("/Audio/HeavenSent.mp3"))
+    const [isPlaying, setIsPlaying] = useState(false)
+
     const dockRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname()
 
@@ -123,6 +126,31 @@ function Dock() {
                             <Envelope size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Twitter</span>
                         </Link>
+                    </li>
+                    {/* Linkedin */}
+                    {/* Seperator */}
+                    <li className="border-l border-white/10" onMouseMove={handleAppHover} />
+                    <li className="app" onMouseMove={handleAppHover}>
+                        <button
+                            onClick={() => {
+                                if (audio.paused) {
+                                    audio.play()
+                                    setIsPlaying(true)
+                                }
+                                else {
+                                    audio.pause()
+                                    setIsPlaying(false)
+                                }
+                            }}
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/thoughts" && "opacity-50")}
+                        >
+                            {!isPlaying ?
+                                <SpeakerSimpleHigh size={32} weight="duotone" className="size-full p-2" />
+                                :
+                                <SpeakerSimpleX size={32} weight="duotone" className="size-full p-2" />
+                            }
+                            <span className="tooltip">Twitter</span>
+                        </button>
                     </li>
                 </ul>
             </nav>

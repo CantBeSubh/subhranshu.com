@@ -25,7 +25,7 @@ export const Time = () => {
     return (
         <div className="font-thin w-fit absolute top-4 left-4 z-50 text-white">
             <TooltipProvider>
-                <Tooltip>
+                <Tooltip delayDuration={0}>
                     <TooltipTrigger>
                         {formattedTime}
                     </TooltipTrigger>
