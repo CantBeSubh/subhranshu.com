@@ -1,3 +1,164 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.app {
+    transition: width, height, margin-top, cubic-bezier(0.25, 1, 0.5, 1) 100ms;
+}
+
+.app:hover {
+    width: 90px;
+    height: 90px;
+    margin-top: -30px;
+}
+
+/* Right side */
+.app:hover+.app {
+    width: calc(80px + var(--dock-offset-right, 0px));
+    height: calc(80px + var(--dock-offset-right, 0px));
+    margin-top: calc(-20px + var(--dock-offset-right, 0px) * -1);
+}
+
+.app:hover+.app+.app {
+    width: calc(70px + var(--dock-offset-right, 0px));
+    height: calc(70px + var(--dock-offset-right, 0px));
+    margin-top: calc(-10px + var(--dock-offset-right, 0px) * -1);
+}
+
+/* Left side */
+.app:has(+ .app:hover) {
+    width: calc(80px + var(--dock-offset-left, 0px));
+    height: calc(80px + var(--dock-offset-left, 0px));
+    margin-top: calc(-20px + var(--dock-offset-left, 0px) * -1);
+}
+
+.app:has(+ .app + .app:hover) {
+    width: calc(70px + var(--dock-offset-left, 0px));
+    height: calc(70px + var(--dock-offset-left, 0px));
+    margin-top: calc(-10px + var(--dock-offset-left, 0px) * -1);
+}
+
+.page {
+    min-height: 100dvh;
+    display: flex;
+}
+
+.dock {
+    margin: auto auto 12px auto;
+    border-radius: 24px;
+    padding: 0 12px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
+    box-shadow: rgba(255, 255, 255, 0.17) 0px 0px 0px 1px inset;
+}
+
+.dock ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.app {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    /* The only reason this padding is disabled, is because the icons have
+    a padding in the image that would take too much effort to remove :)
+    In case you add custom icons or anything without the padding in the image, you need
+    to add this padding on each app element. If you'd add it as a margin between the elements,
+    you would lose the over state when moving between icons. */
+    /* padding: 0 6px; */
+}
+
+.app img {
+    width: 100%;
+    height: 100%;
+}
+
+.app a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 12px;
+    color: #fff;
+}
+
+.app:hover .tooltip,
+.app:focus-within .tooltip {
+    opacity: 1;
+}
+
+.tooltip {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: ease-in opacity 100ms;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.58);
+    padding: 20px;
+    border-radius: 12px;
+    height: 22px;
+    width: auto;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px 12px 8px 1px;
+    white-space: nowrap;
+}
+
+.source-links {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    right: 20px;
+    top: 20px;
+    text-align: right;
+}
+
+.source-links a {
+    color: #fff;
+    opacity: 0.3;
+    margin-bottom: 8px;
+}
+
+.source-links a:hover {
+    opacity: 1;
+}
+
+.mobile-message {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+@media only screen and (max-width: 800px) {
+    .mobile-message {
+        display: flex;
+    }
+}
+
+.mobile-message p {
+    max-width: 70vw;
+}
+
+.mobile-message a {
+    color: #fff;
+}
+
+.mobile-message::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    filter: blur(80px);
+    -webkit-filter: blur(80px);
+}
