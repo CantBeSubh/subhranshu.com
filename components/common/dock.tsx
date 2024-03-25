@@ -1,7 +1,7 @@
 'use client'
 import { scaleValue } from "@/components/utils/scale";
 import { cn } from "@/lib/utils";
-import { ArticleMedium, Browsers, Flask, House, Notebook, User } from "@phosphor-icons/react/dist/ssr";
+import { ArticleMedium, Browsers, Flask, House, Notebook, TwitterLogo, User } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
@@ -93,6 +93,17 @@ function Dock() {
                         >
                             <Notebook size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Thoughts</span>
+                        </Link>
+                    </li>
+                    {/* Seperator */}
+                    <li className="border-l border-white/10" onMouseMove={handleAppHover} />
+                    <li className="app" onMouseMove={handleAppHover}>
+                        <Link
+                            href="https://twitter.com/CantBeSubh/" target="_blank"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/thoughts" && "opacity-50")}
+                        >
+                            <TwitterLogo size={32} weight="duotone" className="size-full p-2" />
+                            <span className="tooltip">Twitter</span>
                         </Link>
                     </li>
                 </ul>
