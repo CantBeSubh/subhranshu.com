@@ -1,11 +1,16 @@
 'use client'
 import { scaleValue } from "@/components/utils/scale";
+import { cn } from "@/lib/utils";
+import { ArticleMedium, Browsers, Flask, House, Notebook, User } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useRef } from "react";
 
 const maxAdditionalSize = 5;
 
 function Dock() {
     const dockRef = useRef<HTMLDivElement>(null);
+    const pathname = usePathname()
 
     const handleAppHover = (ev: React.MouseEvent<HTMLLIElement>) => {
         if (!dockRef.current) return;
@@ -37,71 +42,61 @@ function Dock() {
             <nav ref={dockRef} className="dock">
                 <ul>
                     <li className="app" onMouseMove={handleAppHover}>
-                        <a href="https://www.frontend.fyi" target="_blank">
-                            <img src="https://www.frontend.fyi/playground-assets/macos-dock/icons/arc.png" />
+                        <Link
+                            href="/"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/" && "opacity-50")}
+                        >
+                            <House size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Home</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="app" onMouseMove={handleAppHover}>
-                        <a href="https://www.frontend.fyi" target="_blank">
-                            <img src="https://www.frontend.fyi/playground-assets/macos-dock/icons/1password.png" />
+                        <Link
+                            href="/about"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/about" && "opacity-50")}
+                        >
+                            <User size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">About</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="app" onMouseMove={handleAppHover}>
-                        <a href="https://www.frontend.fyi" target="_blank">
-                            <img src="https://www.frontend.fyi/playground-assets/macos-dock/icons/calendar.png" />
+                        <Link
+                            href="/projects"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/projects" && "opacity-50")}
+                        >
+                            <Browsers size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Projects</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="app" onMouseMove={handleAppHover}>
-                        <a href="https://www.frontend.fyi" target="_blank">
-                            <img src="https://www.frontend.fyi/playground-assets/macos-dock/icons/email.png" />
+                        <Link
+                            href="/labs"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/labs" && "opacity-50")}
+                        >
+                            <Flask size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Labs</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="app" onMouseMove={handleAppHover}>
-                        <a href="https://www.frontend.fyi" target="_blank">
-                            <img src="https://www.frontend.fyi/playground-assets/macos-dock/icons/signal.png" />
+                        <Link
+                            href="/blogs"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/blogs" && "opacity-50")}
+                        >
+                            <ArticleMedium size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Blogs</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="app" onMouseMove={handleAppHover}>
-                        <a href="https://www.frontend.fyi" target="_blank">
-                            <img src="https://www.frontend.fyi/playground-assets/macos-dock/icons/slack.png" />
+                        <Link
+                            href="/thoughts"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/thoughts" && "opacity-50")}
+                        >
+                            <Notebook size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Thoughts</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
-
-            <div className="source-links">
-                <a
-                    href="https://unsplash.com/photos/4wzRuAb-KWs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Wallpaper by Mohammad <br />
-                    Alizade on Unsplash
-                </a>
-                <a
-                    href="https://macosicons.com/#/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Icons by MacOS Icons
-                </a>
-            </div>
-            <div className="mobile-message">
-                <p>
-                    What?! MacOS works on mobile?..
-                    <br />— Unfortunately it doesn't 😢 Open this site on your desktop to
-                    enjoy the amazing animations! Or watch the video{" "}
-                    <a href="https://youtu.be/_ZcIFTvLm64" target="_blank">
-                        on YouTube
-                    </a>
-                </p>
-            </div>
         </div>
     );
 }
