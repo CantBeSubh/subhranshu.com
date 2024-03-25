@@ -1,7 +1,7 @@
 'use client'
 import { scaleValue } from "@/components/utils/scale";
 import { cn } from "@/lib/utils";
-import { ArticleMedium, Browsers, Flask, House, Notebook, TwitterLogo, User } from "@phosphor-icons/react/dist/ssr";
+import { ArticleMedium, Browsers, Envelope, Flask, GithubLogo, House, Notebook, TwitterLogo, User } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
@@ -103,6 +103,24 @@ function Dock() {
                             className={cn("size-full block rounded-xl text-white", pathname !== "/thoughts" && "opacity-50")}
                         >
                             <TwitterLogo size={32} weight="duotone" className="size-full p-2" />
+                            <span className="tooltip">Twitter</span>
+                        </Link>
+                    </li>
+                    <li className="app" onMouseMove={handleAppHover}>
+                        <Link
+                            href="http://github.com/cantbesubh/" target="_blank"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/thoughts" && "opacity-50")}
+                        >
+                            <GithubLogo size={32} weight="duotone" className="size-full p-2" />
+                            <span className="tooltip">Twitter</span>
+                        </Link>
+                    </li>
+                    <li className="app" onMouseMove={handleAppHover}>
+                        <Link
+                            href="mailto:socials.subhranshu@gmail.com" target="_blank"
+                            className={cn("size-full block rounded-xl text-white", pathname !== "/thoughts" && "opacity-50")}
+                        >
+                            <Envelope size={32} weight="duotone" className="size-full p-2" />
                             <span className="tooltip">Twitter</span>
                         </Link>
                     </li>
