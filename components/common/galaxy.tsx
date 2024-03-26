@@ -89,7 +89,7 @@ const GenerateGalaxy = () => {
     useFrame(() => {
         ParticleMat.uniforms.uTime.value = uTimeClock.getElapsedTime();
         // roate camera along z axis
-        camera.rotation.z += 0.001;
+        // camera.rotation.z += 0.001;
     })
 
     return (
