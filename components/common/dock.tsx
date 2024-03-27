@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 import { ArticleMedium, Browsers, Envelope, Flask, GithubLogo, House, Notebook, SpeakerSimpleHigh, SpeakerSimpleX, TwitterLogo, User } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const maxAdditionalSize = 5;
 
 function Dock() {
-    const [audio] = useState(new Audio("/Audio/HeavenSent.mp3"))
+    const [audio, setAudio] = useState<HTMLAudioElement>()
     const [isPlaying, setIsPlaying] = useState(false)
 
     const dockRef = useRef<HTMLDivElement>(null);
@@ -39,6 +39,9 @@ function Dock() {
             `${offsetPixels}px`
         );
     };
+    useEffect(() => {
+        setAudio(new Audio("/Audio/HeavenSent.mp3"))
+    }, [])
 
     return (
         <div className="page">
@@ -133,12 +136,12 @@ function Dock() {
                     <li className="app" onMouseMove={handleAppHover}>
                         <button
                             onClick={() => {
-                                if (audio.paused) {
+                                if (audio?.paused) {
                                     audio.play()
                                     setIsPlaying(true)
                                 }
                                 else {
-                                    audio.pause()
+                                    audio?.pause()
                                     setIsPlaying(false)
                                 }
                             }}
