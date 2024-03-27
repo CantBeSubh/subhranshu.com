@@ -2,8 +2,8 @@
 import { DockApp } from "@/components/dock/dock-app";
 import { DockSeparator } from "@/components/dock/dock-separator";
 import { SoundBtn } from "@/components/dock/sound-btn";
-import { scaleValue } from "@/components/utils/scale";
 import { DOCK_LINKS, DOCK_SOCIALS } from "@/lib/constants/dock";
+import { scaleValue } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
 const maxAdditionalSize = 5;
