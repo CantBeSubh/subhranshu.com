@@ -1,5 +1,6 @@
 uniform float iTime;
 uniform vec2 iResolution;
+uniform sampler2D iChannel0;
 
 // --- noise from procedural pseudo-Perlin (better but not so nice derivatives) ---------
 // ( adapted from IQ )
@@ -21,15 +22,13 @@ float noise3( vec3 x ) {
 void mainImage( out vec4 O, vec2 U ) // ------------ draw isovalues
 { 
     vec2 R = iResolution.xy;
-    float n = noise(vec3(U*8./R.y, .1*iTime)),
-            v = sin(6.28*10.*n),
-        t = iTime;
+    float n = noise(vec3(U*8./R.y, .1*iTime)), v = sin(6.28*10.*n), t = iTime;
     
     v = smoothstep(1.,0., .5*abs(v)/fwidth(v));
     
-    O = mix( vec4(0.0,0.0,0.0,1.0), vec4(0.267,0.,0.545,1.0), v );
-}
+	O = mix( exp(-33./R.y )* texture( iChannel0, (U+vec2(1,sin(t)))/R), .5+.5*sin(12.*n+vec4(0,2.1,-2.1,0)), v );
 
+}
 void main() {
     vec4 color;
     mainImage(color, gl_FragCoord.xy);
