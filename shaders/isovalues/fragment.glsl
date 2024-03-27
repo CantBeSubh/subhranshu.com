@@ -27,7 +27,7 @@ void mainImage( out vec4 O, vec2 U ) // ------------ draw isovalues
     
     v = smoothstep(1.,0., .5*abs(v)/fwidth(v));
     
-    O = mix( vec4(0.0,0.0,0.0,0.01), vec4(0.58, 0.0, 0.82, 0.01), v );
+    O = mix( vec4(0.0,0.0,0.0,1.0), vec4(0.267,0.,0.545,1.0), v );
 }
 
 void main() {
