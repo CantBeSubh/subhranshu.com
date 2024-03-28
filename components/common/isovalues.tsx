@@ -21,7 +21,7 @@ const ShaderPlane = () => {
 
     useFrame(() => {
         if (materialRef.current) {
-            materialRef.current.uniforms.iTime.value = uTimeClock.getElapsedTime();
+            materialRef.current.uniforms.uTime.value = uTimeClock.getElapsedTime();
         }
     })
 
@@ -30,8 +30,9 @@ const ShaderPlane = () => {
             <planeGeometry args={[100, 100]} />
             <shaderMaterial
                 uniforms={{
-                    iTime: { value: 0 },
-                    iResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+                    uTime: { value: 0 },
+                    uResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+                    uTransitionTime: { value: 6 }
                 }}
                 vertexShader={PlaneVertex}
                 fragmentShader={PlaneFragment}
@@ -46,7 +47,7 @@ export const IsoValues = () => {
         <Canvas
             scene={{ background: new Color(0x000000) }}
             style={{
-                mask: `radial-gradient(circle at center, rgba(0,0,0,1) 0%,rgba(0,0,0,0.5) 60%, rgba(0,0,0,0)  100%)`
+                mask: `radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0)  100%)`
             }}
         >
             <ShaderPlane />

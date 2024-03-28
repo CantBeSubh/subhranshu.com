@@ -28,7 +28,7 @@ const GenerateGalaxy = () => {
         uniforms: {
             uTime: { value: 0 },
             uSize: { value: 50 * gl.getPixelRatio() },
-            uTransitionTime: { value: 15 },
+            uTransitionTime: { value: 12 },
         },
     })
 
