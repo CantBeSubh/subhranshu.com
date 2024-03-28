@@ -47,6 +47,7 @@ export const IsoValues = () => {
         <Canvas
             scene={{ background: new Color(0x000000) }}
             style={{
+                // mask: `radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0)  40%, rgba(0,0,0,0)  100%)`
                 mask: `radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0)  100%)`
             }}
         >
