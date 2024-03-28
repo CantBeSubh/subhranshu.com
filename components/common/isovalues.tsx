@@ -32,7 +32,6 @@ const ShaderPlane = () => {
                 uniforms={{
                     iTime: { value: 0 },
                     iResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
-                    iChannel0: { value: null }
                 }}
                 vertexShader={PlaneVertex}
                 fragmentShader={PlaneFragment}

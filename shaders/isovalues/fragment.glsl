@@ -1,37 +1,28 @@
 uniform float iTime;
-uniform vec2 iResolution;
-uniform sampler2D iChannel0;
+uniform vec3 iResolution;
 
-// --- noise from procedural pseudo-Perlin (better but not so nice derivatives) ---------
-// ( adapted from IQ )
-float noise3( vec3 x ) {
-    vec3 p = floor(x),f = fract(x);
 
-    f = f*f*(3.-2.*f);  // or smoothstep     // to make derivative continuous at borders
 
-    #define hash3(p)  fract(sin(1e3*dot(p,vec3(1,57,-13.7)))*4375.5453)        // rand
-    
-    return mix( mix(mix( hash3(p+vec3(0,0,0)), hash3(p+vec3(1,0,0)),f.x),       // triilinear interp
-                    mix( hash3(p+vec3(0,1,0)), hash3(p+vec3(1,1,0)),f.x),f.y),
-                mix(mix( hash3(p+vec3(0,0,1)), hash3(p+vec3(1,0,1)),f.x),       
-                    mix( hash3(p+vec3(0,1,1)), hash3(p+vec3(1,1,1)),f.x),f.y), f.z);
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+	vec2 p = -1.0 + 2.0 * fragCoord.xy / iResolution.xy;
+	
+// main code, *original shader by: 'Plasma' by Viktor Korsun (2011)
+float x = p.x;
+float y = p.y;
+float mov0 = x+y+cos(sin(iTime)*2.0)*100.+sin(x/100.)*1000.;
+float mov1 = y / 0.9 +  iTime;
+float mov2 = x / 0.2;
+float c1 = abs(sin(mov1+iTime)/2.+mov2/2.-mov1-mov2+iTime);
+float c2 = abs(sin(c1+sin(mov0/1000.+iTime)+sin(y/40.+iTime)+sin((x+y)/100.)*3.));
+float c3 = abs(sin(c2+cos(mov1+mov2+c2)+cos(mov2)+sin(x/1000.)));
+fragColor = vec4(c1,c2,c3,1);
+	
 }
 
-#define noise(x) (noise3(x)+noise3(x+11.5)) / 2. // pseudoperlin improvement from foxes idea 
 
-void mainImage( out vec4 O, vec2 U ) // ------------ draw isovalues
-{ 
-    vec2 R = iResolution.xy;
-    float n = noise(vec3(U*8./R.y, .1*iTime)), v = sin(6.28*10.*n), t = iTime;
-    
-    v = smoothstep(1.,0., .5*abs(v)/fwidth(v));
-    
-	O = mix( exp(-33./R.y )* texture( iChannel0, (U+vec2(1,sin(t)))/R), .5+.5*sin(12.*n+vec4(0,2.1,-2.1,0)), v );
-
-}
 void main() {
     vec4 color;
     mainImage(color, gl_FragCoord.xy);
     gl_FragColor = color;
 }
-
