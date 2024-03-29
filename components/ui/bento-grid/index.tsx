@@ -15,7 +15,7 @@ type BentoCardProps = {
 
 const BentoCard = (props: BentoCardProps) => {
     const { row, col, children } = props;
-    const [cardClass] = useState(() => `col-span-${col ?? 1} row-span-${row ?? 1} backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full text-black cursor-pointer`)
+    const [cardClass] = useState(() => `col-span-${col ?? 1} row-span-${row ?? 1} backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full text-black`)
     return (
         <div className={cardClass}>
             {children ?? 'PLACEHOLDER'}
