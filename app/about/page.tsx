@@ -46,13 +46,18 @@ const AboutPage = () => {
                     </BentoCard>
                     <BentoCard col={2}>
                         Tech Stack
+                        {/* TODO CHECK ACTERNITY BADGES  */}
                         <Avatar>
                             <AvatarImage src="https://www.cdnlogo.com/logos/n/80/next-js.svg" />
                             <AvatarFallback>NJ</AvatarFallback>
                         </Avatar>
-                        <Avatar>
+                        <Avatar className="rounded-sm">
                             <AvatarImage src="https://www.cdnlogo.com/logos/t/96/typescript.svg" />
-                            <AvatarFallback>NJ</AvatarFallback>
+                            <AvatarFallback>TS</AvatarFallback>
+                        </Avatar>
+                        <Avatar>
+                            <AvatarImage src="https://supabase.com/dashboard/img/supabase-logo.svg" />
+                            <AvatarFallback>SB</AvatarFallback>
                         </Avatar>
                     </BentoCard>
                     <BentoCard col={2}>Waka Time</BentoCard>
