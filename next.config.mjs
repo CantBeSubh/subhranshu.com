@@ -9,6 +9,9 @@ const nextConfig = {
             use: ['raw-loader']
         })
         return config
+    },
+    images: {
+        domains: ['github.com'],
     }
 };
 

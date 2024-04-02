@@ -1,7 +1,8 @@
 import { IsoValues } from "@/components/common/isovalues"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid"
-import Image from "next/image"
 import Link from "next/link"
+
 
 const AboutPage = () => {
     return (
@@ -11,20 +12,17 @@ const AboutPage = () => {
             </div>
             <div className="z-10 p-4 border-2 border-black rounded-lg backdrop-blur-3xl h-[85%] w-[95%] mt-12">
                 {/* Bento Grid */}
-                <BentoGrid rows={4} cols={4}>
+                <BentoGrid rows={4} cols={1}>
                     <BentoCard col={2} row={2}>
                         {/* TODO: Fix height issue */}
                         <div className="flex p-4 size-full justify-between">
                             {/* PFP */}
                             <div className="w-2/5 pl-2 flex flex-col items-start justify-between">
                                 <div className="space-y-2 w-full">
-                                    <Image
-                                        src="/Images/pfp.png"
-                                        width={100}
-                                        height={100}
-                                        alt="PFP"
-                                        className="rounded-full border-[0.5px] border-black mb-4"
-                                    />
+                                    <Avatar className="size-40">
+                                        <AvatarImage src="https://github.com/cantbesubh.png" />
+                                        <AvatarFallback className="text-3xl">SP</AvatarFallback>
+                                    </Avatar>
                                     <div className="border-b border-neutral-300/40 border-[0.1px] w-[90%]" />
                                     <div className="">
                                         <div className="text-xl font-bold"> Subhranshu Pati </div>
@@ -34,6 +32,7 @@ const AboutPage = () => {
 
                                 <Link href='/' className="underline">Read.cv</Link>
                             </div>
+
                             <div className="w-3/5 text-sm">
                                 I was born in a small town in western Germany, and I grew up in an ever-growing age of technology. My whole life, I was curious about how technology evolves and how it can enhance our everyday life.
 
@@ -45,7 +44,17 @@ const AboutPage = () => {
                             </div>
                         </div>
                     </BentoCard>
-                    <BentoCard col={2}>Tech Stack</BentoCard>
+                    <BentoCard col={2}>
+                        Tech Stack
+                        <Avatar>
+                            <AvatarImage src="https://www.cdnlogo.com/logos/n/80/next-js.svg" />
+                            <AvatarFallback>NJ</AvatarFallback>
+                        </Avatar>
+                        <Avatar>
+                            <AvatarImage src="https://www.cdnlogo.com/logos/t/96/typescript.svg" />
+                            <AvatarFallback>NJ</AvatarFallback>
+                        </Avatar>
+                    </BentoCard>
                     <BentoCard col={2}>Waka Time</BentoCard>
                     <BentoCard row={2}>Fav Musics</BentoCard>
                     <BentoCard row={2}>Fav Games</BentoCard>
