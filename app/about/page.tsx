@@ -12,7 +12,7 @@ const AboutPage = () => {
             </div>
             <div className="z-10 p-4 border-2 border-black rounded-lg backdrop-blur-3xl h-[85%] w-[95%] mt-12">
                 {/* Bento Grid */}
-                <BentoGrid rows={4} cols={1}>
+                <BentoGrid rows={4} cols={4}>
                     <BentoCard col={2} row={2}>
                         {/* TODO: Fix height issue */}
                         <div className="flex p-4 size-full justify-between">
@@ -33,14 +33,9 @@ const AboutPage = () => {
                                 <Link href='/' className="underline">Read.cv</Link>
                             </div>
 
-                            <div className="w-3/5 text-sm">
-                                I was born in a small town in western Germany, and I grew up in an ever-growing age of technology. My whole life, I was curious about how technology evolves and how it can enhance our everyday life.
-
-                                A few years ago, I started to learn more about design. For me, it was important to bring my ideas to life, so I self-taught myself how to code and learned more about Design Engineering . In early 2023, I started my bachelor in Interaction Design at the University of Applied Sciences in Schwaebisch Gmuend.
-
-                                Right now i am working at
-                                zwoeins marketing
-                                and I am always working on side projects to improve my skills and expand my knowledge in the field of software development.
+                            <div className="w-3/5 text-sm text-justify">
+                                Hello there! I&apos;m Subhranshu, a creative fullstack developer and I build AI applications for fun. Currently navigating my early twenties, I&apos;m on an exciting journey to discover my path in life. At present, I work remotely as a Product Engineer for Ethica. I&apos;m delighted to collaborate with my dedicated and brilliant colleagues and managers right from my home. This environment continually inspires me to push boundaries and innovate. I&apos;m also immersed in several side projects, all of which you can explore in the Projects section. Feel free to join me on Twitter/X, where I regularly share updates and insights from my journey.
+                                Let&apos;s connect and explore the endless possibilities together!
                             </div>
                         </div>
                     </BentoCard>
