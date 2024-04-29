@@ -32,8 +32,8 @@ export default function Intro() {
             <Image
               src="/me.png"
               alt="Subhranshu portrait"
-              width="192"
-              height="192"
+              width="250"
+              height="250"
               quality="100"
               priority={true}
               className="h-24 w-24 rounded-full object-cover border-[0.15rem] border-white shadow-xl"
@@ -65,7 +65,7 @@ export default function Intro() {
         <span className="font-bold">full-stack developer</span> with{" "}
         <span className="font-bold">1 year</span> of experience. I enjoy
         building <span className="italic">websites & AI apps</span>. My focus is{" "}
-        <span className="underline">React (Next.js)</span>.
+        <span className="underline">Next.js</span>,<span className="underline">OpenAI</span> and <span className="underline">Langchain</span>.
       </motion.h1>
 
       <motion.div
