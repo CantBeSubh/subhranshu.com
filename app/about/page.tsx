@@ -1,6 +1,5 @@
 import { IsoValues } from "@/components/common/isovalues"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BentoCard, BentoGrid } from "@/components/ui/bento-grid"
 import Link from "next/link"
 
 
@@ -12,8 +11,8 @@ const AboutPage = () => {
             </div>
             <div className="z-10 p-4 border-2 border-black rounded-lg backdrop-blur-3xl h-[85%] w-[95%] mt-12">
                 {/* Bento Grid */}
-                <BentoGrid rows={4} cols={4}>
-                    <BentoCard col={2} row={2}>
+                <div className="grid grid-cols-4 grid-rows-4 gap-4 p-4 h-full w-full">
+                    <div className="col-span-2 row-span-2 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">
                         {/* TODO: Fix height issue */}
                         <div className="flex p-4 size-full justify-between">
                             {/* PFP */}
@@ -38,8 +37,8 @@ const AboutPage = () => {
                                 Let&apos;s connect and explore the endless possibilities together!
                             </div>
                         </div>
-                    </BentoCard>
-                    <BentoCard col={2}>
+                    </div>
+                    <div className="col-span-2 row-span-1 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">
                         Tech Stack
                         {/* TODO CHECK ACTERNITY BADGES  */}
                         <Avatar>
@@ -54,13 +53,13 @@ const AboutPage = () => {
                             <AvatarImage src="https://supabase.com/dashboard/img/supabase-logo.svg" />
                             <AvatarFallback>SB</AvatarFallback>
                         </Avatar>
-                    </BentoCard>
-                    <BentoCard col={2}>Waka Time</BentoCard>
-                    <BentoCard row={2}>Fav Musics</BentoCard>
-                    <BentoCard row={2}>Fav Games</BentoCard>
-                    <BentoCard row={2}>Education</BentoCard>
-                    <BentoCard row={2}>Goals</BentoCard>
-                </BentoGrid>
+                    </div>
+                    <div className="col-span-2 row-span-1 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">Waka Time</div>
+                    <div className="col-span-1 row-span-2 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">Fav Musics</div>
+                    <div className="col-span-1 row-span-2 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">Fav Games</div>
+                    <div className="col-span-1 row-span-2 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">Education</div>
+                    <div className="col-span-1 row-span-2 backdrop-blur-3xl rounded-lg border-2 border-black flex items-center justify-center w-full h-full">Goals</div>
+                </div>
             </div>
         </div>
     )
