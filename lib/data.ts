@@ -1,4 +1,4 @@
-import corpcommentImg from "@/public/corpcomment.png";
+import heyEthica from "@/public/heyEthica.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 import React from "react";
@@ -62,11 +62,11 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "CorpComment",
+    title: "HeyEthica",
     description:
-      "I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.",
-    tags: ["React", "Next.js", "MongoDB", "Tailwind", "Prisma"],
-    imageUrl: corpcommentImg,
+      "I worked as a Product Engineer on this startup project for 1 year. Simplified the process of house buying and selling by using AI.",
+    tags: ["React", "Next.js", "Supabase", "Tailwind", "Prisma", "OpanAI"],
+    imageUrl: heyEthica,
   },
   {
     title: "rmtDev",
@@ -95,6 +95,7 @@ export const skillsData = [
   "Nuxt.js",
   "Node.js",
   "Git",
+  "Turborepo",
   "OpenAI",
   "Peplexity",
   "Anthropic",
