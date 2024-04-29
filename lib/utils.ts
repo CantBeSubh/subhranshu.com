@@ -1,15 +1,26 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+export const validateString = (
+  value: unknown,
+  maxLength: number
+): value is string => {
+  if (!value || typeof value !== "string" || value.length > maxLength) {
+    return false;
+  }
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-export const scaleValue = (
-  value: number,
-  from: [number, number],
-  to: [number, number]
-) => {
-  const scale = (to[1] - to[0]) / (from[1] - from[0]);
-  const capped = Math.min(from[1], Math.max(from[0], value)) - from[0];
-  return Math.floor(capped * scale + to[0]);
+  return true;
+};
+
+export const getErrorMessage = (error: unknown): string => {
+  let message: string;
+
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "message" in error) {
+    message = String(error.message);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Something went wrong";
+  }
+
+  return message;
 };
