@@ -1,10 +1,10 @@
+import corpcommentImg from "@/public/corpcomment.png";
+import rmtdevImg from "@/public/rmtdev.png";
+import wordanalyticsImg from "@/public/wordanalytics.png";
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import corpcommentImg from "@/public/corpcomment.png";
-import rmtdevImg from "@/public/rmtdev.png";
-import wordanalyticsImg from "@/public/wordanalytics.png";
 
 export const links = [
   {
@@ -91,17 +91,35 @@ export const skillsData = [
   "TypeScript",
   "React",
   "Next.js",
+  "Vue",
+  "Nuxt.js",
   "Node.js",
   "Git",
+  "OpenAI",
+  "Peplexity",
+  "Anthropic",
+  "TogetherAI",
+  "Replicate",
   "Tailwind",
   "Prisma",
   "MongoDB",
   "Redux",
+  "Zustand",
+  "Jotai",
+  "Zod",
+  "tRPC",
+  "NextAuth",
+  "Supabase",
+  "Vercel",
+  "AWS",
   "GraphQL",
   "Apollo",
   "Express",
   "PostgreSQL",
+  "Docker",
   "Python",
   "Django",
   "Framer Motion",
+  "GSAP",
+  "Figma",
 ] as const;
