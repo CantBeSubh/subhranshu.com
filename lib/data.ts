@@ -1,6 +1,6 @@
+import getgud from "@/public/getgud.png";
 import heyEthica from "@/public/heyEthica.png";
-import rmtdevImg from "@/public/rmtdev.png";
-import wordanalyticsImg from "@/public/wordanalytics.png";
+import rudegpt from "@/public/rudegpt.png";
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
@@ -85,18 +85,18 @@ export const projectsData = [
     imageUrl: heyEthica,
   },
   {
-    title: "rmtDev",
+    title: "RudeGPT",
     description:
-      "Job board for remote developer jobs. I was the front-end developer. It has features like filtering, sorting and pagination.",
-    tags: ["React", "TypeScript", "Next.js", "Tailwind", "Redux"],
-    imageUrl: rmtdevImg,
+      "An unconventional ChatGPT bootleg with an attitude, achived by using prompt engineering and a customized prompt engine.",
+    tags: ["Next.js", "AWS Amplify", "AWS Cognito", "AWS Appsync", "OpenAI"],
+    imageUrl: rudegpt,
   },
   {
-    title: "Word Analytics",
+    title: "GetGud",
     description:
-      "A public web app for quick analytics on text. It shows word count, character count and social media post limits.",
-    tags: ["React", "Next.js", "SQL", "Tailwind", "Framer"],
-    imageUrl: wordanalyticsImg,
+      "A todos and habits tracker with sleek and elagant UI and UX, built with custom styling and animations.",
+    tags: ["Next.js", "Garfbase", "SCSS"],
+    imageUrl: getgud,
   },
 ] as const;
 
