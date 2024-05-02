@@ -43,6 +43,7 @@ export default function Experience() {
                   theme === "light" ? "white" : "rgba(0, 0, 0, 1)",
                 fontSize: "1.5rem",
               }}
+              dateClassName="min-[1170px]:mx-4"
             >
               <h3 className="font-semibold capitalize">{item.title}</h3>
               <p className="font-normal !mt-0">{item.location}</p>
