@@ -35,12 +35,20 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated Bachelor's degree",
-    location: "Chennai, IN",
+    title: "Product Engineer",
+    location: "Tustin, CA (Remote)",
     description:
-      "I did my Bachelor's degree in Computer Science from the VIT, Chennai. I was the first in my batch to get a full-time remote job.",
-    icon: React.createElement(LuGraduationCap),
-    date: "Aug, 2024",
+      "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project",
+    icon: React.createElement(FaReact),
+    date: "Jan, 2024 - April,2024",
+  },
+  {
+    title: "Product Engineer Intern",
+    location: "Tustin, CA (Remote)",
+    description:
+      "I worked as a Product Engineer intern for 4 month. I worked on a startup project to improve the user experience of a mobile app.",
+    icon: React.createElement(FaReact),
+    date: "Sept,2023-Jan,2024",
   },
   {
     title: "Front-End Developer Intern",
@@ -59,21 +67,13 @@ export const experiencesData = [
     date: "Aug,2023-Sep,2023",
   },
   {
-    title: "Product Engineer Intern",
-    location: "Tustin, CA (Remote)",
+    title: "Graduated Bachelor's degree",
+    location: "Chennai, IN",
     description:
-      "I worked as a Product Engineer intern for 4 month. I worked on a startup project to improve the user experience of a mobile app.",
-    icon: React.createElement(FaReact),
-    date: "Sept,2023-Jan,2024",
-  },
-  {
-    title: "Product Engineer",
-    location: "Tustin, CA (Remote)",
-    description:
-      "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project",
-    icon: React.createElement(FaReact),
-    date: "Jan, 2024 - April,2024",
-  },
+      "I did my Bachelor's degree in Computer Science from the VIT, Chennai. I was the first in my batch to get a full-time remote job.",
+    icon: React.createElement(LuGraduationCap),
+    date: "Aug, 2024",
+  }
 ] as const;
 
 export const projectsData = [
