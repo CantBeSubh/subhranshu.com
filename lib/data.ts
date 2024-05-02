@@ -121,6 +121,8 @@ export const skillsData = [
   "TogetherAI",
   "Replicate",
   "Tailwind",
+  "Three.js",
+  'React Three Fiber',
   "Prisma",
   "MongoDB",
   "Redux",
