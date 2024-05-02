@@ -83,6 +83,7 @@ export const projectsData = [
       "I worked as a Product Engineer on this startup project for 1 year. Simplified the process of house buying and selling by using AI.",
     tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
     imageUrl: heyEthica,
+    status: true,
   },
   {
     title: "RudeGPT",
@@ -90,6 +91,7 @@ export const projectsData = [
       "An unconventional ChatGPT bootleg with an attitude, achived by using prompt engineering and a customized prompt engine.",
     tags: ["Next.js", "AWS Amplify", "AWS Cognito", "AWS Appsync", "OpenAI"],
     imageUrl: rudegpt,
+    status: false,
   },
   {
     title: "GetGud",
@@ -97,6 +99,7 @@ export const projectsData = [
       "A todos and habits tracker with sleek and elagant UI and UX, built with custom styling and animations.",
     tags: ["Next.js", "Garfbase", "SCSS"],
     imageUrl: getgud,
+    status: false
   },
 ] as const;
 

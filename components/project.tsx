@@ -5,13 +5,79 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+
 type ProjectProps = (typeof projectsData)[number];
+
+
+
+const StatusDot = ({ status }: { status?: boolean }) => {
+  if (status) return (
+    <TooltipProvider>
+      <Tooltip delayDuration={200}>
+        <TooltipTrigger>
+          <span
+            // className="animate-pulse"
+            data-tooltip-target="tooltip-default"
+            style={{
+              background: `rgba(255,255,255,1)`,
+              boxShadow: `inset 0px 0px 10px 2px rgba(0,255,182,0.5),
+                            0px 0px 10px 2px rgba(0,255,135,1)`,
+              borderRadius: "50%",
+              width: "0.5rem",
+              height: "0.5rem",
+              display: "inline-block",
+              marginLeft: "0.4rem",
+              marginBottom: "0.25rem",
+            }}
+          />
+        </TooltipTrigger>
+        <TooltipContent className="font-mono text-xs text-black uppercase bg-white border-none dark:bg-black dark:text-white">
+          Project is up and running
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+  return (
+    <TooltipProvider>
+      <Tooltip delayDuration={200}>
+        <TooltipTrigger>
+          <span
+            // className="animate-pulse"
+            data-tooltip-target="tooltip-default"
+            style={{
+              background: `rgba(255,255,255,1)`,
+              boxShadow: `inset 0px 0px 10px 2px rgba(255,0,122,0.5),
+                            0px 0px 10px 2px rgba(255,0,95,1)`,
+              borderRadius: "50%",
+              width: "0.5rem",
+              height: "0.5rem",
+              display: "inline-block",
+              marginLeft: "0.4rem",
+              marginBottom: "0.25rem",
+            }}
+          />
+        </TooltipTrigger>
+        <TooltipContent className="font-mono text-xs text-black uppercase bg-white border-none dark:bg-black dark:text-white">
+          Project is down
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
 
 export default function Project({
   title,
   description,
   tags,
   imageUrl,
+  status
 }: ProjectProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -32,7 +98,7 @@ export default function Project({
     >
       <section className="bg-gray-100 max-w-[42rem] border border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem] hover:bg-gray-200 transition  dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
         <div className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[50%] flex flex-col h-full ">
-          <h3 className="text-2xl font-semibold">{title}</h3>
+          <h3 className="text-2xl font-semibold"> {title} <StatusDot status={status} /> </h3>
           <p className="mt-2 leading-relaxed text-gray-700 dark:text-white/70">
             {description}
           </p>
