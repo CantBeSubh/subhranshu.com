@@ -24,7 +24,6 @@ const StatusDot = ({ status }: { status?: boolean }) => {
         <TooltipTrigger>
           <span
             // className="animate-pulse"
-            data-tooltip-target="tooltip-default"
             style={{
               background: `rgba(255,255,255,1)`,
               boxShadow: `inset 0px 0px 10px 2px rgba(0,255,182,0.5),
@@ -50,7 +49,6 @@ const StatusDot = ({ status }: { status?: boolean }) => {
         <TooltipTrigger>
           <span
             // className="animate-pulse"
-            data-tooltip-target="tooltip-default"
             style={{
               background: `rgba(255,255,255,1)`,
               boxShadow: `inset 0px 0px 10px 2px rgba(255,0,122,0.5),

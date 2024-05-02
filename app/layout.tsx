@@ -1,17 +1,17 @@
-import Header from "@/components/header";
-import "./globals.css";
-import { Inter } from "next/font/google";
-import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
+import Header from "@/components/header";
 import ThemeSwitch from "@/components/theme-switch";
+import ActiveSectionContextProvider from "@/context/active-section-context";
 import ThemeContextProvider from "@/context/theme-context";
+import { Montserrat } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Ricardo | Personal Portfolio",
-  description: "Ricardo is a full-stack developer with 8 years of experience.",
+  title: "Subhranshu | Personal Portfolio",
+  description: "Subhranshu is a full-stack developer with 1 year of experience.",
 };
 
 export default function RootLayout({
