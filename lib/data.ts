@@ -1,5 +1,6 @@
 import getgud from "@/public/getgud.png";
 import heyEthica from "@/public/heyEthica.png";
+import omnic from "@/public/omnicoutlet.png";
 import rudegpt from "@/public/rudegpt.png";
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
@@ -91,6 +92,14 @@ export const projectsData = [
       "An unconventional ChatGPT bootleg with an attitude, achived by using prompt engineering and a customized prompt engine.",
     tags: ["Next.js", "AWS Amplify", "AWS Cognito", "AWS Appsync", "OpenAI"],
     imageUrl: rudegpt,
+    status: false,
+  },
+  {
+    title: "Omnic Outlet",
+    description:
+      "A modern e-commerce platform for online shopping, built around the theme of popular video game Overwatch.",
+    tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
+    imageUrl: omnic,
     status: false,
   },
   {
