@@ -25,7 +25,7 @@ export default function About() {
         <span className="italic">My favorite part of programming</span> is the
         problem-solving aspect. I <span className="underline">love</span> the
         feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
+        is the popular Vercel Stack,i.e,{" "}
         <span className="font-medium">
           Next.js, Supabase, Vercel and OpenAI
         </span>
