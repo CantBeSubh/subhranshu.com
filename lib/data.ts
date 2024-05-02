@@ -35,28 +35,44 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
+    title: "Graduated Bachelor's degree",
+    location: "Chennai, IN",
     description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
+      "I did my Bachelor's degree in Computer Science from the VIT, Chennai. I was the first in my batch to get a full-time remote job.",
     icon: React.createElement(LuGraduationCap),
-    date: "2019",
+    date: "Aug, 2024",
   },
   {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
+    title: "Front-End Developer Intern",
+    location: "Chennai, IN",
     description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+      "I worked as a front-end developer intern for 3 months in. I also upskilled to the full stack.",
     icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2021",
+    date: "June,2023 - Aug,2023",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
+    title: "Freelancer",
+    location: "Remote",
     description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
+      "I worked as a fullstack freelancer for 2 months",
+    icon: React.createElement(CgWorkAlt),
+    date: "Aug,2023-Sep,2023",
+  },
+  {
+    title: "Product Engineer Intern",
+    location: "Tustin, CA (Remote)",
+    description:
+      "I worked as a Product Engineer intern for 4 month. I worked on a startup project to improve the user experience of a mobile app.",
     icon: React.createElement(FaReact),
-    date: "2021 - present",
+    date: "Sept,2023-Jan,2024",
+  },
+  {
+    title: "Product Engineer",
+    location: "Tustin, CA (Remote)",
+    description:
+      "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project",
+    icon: React.createElement(FaReact),
+    date: "Jan, 2024 - April,2024",
   },
 ] as const;
 
@@ -65,7 +81,7 @@ export const projectsData = [
     title: "HeyEthica",
     description:
       "I worked as a Product Engineer on this startup project for 1 year. Simplified the process of house buying and selling by using AI.",
-    tags: ["React", "Next.js", "Supabase", "Tailwind", "Prisma", "OpanAI"],
+    tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
     imageUrl: heyEthica,
   },
   {
