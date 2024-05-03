@@ -3,9 +3,25 @@ import heyEthica from "@/public/heyEthica.png";
 import omnic from "@/public/omnicoutlet.png";
 import rudegpt from "@/public/rudegpt.png";
 import React from "react";
+import { BiLogoTypescript } from "react-icons/bi";
 import { CgWorkAlt } from "react-icons/cg";
-import { FaReact } from "react-icons/fa";
+import { FaCss3Alt, FaHtml5, FaNodeJs, FaReact } from "react-icons/fa";
+import { FaVuejs } from "react-icons/fa6";
+import { IoLogoJavascript } from "react-icons/io5";
 import { LuGraduationCap } from "react-icons/lu";
+import { RiNetflixFill, RiOpenaiFill } from "react-icons/ri";
+import { SiNuxtdotjs, SiTurborepo } from "react-icons/si";
+import { VscGithubInverted } from "react-icons/vsc";
+// import { SiPerplexity } from "react-icons/si";
+// import { SiAnthropic } from "react-icons/si";
+import { BiLogoTailwindCss } from "react-icons/bi";
+import { FaAws, FaDocker, FaJenkins, FaPython } from "react-icons/fa";
+import { FaFigma } from "react-icons/fa6";
+import { GrGraphQl } from "react-icons/gr";
+import { IoLogoFirebase, IoLogoVercel } from "react-icons/io5";
+import { RiSupabaseFill } from "react-icons/ri";
+import { SiApollographql, SiDjango, SiExpress, SiFastapi, SiGrafana, SiKubernetes, SiMongodb, SiPostgresql, SiPrisma, SiPrometheus, SiRedux, SiTrpc, SiZod } from "react-icons/si";
+import { TbBrandFramerMotion, TbBrandThreejs } from "react-icons/tb";
 
 export const links = [
   {
@@ -113,44 +129,168 @@ export const projectsData = [
 ] as const;
 
 export const skillsData = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Vue",
-  "Nuxt.js",
-  "Node.js",
-  "Git",
-  "Turborepo",
-  "OpenAI",
-  "Peplexity",
-  "Anthropic",
-  "TogetherAI",
-  "Replicate",
-  "Tailwind",
-  "Three.js",
-  'React Three Fiber',
-  "Prisma",
-  "MongoDB",
-  "Redux",
-  "Zustand",
-  "Jotai",
-  "Zod",
-  "tRPC",
-  "NextAuth",
-  "Supabase",
-  "Vercel",
-  "AWS",
-  "GraphQL",
-  "Apollo",
-  "Express",
-  "PostgreSQL",
-  "Docker",
-  "Python",
-  "Django",
-  "Framer Motion",
-  "GSAP",
-  "Figma",
+  {
+    name: "HTML",
+    icon: React.createElement(FaHtml5),
+  },
+  {
+    name: "CSS",
+    icon: React.createElement(FaCss3Alt),
+  },
+  {
+    name: "JavaScript",
+    icon: React.createElement(IoLogoJavascript),
+  },
+  {
+    name: "TypeScript",
+    icon: React.createElement(BiLogoTypescript),
+  },
+  {
+    name: "React",
+    icon: React.createElement(FaReact),
+  },
+  {
+    name: "Next.js",
+    icon: React.createElement(RiNetflixFill),
+  },
+  {
+    name: "Vue",
+    icon: React.createElement(FaVuejs),
+  },
+  {
+    name: "Nuxt.js",
+    icon: React.createElement(SiNuxtdotjs),
+  },
+  {
+    name: "Node.js",
+    icon: React.createElement(FaNodeJs),
+  },
+  {
+    name: "Git",
+    icon: React.createElement(VscGithubInverted),
+  },
+  {
+    name: "Turborepo",
+    icon: React.createElement(SiTurborepo),
+  },
+  {
+    name: "OpenAI",
+    icon: React.createElement(RiOpenaiFill),
+  },
+  {
+    name: "Tailwind",
+    icon: React.createElement(BiLogoTailwindCss),
+  },
+  {
+    name: "Three.js",
+    icon: React.createElement(TbBrandThreejs),
+  },
+  {
+    name: "React Three Fiber",
+    icon: React.createElement(CgWorkAlt),
+  },
+  {
+    name: "Prisma",
+    icon: React.createElement(SiPrisma),
+  },
+  {
+    name: "MongoDB",
+    icon: React.createElement(SiMongodb),
+  },
+  {
+    name: 'Firebase',
+    icon: React.createElement(IoLogoFirebase),
+  },
+  {
+    name: "Redux",
+    icon: React.createElement(SiRedux),
+  },
+  {
+    name: "Zustand",
+    icon: React.createElement(CgWorkAlt),
+  },
+  {
+    name: "Jotai",
+    icon: React.createElement(CgWorkAlt),
+  },
+  {
+    name: "Zod",
+    icon: React.createElement(SiZod),
+  },
+  {
+    name: "tRPC",
+    icon: React.createElement(SiTrpc),
+  },
+  {
+    name: "Supabase",
+    icon: React.createElement(RiSupabaseFill),
+  },
+  {
+    name: "Vercel",
+    icon: React.createElement(IoLogoVercel),
+  },
+  {
+    name: "AWS",
+    icon: React.createElement(FaAws),
+  },
+  {
+    name: "GraphQL",
+    icon: React.createElement(GrGraphQl),
+  },
+  {
+    name: "Apollo",
+    icon: React.createElement(SiApollographql),
+  },
+  {
+    name: "Express",
+    icon: React.createElement(SiExpress),
+  },
+  {
+    name: "PostgreSQL",
+    icon: React.createElement(SiPostgresql),
+  },
+  {
+    name: "Docker",
+    icon: React.createElement(FaDocker),
+  },
+  {
+    name: "Grafana",
+    icon: React.createElement(SiGrafana),
+  },
+  {
+    name: "Kubernetes",
+    icon: React.createElement(SiKubernetes),
+  },
+  {
+    name: "Prometheus",
+    icon: React.createElement(SiPrometheus),
+  },
+  {
+    name: "Jenkins",
+    icon: React.createElement(FaJenkins),
+  },
+  {
+    name: "Python",
+    icon: React.createElement(FaPython),
+  },
+  {
+    name: "Django",
+    icon: React.createElement(SiDjango),
+  },
+  {
+    name: "FastAPI",
+    icon: React.createElement(SiFastapi),
+  },
+  {
+    name: "Framer Motion",
+    icon: React.createElement(TbBrandFramerMotion),
+  },
+  {
+    name: "GSAP",
+    icon: React.createElement(CgWorkAlt),
+  },
+  {
+    name: "Figma",
+    icon: React.createElement(FaFigma),
+  }
 ] as const;
