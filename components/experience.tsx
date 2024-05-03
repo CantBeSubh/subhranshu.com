@@ -3,6 +3,7 @@
 import { useTheme } from "@/context/theme-context";
 import { experiencesData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
+import { StaticImageData } from "next/image";
 import React from "react";
 import {
   VerticalTimeline,
@@ -10,6 +11,11 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import SectionHeading from "./section-heading";
+
+const generateIcon = (icon: StaticImageData & React.ReactNode): React.ReactNode => {
+  if (icon?.src) return <img src={icon?.src} alt="icon" className="p-4 dark:invert" />
+  return icon;
+}
 
 export default function Experience() {
   const { ref } = useSectionInView("Experience");
@@ -37,7 +43,8 @@ export default function Experience() {
                     : "0.4rem solid rgba(255, 255, 255, 0.5)",
               }}
               date={item.date}
-              icon={item.icon}
+              // @ts-ignore
+              icon={generateIcon(item.icon)}
               iconStyle={{
                 background:
                   theme === "light" ? "white" : "rgba(0, 0, 0, 1)",

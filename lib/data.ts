@@ -1,3 +1,4 @@
+import EthicaLogo from "@/public/Logos/EthicaLogo.png";
 import getgud from "@/public/getgud.png";
 import heyEthica from "@/public/heyEthica.png";
 import omnic from "@/public/omnicoutlet.png";
@@ -56,7 +57,7 @@ export const experiencesData = [
     location: "Tustin, CA (Remote)",
     description:
       "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project",
-    icon: React.createElement(FaReact),
+    icon: EthicaLogo,
     date: "Jan, 2024 - April,2024",
   },
   {
@@ -64,7 +65,7 @@ export const experiencesData = [
     location: "Tustin, CA (Remote)",
     description:
       "I worked as a Product Engineer intern for 4 month. I worked on a startup project to improve the user experience of a mobile app.",
-    icon: React.createElement(FaReact),
+    icon: EthicaLogo,
     date: "Sept,2023-Jan,2024",
   },
   {
