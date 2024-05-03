@@ -13,7 +13,7 @@ import "react-vertical-timeline-component/style.min.css";
 import SectionHeading from "./section-heading";
 
 const generateIcon = (icon: StaticImageData & React.ReactNode): React.ReactNode => {
-  if (icon?.src) return <img src={icon?.src} alt="icon" className="p-4 dark:invert" />
+  if (icon?.src) return <img src={icon?.src} alt="icon" className="min-[1170px]:p-4 dark:invert p-2" />
   return icon;
 }
 
