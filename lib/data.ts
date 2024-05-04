@@ -1,4 +1,5 @@
 import EthicaLogo from "@/public/Logos/EthicaLogo.png";
+import analyzer from "@/public/analyzer.png";
 import getgud from "@/public/getgud.png";
 import heyEthica from "@/public/heyEthica.png";
 import omnic from "@/public/omnicoutlet.png";
@@ -102,6 +103,7 @@ export const projectsData = [
     tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
     imageUrl: heyEthica,
     status: true,
+    link: 'https://heyethica.com/'
   },
   {
     title: "RudeGPT",
@@ -110,6 +112,16 @@ export const projectsData = [
     tags: ["Next.js", "AWS Amplify", "AWS Cognito", "AWS Appsync", "OpenAI"],
     imageUrl: rudegpt,
     status: false,
+    link: 'https://youtu.be/6XJ6II8VIl8?si=9pXdpFJqz-afEltb'
+  },
+  {
+    title: 'Sentiment Analyzer',
+    description:
+      "A sentiment analysis and review management tool that uses Hugging Face's transformers library to analyze the sentiment of given movie reviews.",
+    imageUrl: analyzer,
+    tags: ["Next.js", "Shadcn UI", "TailwindCSS", "Hugging Face"],
+    status: true,
+    link: 'https://sentiment-analyzer.subhranshu.com/'
   },
   {
     title: "Omnic Outlet",
@@ -118,6 +130,7 @@ export const projectsData = [
     tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
     imageUrl: omnic,
     status: false,
+    link: 'https://omnic-outlet.subhranshu.com/'
   },
   {
     title: "GetGud",
@@ -125,7 +138,8 @@ export const projectsData = [
       "A todos and habits tracker with sleek and elagant UI and UX, built with custom styling and animations.",
     tags: ["Next.js", "Garfbase", "SCSS"],
     imageUrl: getgud,
-    status: false
+    status: false,
+    link: 'https://getgud.subhranshu.com/'
   },
 ] as const;
 
