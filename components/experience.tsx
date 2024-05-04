@@ -18,7 +18,7 @@ const generateIcon = (icon: StaticImageData & React.ReactNode): React.ReactNode 
 }
 
 export default function Experience() {
-  const { ref } = useSectionInView("Experience");
+  const { ref } = useSectionInView("Experience", 0.5);
   const { theme } = useTheme();
 
   return (
