@@ -63,10 +63,10 @@ export default function Intro() {
         animate={{ opacity: 1, y: 0 }}
       >
         <span className="font-bold">Hello, I'm Subhranshu.</span> I'm a{" "}
-        <span className="font-bold">full-stack developer</span> with{" "}
-        <span className="font-bold">1 year</span> of experience. I enjoy
-        building <span className="italic">websites & AI apps</span>. My focus is{" "}
-        <span className="underline">Next.js</span>,<span className="underline">OpenAI</span> and <span className="underline">Langchain</span>.
+        <span className="font-bold">Genrative AI Engineer and a full-stack developer</span> with{" "}
+        <span className="font-bold">1 year</span> of experience.
+        I enjoy building <span className="italic">websites & AI apps</span>. My focus is{" "}
+        <span className="underline">Next.js</span> and <span className="underline">Langchain</span>.
       </motion.h1>
 
       <motion.div
@@ -91,7 +91,7 @@ export default function Intro() {
 
         <a
           className="flex items-center gap-2 py-3 transition bg-white rounded-full outline-none cursor-pointer group px-7 focus:scale-110 hover:scale-110 active:scale-105 borderBlack dark:bg-white/10"
-          href="/Subhranshu_Pati_Resume_2024.pdf"
+          href="https://dub.subhranshu.com/Resume"
           download
         >
           Download CV{" "}

@@ -63,7 +63,7 @@ const StatusDot = ({ status }: { status?: boolean }) => {
           />
         </TooltipTrigger>
         <TooltipContent className="font-mono text-xs text-black uppercase bg-white border-none dark:bg-black dark:text-white">
-          Project is down
+          Project is not deployed
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

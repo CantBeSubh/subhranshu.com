@@ -22,16 +22,16 @@ export default function About() {
         <span className="font-medium">Computer Science</span>, I decided to pursue my
         passion for web development. I started freelancing on and made {" "}
         <span className="font-medium">full-stack web development projects</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
+        I am currently learning<span className="font-extrabold text-lg text-red-500"> Genrative AI Technologies</span>{" "}
+        to solve modern problems with modern solutions. I <span className="underline">love</span> the
         feeling of finally figuring out a solution to a problem. My core stack
-        is the popular Vercel Stack,i.e,{" "}
-        <span className="font-medium">
-          Next.js, Supabase, Vercel and OpenAI
+        is {" "}
+        <span className="font-medium text-lg text-green-500">
+          Next.js, Supabase, Vercel, Langchain, FastAPI, OpenAI/Ollama, AWS, Docker
         </span>
         . I am also familiar with TypeScript and Prisma. I am always looking to
         learn new technologies. I am currently looking for a{" "}
-        <span className="font-medium">full-time position</span> as a software
+        <span className="font-medium underline">full-time position</span> as a software
         developer.
       </p>
 

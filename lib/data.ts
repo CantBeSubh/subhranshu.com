@@ -3,6 +3,7 @@ import analyzer from "@/public/analyzer.png";
 import getgud from "@/public/getgud.png";
 import heyEthica from "@/public/heyEthica.png";
 import omnic from "@/public/omnicoutlet.png";
+import ragOllama from "@/public/ragollama.png";
 import rudegpt from "@/public/rudegpt.png";
 import React from "react";
 import { BiLogoTypescript } from "react-icons/bi";
@@ -96,6 +97,15 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
+  {
+    title: "RAG Ollama",
+    description:
+      "An Adaptive RAG app that uses Ollama & LangGraph to retrieve answer to user questions from provided documents or from the internet.",
+    tags: ["Next.js", "Langchain", "LangSmith", 'LangGraph', "ChromaDB", "FastAPI", "Ollama"],
+    imageUrl: ragOllama,
+    status: false,
+    link: 'https://youtu.be/_lw3qa5kXpY'
+  },
   {
     title: "HeyEthica",
     description:
