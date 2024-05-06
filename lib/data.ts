@@ -3,7 +3,7 @@ import analyzer from "@/public/analyzer.png";
 import getgud from "@/public/getgud.png";
 import heyEthica from "@/public/heyEthica.png";
 import omnic from "@/public/omnicoutlet.png";
-import ragOllama from "@/public/ragollama.png";
+import ragOllama from "@/public/ragOllama.png";
 import rudegpt from "@/public/rudegpt.png";
 import React from "react";
 import { BiLogoTypescript } from "react-icons/bi";
