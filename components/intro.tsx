@@ -63,7 +63,7 @@ export default function Intro() {
         animate={{ opacity: 1, y: 0 }}
       >
         <span className="font-bold">Hello, I'm Subhranshu.</span> I'm a{" "}
-        <span className="font-bold">Genrative AI Engineer and a full-stack developer</span> with{" "}
+        <span className="font-bold">Generative AI Engineer and a full-stack developer</span> with{" "}
         <span className="font-bold">1 year</span> of experience.
         I enjoy building <span className="italic">websites & AI apps</span>. My focus is{" "}
         <span className="underline">Next.js</span> and <span className="underline">Langchain</span>.

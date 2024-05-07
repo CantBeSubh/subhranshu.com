@@ -20,9 +20,9 @@ export default function About() {
       <p className="mb-3">
         While studying for my degree in{" "}
         <span className="font-medium">Computer Science</span>, I decided to pursue my
-        passion for web development. I started freelancing on and made {" "}
+        passion for web development. I started freelancing and made {" "}
         <span className="font-medium">full-stack web development projects</span>.{" "}
-        I am currently learning<span className="font-extrabold text-lg text-red-500"> Genrative AI Technologies</span>{" "}
+        I am currently learning<span className="font-extrabold text-lg text-red-500"> Generative AI Technologies</span>{" "}
         to solve modern problems with modern solutions. I <span className="underline">love</span> the
         feeling of finally figuring out a solution to a problem. My core stack
         is {" "}
