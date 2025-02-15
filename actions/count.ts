@@ -1,60 +1,112 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import dayjs from "dayjs";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+
+const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
+const UPSTASH_REDIS_REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
+  throw new Error(
+    "UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN environment variables are required.",
+  );
+}
+const redis = new Redis({
+  url: UPSTASH_REDIS_REST_URL,
+  token: UPSTASH_REDIS_REST_TOKEN,
+});
+
+const ratelimit = new Ratelimit({
+  redis: redis,
+  limiter: Ratelimit.slidingWindow(5, "10 s"),
+});
 
 export const getLikeCount = async () => {
-  const count = await db.counter.findFirst({
-    where: {
-      id: 1,
-    },
-  });
+  try {
+    const count = await db.counter.findFirst({
+      where: {
+        id: 1,
+      },
+    });
 
-  return count?.likeCount ?? 96;
+    return count?.likeCount ?? 96;
+  } catch (error) {
+    console.error("Error getting like count:", error);
+    return 96;
+  }
 };
 
 export const getVisitCount = async () => {
-  const count = await db.counter.findFirst({
-    where: {
-      id: 1,
-    },
-  });
+  try {
+    const count = await db.counter.findFirst({
+      where: {
+        id: 1,
+      },
+    });
 
-  return count?.visitCount ?? 96;
+    return count?.visitCount ?? 96;
+  } catch (error) {
+    console.error("Error getting visit count:", error);
+    return 96;
+  }
 };
 
 export const incrementLikeCount = async () => {
-  await db.counter.update({
-    where: {
-      id: 1,
-    },
-    data: {
-      likeCount: {
-        increment: 1,
-      },
-    },
-  });
-  revalidatePath("/", "page");
-};
+  try {
+    const headerStore = await headers();
+    const clientIp = headerStore.get("x-forwarded-for") ?? "127.0.0.1";
 
-export const incrementVisitCount = async () => {
-  const cookieStore = await cookies();
-  const hasVisited = cookieStore.get("hasVisited");
-
-  if (!hasVisited) {
+    console.log("MY IP ADDRESS: ", clientIp);
+    const result = await ratelimit.limit(clientIp);
+    if (!result.success) {
+      console.log("reset.reset", result.reset);
+      throw new Error(
+        `Rate limit exceeded. Retry in ${dayjs(result.reset).format("ss")} seconds.`,
+        // `Rate limit exceeded. Retry in ${dayjs(result.reset)} seconds.`,
+      );
+    }
     await db.counter.update({
       where: {
         id: 1,
       },
       data: {
-        visitCount: {
+        likeCount: {
           increment: 1,
         },
       },
     });
-    cookieStore.set("hasVisited", "true", {
-      expires: new Date(Date.now() + 1000 * 60 * 10), // 10 minutes
-    });
+    revalidatePath("/", "page");
+  } catch (error) {
+    console.error("Error incrementing like count:", error);
+    throw error;
+  }
+};
+
+export const incrementVisitCount = async () => {
+  try {
+    const cookieStore = await cookies();
+    const hasVisited = cookieStore.get("hasVisited");
+
+    if (!hasVisited) {
+      await db.counter.update({
+        where: {
+          id: 1,
+        },
+        data: {
+          visitCount: {
+            increment: 1,
+          },
+        },
+      });
+      cookieStore.set("hasVisited", "true", {
+        expires: new Date(Date.now() + 1000 * 60 * 10), // 10 minutes
+      });
+    }
+  } catch (error) {
+    console.error("Error incrementing visit count:", error);
   }
 };

@@ -38,7 +38,7 @@ export default function Intro({
     () => (
       <SparklesCore
         background="transparent"
-        particleDensity={5}
+        particleDensity={10}
         className="absolute top-0 -left-[50%] w-screen h-full z-[-1]"
       />
     ),
@@ -98,17 +98,30 @@ export default function Intro({
               duration: 0.7,
             }}
             onClick={async () => {
-              const likeMsg =
-                likeMessages[Math.floor(Math.random() * likeMessages.length)];
-              toast(`${likeMsg.message}!`, {
-                icon: likeMsg.flag,
-                style,
-              });
-              startIncrementing(async () => {
-                incrementOptimisticLikeCount(optimisticLikeCount + 1);
+              try {
+                const likeMsg =
+                  likeMessages[Math.floor(Math.random() * likeMessages.length)];
+                toast(`${likeMsg.message}!`, {
+                  icon: likeMsg.flag,
+                  style,
+                });
+                startIncrementing(async () => {
+                  try {
+                    incrementOptimisticLikeCount(optimisticLikeCount + 1);
 
-                await incrementLikeCount();
-              });
+                    await toast.promise(incrementLikeCount(), {
+                      loading: "Incrementing...",
+                      success: "Incremented!",
+                      error: (err) => err.message,
+                    });
+                  } catch (error) {
+                    console.error("Error incrementing count:", error);
+                  }
+                });
+              } catch (error) {
+                console.error("Error in click handler:", error);
+                toast.error("Something went wrong");
+              }
             }}
           >
             {isIncrementing ? "🙌" : "👋"}
@@ -152,8 +165,8 @@ export default function Intro({
         of experience. <br />
         <br />
         <span className="text-lg uppercase">
-          I am currently building scalable, reliable and maintainable AI
-          solutions for Nuclear Compliance
+          I am currently building scalable, reliable and maintainable <br />
+          AI solutions for Nuclear Compliance
         </span>
         .
       </motion.h1>
