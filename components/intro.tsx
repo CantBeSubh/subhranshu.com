@@ -36,15 +36,15 @@ export default function Intro() {
                             width="250"
                             height="250"
                             quality="100"
-                            priority={true}
-                            className="h-24 w-24 rounded-full object-cover border-[0.15rem] border-white shadow-xl"
+                            className="size-24 rounded-lg object-cover border-[0.15rem] border-white shadow-2xl"
+                            priority
                         />
                     </motion.div>
 
                     <motion.span
                         className="absolute bottom-0 right-0 text-4xl"
                         initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        animate={{ opacity: 1, scale: 1.5 }}
                         transition={{
                             type: "spring",
                             stiffness: 125,
@@ -62,15 +62,27 @@ export default function Intro() {
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <span className="font-bold">Hello, I'm Subhranshu.</span> I'm a{" "}
+                <span className="font-bold">Hello, I'm Subh.</span>
+                <br /> I'm a{" "}
                 <span className="font-bold">
-                    Generative AI Engineer and a full-stack developer
+                    Fullstack Developer with <br /> focus on Generative AI.
+                </span>
+                <br />I have{" "}
+                <span className="font-extrabold italic">
+                    {Number(
+                        (new Date().getTime() -
+                            new Date(2023, 4, 1).getTime()) /
+                            (1000 * 60 * 60 * 24 * 365)
+                    ).toFixed(1)}{" "}
+                    years
                 </span>{" "}
-                with <span className="font-bold">1 year</span> of experience. I
-                enjoy building{" "}
-                <span className="italic">websites & AI apps</span>. My focus is{" "}
-                <span className="underline">Next.js</span> and{" "}
-                <span className="underline">Langchain</span>.
+                of experience. <br />
+                <br />
+                <span className="text-lg uppercase">
+                    I am currently building scalable, reliable and maintainable{" "}
+                    AI solutions for Nuclear Compliance
+                </span>
+                .
             </motion.h1>
 
             <motion.div
@@ -83,7 +95,7 @@ export default function Intro() {
             >
                 <Link
                     href="#contact"
-                    className="flex items-center gap-2 py-3 text-white transition bg-gray-900 rounded-full outline-none group px-7 focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105"
+                    className="flex items-center gap-2 py-3 text-white transition bg-gray-900 rounded-full outline-none group px-7 focus:scale-110 hover:scale-110 dark:bg-gray-950 hover:bg-gray-950 active:scale-105"
                     onClick={() => {
                         setActiveSection("Contact");
                         setTimeOfLastClick(Date.now());
