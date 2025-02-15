@@ -12,6 +12,7 @@ import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { SiLinktree } from "react-icons/si";
 
+import { incrementLikeCount } from "@/actions/count";
 import { likeMessages } from "@/lib/data";
 import Counter from "./counter";
 
@@ -67,7 +68,7 @@ export default function Intro() {
                             delay: 0.1,
                             duration: 0.7,
                         }}
-                        onClick={() => {
+                        onClick={async () => {
                             const likeMsg =
                                 likeMessages[
                                     Math.floor(
@@ -78,6 +79,7 @@ export default function Intro() {
                                 icon: likeMsg.flag,
                                 style,
                             });
+                            await incrementLikeCount();
                         }}
                     >
                         👋
@@ -95,7 +97,6 @@ export default function Intro() {
                     }}
                 >
                     <Counter />
-                    {/* <MessageBoard /> */}
                 </motion.div>
             </div>
 
