@@ -12,7 +12,8 @@ import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { SiLinktree } from "react-icons/si";
 
-import { helloMessages } from "@/lib/data";
+import { likeMessages } from "@/lib/data";
+import Counter from "./counter";
 
 export default function Intro() {
     const { theme } = useTheme();
@@ -67,14 +68,14 @@ export default function Intro() {
                             duration: 0.7,
                         }}
                         onClick={() => {
-                            const helloMessage =
-                                helloMessages[
+                            const likeMsg =
+                                likeMessages[
                                     Math.floor(
-                                        Math.random() * helloMessages.length
+                                        Math.random() * likeMessages.length
                                     )
                                 ];
-                            toast(helloMessage.message, {
-                                icon: helloMessage.flag,
+                            toast(`${likeMsg.message}!`, {
+                                icon: likeMsg.flag,
                                 style,
                             });
                         }}
@@ -83,6 +84,7 @@ export default function Intro() {
                     </motion.span>
                 </div>
                 <motion.div
+                    className="font-extralight"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{
@@ -92,6 +94,7 @@ export default function Intro() {
                         delay: 0.25,
                     }}
                 >
+                    <Counter />
                     {/* <MessageBoard /> */}
                 </motion.div>
             </div>
