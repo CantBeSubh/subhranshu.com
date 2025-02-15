@@ -22,8 +22,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      {/* <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+      </head> */}
       <body
-        className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-36 dark:bg-black dark:text-gray-50 dark:text-opacity-90 dark:bg-dot-white/[0.1] bg-dot-black/[0.2]`}
+        className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-36 dark:bg-black dark:text-gray-50 dark:text-opacity-90`}
       >
         <Metrics />
         <div className="bg-[#fbe2e3] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263]"></div>

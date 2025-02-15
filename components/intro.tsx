@@ -142,7 +142,7 @@ export default function Intro({
           Fullstack Developer with <br /> focus on Generative AI.
         </span>
         <br />I have{" "}
-        <span className="font-extrabold italic bg-yellow-200 dark:bg-yellow-800/50">
+        <span className="font-extrabold italic bg-yellow-200 dark:bg-yellow-600/50">
           {Number(
             (new Date().getTime() - new Date(2023, 4, 1).getTime()) /
               (1000 * 60 * 60 * 24 * 365),
