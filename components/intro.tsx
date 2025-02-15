@@ -1,13 +1,5 @@
 "use client";
 
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
@@ -41,7 +33,7 @@ export default function Intro() {
             id="home"
             className="mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]"
         >
-            <div className="flex items-center justify-center flex-col">
+            <div className="flex items-center justify-center flex-col gap-2">
                 <div className="relative">
                     <motion.div
                         initial={{ opacity: 0, scale: 0 }}
@@ -90,19 +82,18 @@ export default function Intro() {
                         👋
                     </motion.span>
                 </div>
-                <Sheet>
-                    <SheetTrigger>click me leave a message!</SheetTrigger>
-                    <SheetContent className="z-[99999]">
-                        <SheetHeader>
-                            <SheetTitle>Are you absolutely sure?</SheetTitle>
-                            <SheetDescription>
-                                This action cannot be undone. This will
-                                permanently delete your account and remove your
-                                data from our servers.
-                            </SheetDescription>
-                        </SheetHeader>
-                    </SheetContent>
-                </Sheet>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                        type: "tween",
+                        duration: 1,
+                        ease: "easeInOut",
+                        delay: 0.25,
+                    }}
+                >
+                    {/* <MessageBoard /> */}
+                </motion.div>
             </div>
 
             <motion.h1
