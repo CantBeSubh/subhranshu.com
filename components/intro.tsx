@@ -8,13 +8,14 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useOptimistic, useTransition } from "react";
+import { useEffect, useMemo, useOptimistic, useTransition } from "react";
 import toast from "react-hot-toast";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { SiLinktree } from "react-icons/si";
 import Counter from "./counter";
+import { SparklesCore } from "./ui/sparkles";
 
 export default function Intro({
   likeCount,
@@ -31,6 +32,17 @@ export default function Intro({
   const [optimisticLikeCount, incrementOptimisticLikeCount] = useOptimistic(
     likeCount,
     (currentState, optimisticValue: number) => optimisticValue,
+  );
+
+  const memoSparkles = useMemo(
+    () => (
+      <SparklesCore
+        background="transparent"
+        particleDensity={5}
+        className="absolute top-0 -left-[50%] w-screen h-full z-[-1]"
+      />
+    ),
+    [],
   );
 
   const { theme } = useTheme();
@@ -51,6 +63,7 @@ export default function Intro({
       id="home"
       className="mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]"
     >
+      {memoSparkles}
       <div className="flex items-center justify-center flex-col gap-2">
         <div className="relative">
           <motion.div
@@ -121,13 +134,15 @@ export default function Intro({
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">Hello, I'm Subh.</span>
+        <span className="font-bold bg-gradient-to-r from-emerald-500 to-indigo-500 bg-clip-text text-transparent">
+          Hello, I'm Subh.
+        </span>
         <br /> I'm a{" "}
         <span className="font-bold">
           Fullstack Developer with <br /> focus on Generative AI.
         </span>
         <br />I have{" "}
-        <span className="font-extrabold italic">
+        <span className="font-extrabold italic bg-yellow-200 dark:bg-yellow-800/50">
           {Number(
             (new Date().getTime() - new Date(2023, 4, 1).getTime()) /
               (1000 * 60 * 60 * 24 * 365),
