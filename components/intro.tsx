@@ -65,7 +65,7 @@ export default function Intro({
     >
       {memoSparkles}
       <div className="flex items-center justify-center flex-col gap-2">
-        <div className="relative">
+        <div className="relative select-none">
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
