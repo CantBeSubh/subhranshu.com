@@ -11,24 +11,24 @@ import Skills from "@/components/skills";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 
 export default async function Home() {
-    const visitCount = await getVisitCount();
-    const likeCount = await getLikeCount();
+  const visitCount = await getVisitCount();
+  const likeCount = await getLikeCount();
 
-    return (
-        <>
-            <TracingBeam>
-                <main className="flex flex-col items-center px-4">
-                    <Intro likeCount={likeCount} visitCount={visitCount} />
-                    <SectionDivider />
-                    <About />
-                    <Projects />
-                    <Skills />
-                    <Experience />
-                </main>
-            </TracingBeam>
-            <div className="flex items-center justify-center w-full">
-                <Contact />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <TracingBeam>
+        <main className="flex flex-col items-center px-4">
+          <Intro likeCount={likeCount} visitCount={visitCount} />
+          <SectionDivider />
+          <About />
+          <Projects />
+          <Skills />
+          <Experience />
+        </main>
+      </TracingBeam>
+      <div className="flex items-center justify-center w-full">
+        <Contact />
+      </div>
+    </>
+  );
 }
