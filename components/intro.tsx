@@ -1,5 +1,13 @@
 "use client";
 
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useTheme } from "@/context/theme-context";
 import { useSectionInView } from "@/lib/hooks";
@@ -11,6 +19,8 @@ import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { SiLinktree } from "react-icons/si";
+
+import { helloMessages } from "@/lib/data";
 
 export default function Intro() {
     const { theme } = useTheme();
@@ -24,38 +34,6 @@ export default function Intro() {
     };
     const { ref } = useSectionInView("Home", 0.5);
     const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
-    const hello = [
-        { flag: "🇺🇸", message: "Hello" },
-        { flag: "🇫🇷", message: "Bonjour" },
-        { flag: "🇪🇸", message: "Hola" },
-        { flag: "🇮🇹", message: "Ciao" },
-        { flag: "🇮🇳", message: "Namaste" },
-        { flag: "🇯🇵", message: "こんにちは" },
-        { flag: "🇰🇷", message: "안녕하세요" },
-        { flag: "🇨🇳", message: "你好" },
-        { flag: "🇸🇦", message: "مرحبا" },
-        { flag: "🇵🇹", message: "Olá" },
-        { flag: "🇩🇪", message: "Hallo" },
-        { flag: "🇷🇺", message: "Привет" },
-        { flag: "🇬🇷", message: "Γεια σας" },
-        { flag: "🇮🇱", message: "שָׁלוֹם" },
-        { flag: "🇻🇳", message: "Xin chào" },
-        { flag: "🇹🇭", message: "สวัสดี" },
-        { flag: "🇸🇪", message: "Hallå" },
-        { flag: "🇹🇷", message: "Merhaba" },
-        { flag: "🇧🇬", message: "Здравейте" },
-        { flag: "🇺🇸", message: "Aloha" },
-        { flag: "🇵🇭", message: "Kumusta" },
-        { flag: "🇮🇩", message: "Halo" },
-        { flag: "🇳🇱", message: "Hoi" },
-        { flag: "🇵🇱", message: "Cześć" },
-        { flag: "🇭🇺", message: "Szia" },
-        { flag: "🇨🇿", message: "Ahoj" },
-        { flag: "🇷🇴", message: "Salut" },
-        { flag: "🇫🇮", message: "Hei" },
-        { flag: "🇳🇴", message: "Hei" },
-        { flag: "🇮🇸", message: "Halló" },
-    ];
 
     return (
         <section
@@ -63,7 +41,7 @@ export default function Intro() {
             id="home"
             className="mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]"
         >
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center flex-col">
                 <div className="relative">
                     <motion.div
                         initial={{ opacity: 0, scale: 0 }}
@@ -98,7 +76,11 @@ export default function Intro() {
                         }}
                         onClick={() => {
                             const helloMessage =
-                                hello[Math.floor(Math.random() * hello.length)];
+                                helloMessages[
+                                    Math.floor(
+                                        Math.random() * helloMessages.length
+                                    )
+                                ];
                             toast(helloMessage.message, {
                                 icon: helloMessage.flag,
                                 style,
@@ -108,6 +90,19 @@ export default function Intro() {
                         👋
                     </motion.span>
                 </div>
+                <Sheet>
+                    <SheetTrigger>click me leave a message!</SheetTrigger>
+                    <SheetContent className="z-[99999]">
+                        <SheetHeader>
+                            <SheetTitle>Are you absolutely sure?</SheetTitle>
+                            <SheetDescription>
+                                This action cannot be undone. This will
+                                permanently delete your account and remove your
+                                data from our servers.
+                            </SheetDescription>
+                        </SheetHeader>
+                    </SheetContent>
+                </Sheet>
             </div>
 
             <motion.h1
