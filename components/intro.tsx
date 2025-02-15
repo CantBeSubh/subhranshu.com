@@ -148,7 +148,7 @@ export default function Intro() {
             >
                 <Link
                     href="#contact"
-                    className="flex items-center gap-2 py-3 text-white transition bg-gray-900 rounded-full outline-none group px-7 focus:scale-110 hover:scale-110 dark:bg-gray-950 hover:bg-gray-950 active:scale-105"
+                    className="flex items-center gap-2 py-3 text-white transition bg-gray-900 rounded-full outline-none group px-7 focus:scale-110 hover:scale-110 dark:bg-black dark:border-white border hover:bg-gray-950 active:scale-105"
                     onClick={() => {
                         setActiveSection("Contact");
                         setTimeOfLastClick(Date.now());
@@ -159,7 +159,7 @@ export default function Intro() {
                 </Link>
 
                 <a
-                    className="flex items-center gap-2 py-3 transition bg-white rounded-full outline-none cursor-pointer group px-7 focus:scale-110 hover:scale-110 active:scale-105 borderBlack dark:bg-white/10"
+                    className="flex items-center gap-2 py-3 transition bg-white rounded-full outline-none cursor-pointer group px-7 focus:scale-110 hover:scale-110 active:scale-105 borderBlack dark:bg-black dark:border-white"
                     href="https://dub.subhranshu.com/Resume"
                     download
                 >
@@ -168,7 +168,7 @@ export default function Intro() {
                 </a>
 
                 <a
-                    className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+                    className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-black dark:border-white dark:text-white"
                     href="https://www.linkedin.com/in/subhranshu-pati/"
                     target="_blank"
                 >
@@ -176,21 +176,21 @@ export default function Intro() {
                 </a>
 
                 <a
-                    className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+                    className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-black dark:border-white dark:text-white"
                     href="https://github.com/CantBeSubh"
                     target="_blank"
                 >
                     <FaGithubSquare />
                 </a>
                 <a
-                    className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+                    className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-black dark:border-white dark:text-white"
                     href="https://twitter.com/CantBeSubh"
                     target="_blank"
                 >
                     <FaTwitterSquare />
                 </a>
                 <a
-                    className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+                    className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-black dark:border-white dark:text-white"
                     href="https://linktr.ee/cantbesubh"
                     target="_blank"
                 >
