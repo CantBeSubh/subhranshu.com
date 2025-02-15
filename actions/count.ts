@@ -41,7 +41,6 @@ export const incrementLikeCount = async () => {
 export const incrementVisitCount = async () => {
   const cookieStore = await cookies();
   const hasVisited = cookieStore.get("hasVisited");
-  console.log("hasVisited", hasVisited);
 
   if (!hasVisited) {
     await db.counter.update({
