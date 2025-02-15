@@ -9,9 +9,9 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { useActiveSectionContext } from "@/context/active-section-context";
-import { useTheme } from "@/context/theme-context";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
