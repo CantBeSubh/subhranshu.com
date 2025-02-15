@@ -73,7 +73,7 @@ export const experiencesData = [
         title: "Software Engineer",
         location: "New York, NY (Remote)",
         description:
-            "I am currently working as a Software Engineer at Everstar, building AI products to aid nuclear compliance",
+            "I am currently working as a Software Engineer at Everstar, building AI products to supercharge nuclear compliance.",
         icon: EverstarLogo,
         date: "May, 2024 - Present",
     },
@@ -81,7 +81,7 @@ export const experiencesData = [
         title: "Product Engineer",
         location: "Tustin, CA (Remote)",
         description:
-            "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project",
+            "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project.",
         icon: EthicaLogo,
         date: "Jan, 2024 - April,2024",
     },
