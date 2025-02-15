@@ -21,3 +21,29 @@ export const getVisitCount = async () => {
 
     return count?.visitCount ?? 96;
 };
+
+export const incrementLikeCount = async () => {
+    await db.counter.update({
+        where: {
+            id: 1,
+        },
+        data: {
+            likeCount: {
+                increment: 1,
+            },
+        },
+    });
+};
+
+export const incrementVisitCount = async () => {
+    await db.counter.update({
+        where: {
+            id: 1,
+        },
+        data: {
+            visitCount: {
+                increment: 1,
+            },
+        },
+    });
+};
