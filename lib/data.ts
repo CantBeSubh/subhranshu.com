@@ -130,7 +130,6 @@ export const projectsData = [
             "LangGraph",
             "ChromaDB",
             "FastAPI",
-            "Ollama",
         ],
         imageUrl: ragOllama,
         status: false,

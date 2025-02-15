@@ -1,18 +1,61 @@
 "use client";
 
 import { useActiveSectionContext } from "@/context/active-section-context";
+import { useTheme } from "@/context/theme-context";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { SiLinktree } from "react-icons/si";
 
 export default function Intro() {
+    const { theme } = useTheme();
+    const style = {
+        background: theme === "light" ? "white" : "black",
+        color: theme === "light" ? "black" : "white",
+        border:
+            theme === "light"
+                ? "1px solid rgba(0, 0, 0, 0.05)"
+                : "1px solid rgba(255, 255, 255,0.25)",
+    };
     const { ref } = useSectionInView("Home", 0.5);
     const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
+    const hello = [
+        { flag: "🇺🇸", message: "Hello" },
+        { flag: "🇫🇷", message: "Bonjour" },
+        { flag: "🇪🇸", message: "Hola" },
+        { flag: "🇮🇹", message: "Ciao" },
+        { flag: "🇮🇳", message: "Namaste" },
+        { flag: "🇯🇵", message: "こんにちは" },
+        { flag: "🇰🇷", message: "안녕하세요" },
+        { flag: "🇨🇳", message: "你好" },
+        { flag: "🇸🇦", message: "مرحبا" },
+        { flag: "🇵🇹", message: "Olá" },
+        { flag: "🇩🇪", message: "Hallo" },
+        { flag: "🇷🇺", message: "Привет" },
+        { flag: "🇬🇷", message: "Γεια σας" },
+        { flag: "🇮🇱", message: "שָׁלוֹם" },
+        { flag: "🇻🇳", message: "Xin chào" },
+        { flag: "🇹🇭", message: "สวัสดี" },
+        { flag: "🇸🇪", message: "Hallå" },
+        { flag: "🇹🇷", message: "Merhaba" },
+        { flag: "🇧🇬", message: "Здравейте" },
+        { flag: "🇺🇸", message: "Aloha" },
+        { flag: "🇵🇭", message: "Kumusta" },
+        { flag: "🇮🇩", message: "Halo" },
+        { flag: "🇳🇱", message: "Hoi" },
+        { flag: "🇵🇱", message: "Cześć" },
+        { flag: "🇭🇺", message: "Szia" },
+        { flag: "🇨🇿", message: "Ahoj" },
+        { flag: "🇷🇴", message: "Salut" },
+        { flag: "🇫🇮", message: "Hei" },
+        { flag: "🇳🇴", message: "Hei" },
+        { flag: "🇮🇸", message: "Halló" },
+    ];
 
     return (
         <section
@@ -42,14 +85,24 @@ export default function Intro() {
                     </motion.div>
 
                     <motion.span
-                        className="absolute bottom-0 right-0 text-4xl"
+                        className="absolute bottom-0 right-0 text-4xl cursor-pointer"
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1.5 }}
+                        whileHover={{ scale: 1.8 }}
+                        whileTap={{ scale: 1.2 }}
                         transition={{
                             type: "spring",
                             stiffness: 125,
                             delay: 0.1,
                             duration: 0.7,
+                        }}
+                        onClick={() => {
+                            const helloMessage =
+                                hello[Math.floor(Math.random() * hello.length)];
+                            toast(helloMessage.message, {
+                                icon: helloMessage.flag,
+                                style,
+                            });
                         }}
                     >
                         👋
