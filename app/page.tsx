@@ -1,3 +1,5 @@
+"use client";
+import { incrementVisitCount } from "@/actions/count";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Experience from "@/components/experience";
@@ -6,8 +8,13 @@ import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import Skills from "@/components/skills";
 import { TracingBeam } from "@/components/ui/tracing-beam";
+import { useEffect } from "react";
 
 export default function Home() {
+    useEffect(() => {
+        incrementVisitCount();
+    }, []);
+
     return (
         <>
             <TracingBeam>
