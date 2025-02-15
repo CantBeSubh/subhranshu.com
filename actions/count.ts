@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export const getLikeCount = async () => {
     const count = await db.counter.findFirst({
@@ -33,6 +34,7 @@ export const incrementLikeCount = async () => {
             },
         },
     });
+    revalidatePath("/", "page");
 };
 
 export const incrementVisitCount = async () => {

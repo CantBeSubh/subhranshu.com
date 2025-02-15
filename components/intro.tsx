@@ -1,22 +1,35 @@
 "use client";
 
+import { incrementLikeCount } from "@/actions/count";
 import { useActiveSectionContext } from "@/context/active-section-context";
+import { likeMessages } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useOptimistic, useTransition } from "react";
 import toast from "react-hot-toast";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { SiLinktree } from "react-icons/si";
-
-import { incrementLikeCount } from "@/actions/count";
-import { likeMessages } from "@/lib/data";
 import Counter from "./counter";
 
-export default function Intro() {
+export default function Intro({
+    likeCount,
+    visitCount,
+}: {
+    likeCount: number;
+    visitCount: number;
+}) {
+    const [isIncrementing, startIncrementing] = useTransition();
+
+    const [optimisticLikeCount, incrementOptimisticLikeCount] = useOptimistic(
+        likeCount,
+        (currentState, optimisticValue: number) => optimisticValue
+    );
+
     const { theme } = useTheme();
     const style = {
         background: theme === "light" ? "white" : "black",
@@ -79,10 +92,16 @@ export default function Intro() {
                                 icon: likeMsg.flag,
                                 style,
                             });
-                            await incrementLikeCount();
+                            startIncrementing(async () => {
+                                incrementOptimisticLikeCount(
+                                    optimisticLikeCount + 1
+                                );
+
+                                await incrementLikeCount();
+                            });
                         }}
                     >
-                        👋
+                        {isIncrementing ? "🙌" : "👋"}
                     </motion.span>
                 </div>
                 <motion.div
@@ -96,7 +115,10 @@ export default function Intro() {
                         delay: 0.25,
                     }}
                 >
-                    <Counter />
+                    <Counter
+                        likeCount={optimisticLikeCount}
+                        visitCount={visitCount}
+                    />
                 </motion.div>
             </div>
 

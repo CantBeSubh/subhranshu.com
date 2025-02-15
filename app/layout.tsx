@@ -1,3 +1,4 @@
+import { incrementVisitCount } from "@/actions/count";
 import Metrics from "@/app/metrics";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
@@ -15,11 +16,13 @@ export const metadata = {
     description: "Subhranshu hates CSS",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    incrementVisitCount();
+
     return (
         <html lang="en" suppressHydrationWarning={true}>
             <body

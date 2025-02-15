@@ -1,5 +1,6 @@
-"use client";
-import { incrementVisitCount } from "@/actions/count";
+"use server";
+
+import { getLikeCount, getVisitCount } from "@/actions/count";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Experience from "@/components/experience";
@@ -8,18 +9,16 @@ import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import Skills from "@/components/skills";
 import { TracingBeam } from "@/components/ui/tracing-beam";
-import { useEffect } from "react";
 
-export default function Home() {
-    useEffect(() => {
-        incrementVisitCount();
-    }, []);
+export default async function Home() {
+    const visitCount = await getVisitCount();
+    const likeCount = await getLikeCount();
 
     return (
         <>
             <TracingBeam>
                 <main className="flex flex-col items-center px-4">
-                    <Intro />
+                    <Intro likeCount={likeCount} visitCount={visitCount} />
                     <SectionDivider />
                     <About />
                     <Projects />
