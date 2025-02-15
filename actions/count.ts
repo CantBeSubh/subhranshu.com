@@ -22,7 +22,7 @@ const redis = new Redis({
 
 const ratelimit = new Ratelimit({
   redis: redis,
-  limiter: Ratelimit.slidingWindow(5, "10 s"),
+  limiter: Ratelimit.slidingWindow(5, "5 s"),
 });
 
 export const getLikeCount = async () => {
@@ -60,13 +60,10 @@ export const incrementLikeCount = async () => {
     const headerStore = await headers();
     const clientIp = headerStore.get("x-forwarded-for") ?? "127.0.0.1";
 
-    console.log("MY IP ADDRESS: ", clientIp);
     const result = await ratelimit.limit(clientIp);
     if (!result.success) {
-      console.log("reset.reset", result.reset);
       throw new Error(
         `Rate limit exceeded. Retry in ${dayjs(result.reset).format("ss")} seconds.`,
-        // `Rate limit exceeded. Retry in ${dayjs(result.reset)} seconds.`,
       );
     }
     await db.counter.update({

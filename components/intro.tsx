@@ -101,19 +101,25 @@ export default function Intro({
               try {
                 const likeMsg =
                   likeMessages[Math.floor(Math.random() * likeMessages.length)];
-                toast(`${likeMsg.message}!`, {
-                  icon: likeMsg.flag,
-                  style,
-                });
+
                 startIncrementing(async () => {
                   try {
                     incrementOptimisticLikeCount(optimisticLikeCount + 1);
 
-                    await toast.promise(incrementLikeCount(), {
-                      loading: "Incrementing...",
-                      success: "Incremented!",
-                      error: (err) => err.message,
-                    });
+                    await toast.promise(
+                      incrementLikeCount(),
+                      {
+                        loading: "Incrementing...",
+                        success: () => `${likeMsg.message}!`,
+                        error: () => "Rate limit exceeded. Retry again soon.",
+                      },
+                      {
+                        style,
+                        success: {
+                          icon: likeMsg.flag,
+                        },
+                      },
+                    );
                   } catch (error) {
                     console.error("Error incrementing count:", error);
                   }
