@@ -1,18 +1,19 @@
-"use server";
+"use server"
 
-import { getLikeCount, getVisitCount } from "@/actions/count";
-import About from "@/components/about";
-import Contact from "@/components/contact";
-import Experience from "@/components/experience";
-import Intro from "@/components/intro";
-import Projects from "@/components/projects";
-import SectionDivider from "@/components/section-divider";
-import Skills from "@/components/skills";
-import { TracingBeam } from "@/components/ui/tracing-beam";
+import { getLikeCount, getVisitCount } from "@/actions/count"
+import About from "@/components/about"
+import Contact from "@/components/contact"
+import Experience from "@/components/experience"
+import { GithubHeatMap } from "@/components/github-heatmap"
+import Intro from "@/components/intro"
+import Projects from "@/components/projects"
+import SectionDivider from "@/components/section-divider"
+import Skills from "@/components/skills"
+import { TracingBeam } from "@/components/ui/tracing-beam"
 
 export default async function Home() {
-  const visitCount = await getVisitCount();
-  const likeCount = await getLikeCount();
+  const visitCount = await getVisitCount()
+  const likeCount = await getLikeCount()
 
   return (
     <>
@@ -21,6 +22,7 @@ export default async function Home() {
           <Intro likeCount={likeCount} visitCount={visitCount} />
           <SectionDivider />
           <About />
+          <GithubHeatMap />
           <Projects />
           <Skills />
           <Experience />
@@ -30,5 +32,5 @@ export default async function Home() {
         <Contact />
       </div>
     </>
-  );
+  )
 }

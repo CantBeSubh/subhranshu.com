@@ -1,32 +1,19 @@
-import EthicaLogo from "@/public/Logos/EthicaLogo.png";
-import EverstarLogo from "@/public/Logos/Everstar.svg";
-import analyzer from "@/public/analyzer.png";
-import getgud from "@/public/getgud.png";
-import heyEthica from "@/public/heyEthica.png";
-import omnic from "@/public/omnicoutlet.png";
-import ragOllama from "@/public/ragOllama.png";
-import rudegpt from "@/public/rudegpt.png";
-import React from "react";
-import { BiLogoTailwindCss, BiLogoTypescript } from "react-icons/bi";
-import { CgWorkAlt } from "react-icons/cg";
+import EthicaLogo from "@/public/Logos/EthicaLogo.png"
+import EverstarLogo from "@/public/Logos/Everstar.svg"
+import analyzer from "@/public/analyzer.png"
+import getgud from "@/public/getgud.png"
+import heyEthica from "@/public/heyEthica.png"
+import omnic from "@/public/omnicoutlet.png"
+import ragOllama from "@/public/ragOllama.png"
+import rudegpt from "@/public/rudegpt.png"
+import React from "react"
+import { BiLogoTailwindCss, BiLogoTypescript } from "react-icons/bi"
+import { CgWorkAlt } from "react-icons/cg"
+import { FaAws, FaDocker, FaNodeJs, FaPython, FaReact } from "react-icons/fa"
+import { IoLogoVercel } from "react-icons/io5"
+import { LuGraduationCap } from "react-icons/lu"
+import { RiNetflixFill, RiSupabaseFill } from "react-icons/ri"
 import {
-  FaAws,
-  FaDocker,
-  FaJenkins,
-  FaNodeJs,
-  FaPython,
-  FaReact,
-} from "react-icons/fa";
-import { FaFigma } from "react-icons/fa6";
-import {
-  IoLogoFirebase,
-  IoLogoJavascript,
-  IoLogoVercel,
-} from "react-icons/io5";
-import { LuGraduationCap } from "react-icons/lu";
-import { RiNetflixFill, RiOpenaiFill, RiSupabaseFill } from "react-icons/ri";
-import {
-  SiExpress,
   SiFastapi,
   SiGrafana,
   SiKubernetes,
@@ -35,38 +22,37 @@ import {
   SiPrisma,
   SiPrometheus,
   SiRedux,
-  SiTurborepo,
-  SiZod,
-} from "react-icons/si";
-import { TbBrandFramerMotion, TbBrandThreejs } from "react-icons/tb";
-import { VscGithubInverted } from "react-icons/vsc";
+  SiZod
+} from "react-icons/si"
+import { TbBrandFramerMotion } from "react-icons/tb"
+import { VscGithubInverted } from "react-icons/vsc"
 
 export const links = [
   {
     name: "Home",
-    hash: "#home",
+    hash: "#home"
   },
   {
     name: "About",
-    hash: "#about",
+    hash: "#about"
   },
   {
     name: "Projects",
-    hash: "#projects",
+    hash: "#projects"
   },
   {
     name: "Skills",
-    hash: "#skills",
+    hash: "#skills"
   },
   {
     name: "Experience",
-    hash: "#experience",
+    hash: "#experience"
   },
   {
     name: "Contact",
-    hash: "#contact",
-  },
-] as const;
+    hash: "#contact"
+  }
+] as const
 
 export const experiencesData = [
   {
@@ -75,7 +61,7 @@ export const experiencesData = [
     description:
       "I am currently working as a Software Engineer at Everstar, building AI products to supercharge nuclear compliance.",
     icon: EverstarLogo,
-    date: "May, 2024 - Present",
+    date: "May, 2024 - Present"
   },
   {
     title: "Product Engineer",
@@ -83,7 +69,7 @@ export const experiencesData = [
     description:
       "I got promoted to Product Engineer after 4 months of internship. I futher worked on the same project.",
     icon: EthicaLogo,
-    date: "Jan, 2024 - April,2024",
+    date: "Jan, 2024 - April,2024"
   },
   {
     title: "Product Engineer Intern",
@@ -91,7 +77,7 @@ export const experiencesData = [
     description:
       "I worked as a Product Engineer intern for 4 month. I worked on a startup project to improve the user experience of a mobile app.",
     icon: EthicaLogo,
-    date: "Sept,2023-Jan,2024",
+    date: "Sept,2023-Jan,2024"
   },
   {
     title: "Front-End Developer Intern",
@@ -99,14 +85,14 @@ export const experiencesData = [
     description:
       "I worked as a front-end developer intern for 3 months in. I also upskilled to the full stack.",
     icon: React.createElement(CgWorkAlt),
-    date: "June,2023 - Aug,2023",
+    date: "June,2023 - Aug,2023"
   },
   {
     title: "Freelancer",
     location: "Remote",
     description: "I worked as a fullstack freelancer for 2 months",
     icon: React.createElement(CgWorkAlt),
-    date: "Aug,2023-Sep,2023",
+    date: "Aug,2023-Sep,2023"
   },
   {
     title: "Graduated Bachelor's degree",
@@ -114,9 +100,9 @@ export const experiencesData = [
     description:
       "I did my Bachelor's degree in Computer Science from the VIT, Chennai. I was the first in my batch to get a full-time remote job.",
     icon: React.createElement(LuGraduationCap),
-    date: "Aug, 2024",
-  },
-] as const;
+    date: "Aug, 2024"
+  }
+] as const
 
 export const projectsData = [
   {
@@ -129,11 +115,11 @@ export const projectsData = [
       "LangSmith",
       "LangGraph",
       "ChromaDB",
-      "FastAPI",
+      "FastAPI"
     ],
     imageUrl: ragOllama,
     status: false,
-    link: "https://youtu.be/_lw3qa5kXpY",
+    link: "https://youtu.be/_lw3qa5kXpY"
   },
   {
     title: "HeyEthica",
@@ -142,7 +128,7 @@ export const projectsData = [
     tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
     imageUrl: heyEthica,
     status: true,
-    link: "https://heyethica.com/",
+    link: "https://heyethica.com/"
   },
   {
     title: "RudeGPT",
@@ -151,7 +137,7 @@ export const projectsData = [
     tags: ["Next.js", "AWS Amplify", "AWS Cognito", "AWS Appsync", "OpenAI"],
     imageUrl: rudegpt,
     status: false,
-    link: "https://youtu.be/6XJ6II8VIl8?si=9pXdpFJqz-afEltb",
+    link: "https://youtu.be/6XJ6II8VIl8?si=9pXdpFJqz-afEltb"
   },
   {
     title: "Sentiment Analyzer",
@@ -160,7 +146,7 @@ export const projectsData = [
     imageUrl: analyzer,
     tags: ["Next.js", "Shadcn UI", "TailwindCSS", "Hugging Face"],
     status: true,
-    link: "https://sentiment-analyzer.subhranshu.com/",
+    link: "https://sentiment-analyzer.subhranshu.com/"
   },
   {
     title: "Omnic Outlet",
@@ -169,7 +155,7 @@ export const projectsData = [
     tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
     imageUrl: omnic,
     status: false,
-    link: "https://omnic-outlet.subhranshu.com/",
+    link: "https://omnic-outlet.subhranshu.com/"
   },
   {
     title: "GetGud",
@@ -178,144 +164,103 @@ export const projectsData = [
     tags: ["Next.js", "Garfbase", "SCSS"],
     imageUrl: getgud,
     status: false,
-    link: "https://getgud.subhranshu.com/",
-  },
-] as const;
+    link: "https://getgud.subhranshu.com/"
+  }
+] as const
 
 export const skillsData = [
   {
-    name: "JavaScript",
-    icon: React.createElement(IoLogoJavascript),
-  },
-  {
     name: "TypeScript",
-    icon: React.createElement(BiLogoTypescript),
+    icon: React.createElement(BiLogoTypescript)
   },
   {
     name: "React",
-    icon: React.createElement(FaReact),
+    icon: React.createElement(FaReact)
   },
   {
     name: "Next.js",
-    icon: React.createElement(RiNetflixFill),
+    icon: React.createElement(RiNetflixFill)
   },
   {
     name: "Node.js",
-    icon: React.createElement(FaNodeJs),
+    icon: React.createElement(FaNodeJs)
   },
   {
     name: "Git",
-    icon: React.createElement(VscGithubInverted),
-  },
-  {
-    name: "Turborepo",
-    icon: React.createElement(SiTurborepo),
-  },
-  {
-    name: "OpenAI",
-    icon: React.createElement(RiOpenaiFill),
+    icon: React.createElement(VscGithubInverted)
   },
   {
     name: "Tailwind",
-    icon: React.createElement(BiLogoTailwindCss),
+    icon: React.createElement(BiLogoTailwindCss)
   },
-  {
-    name: "Three.js",
-    icon: React.createElement(TbBrandThreejs),
-  },
-  {
-    name: "React Three Fiber",
-    icon: React.createElement(CgWorkAlt),
-  },
+
   {
     name: "Prisma",
-    icon: React.createElement(SiPrisma),
+    icon: React.createElement(SiPrisma)
   },
   {
     name: "MongoDB",
-    icon: React.createElement(SiMongodb),
+    icon: React.createElement(SiMongodb)
   },
-  {
-    name: "Firebase",
-    icon: React.createElement(IoLogoFirebase),
-  },
+
   {
     name: "Redux",
-    icon: React.createElement(SiRedux),
+    icon: React.createElement(SiRedux)
   },
   {
     name: "Zustand",
-    icon: React.createElement(CgWorkAlt),
+    icon: React.createElement(CgWorkAlt)
   },
-  {
-    name: "Jotai",
-    icon: React.createElement(CgWorkAlt),
-  },
+
   {
     name: "Zod",
-    icon: React.createElement(SiZod),
+    icon: React.createElement(SiZod)
   },
   {
     name: "Supabase",
-    icon: React.createElement(RiSupabaseFill),
+    icon: React.createElement(RiSupabaseFill)
   },
   {
     name: "Vercel",
-    icon: React.createElement(IoLogoVercel),
+    icon: React.createElement(IoLogoVercel)
   },
   {
     name: "AWS",
-    icon: React.createElement(FaAws),
-  },
-  {
-    name: "Express",
-    icon: React.createElement(SiExpress),
+    icon: React.createElement(FaAws)
   },
   {
     name: "PostgreSQL",
-    icon: React.createElement(SiPostgresql),
+    icon: React.createElement(SiPostgresql)
   },
   {
     name: "Docker",
-    icon: React.createElement(FaDocker),
+    icon: React.createElement(FaDocker)
   },
   {
     name: "Grafana",
-    icon: React.createElement(SiGrafana),
+    icon: React.createElement(SiGrafana)
   },
   {
     name: "Kubernetes",
-    icon: React.createElement(SiKubernetes),
+    icon: React.createElement(SiKubernetes)
   },
   {
     name: "Prometheus",
-    icon: React.createElement(SiPrometheus),
-  },
-  {
-    name: "Jenkins",
-    icon: React.createElement(FaJenkins),
+    icon: React.createElement(SiPrometheus)
   },
   {
     name: "Python",
-    icon: React.createElement(FaPython),
+    icon: React.createElement(FaPython)
   },
   {
     name: "FastAPI",
-    icon: React.createElement(SiFastapi),
+    icon: React.createElement(SiFastapi)
   },
   {
     name: "Framer Motion",
-    icon: React.createElement(TbBrandFramerMotion),
-  },
-  {
-    name: "GSAP",
-    icon: React.createElement(CgWorkAlt),
-  },
-  {
-    name: "Figma",
-    icon: React.createElement(FaFigma),
-  },
-] as const;
+    icon: React.createElement(TbBrandFramerMotion)
+  }
+] as const
 
 export const likeMessages = [
   { flag: "🇺🇸", message: "Thank you" },
@@ -359,5 +304,5 @@ export const likeMessages = [
   { flag: "🇷🇴", message: "Mulțumesc" },
   { flag: "🇫🇮", message: "Kiitos" },
   { flag: "🇳🇴", message: "Takk" },
-  { flag: "🇮🇸", message: "Takk" },
-];
+  { flag: "🇮🇸", message: "Takk" }
+]

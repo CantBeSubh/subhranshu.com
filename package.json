@@ -16,7 +16,8 @@
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "@radix-ui/react-dialog": "^1.1.6",
-    "@radix-ui/react-tooltip": "^1.0.7",
+    "@radix-ui/react-select": "^2.2.4",
+    "@radix-ui/react-tooltip": "^1.2.6",
     "@react-email/components": "^0.0.33",
     "@react-email/tailwind": "^1.0.4",
     "@tsparticles/engine": "^3.3.0",

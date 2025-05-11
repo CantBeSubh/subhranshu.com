@@ -1,24 +1,24 @@
-import Metrics from "@/app/metrics";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import ThemeSwitch from "@/components/theme-switch";
-import ActiveSectionContextProvider from "@/context/active-section-context";
-import { ThemeProvider } from "@/context/theme-context";
-import { Montserrat } from "next/font/google";
-import { Toaster } from "react-hot-toast";
-import "./globals.css";
+import Metrics from "@/app/metrics"
+import Footer from "@/components/footer"
+import Header from "@/components/header"
+import ThemeSwitch from "@/components/theme-switch"
+import ActiveSectionContextProvider from "@/context/active-section-context"
+import { ThemeProvider } from "@/context/theme-context"
+import { Montserrat } from "next/font/google"
+import { Toaster } from "react-hot-toast"
+import "./globals.css"
 
-const inter = Montserrat({ subsets: ["latin"] });
+const inter = Montserrat({ subsets: ["latin"] })
 
 export const metadata = {
   title: "Subh",
-  description: "Subhranshu hates CSS",
-};
+  description: "Subhranshu hates CSS"
+}
 
 export default async function RootLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
@@ -48,5 +48,5 @@ export default async function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
