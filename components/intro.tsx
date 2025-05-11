@@ -1,38 +1,38 @@
-"use client";
+"use client"
 
-import { incrementLikeCount, incrementVisitCount } from "@/actions/count";
-import { useActiveSectionContext } from "@/context/active-section-context";
-import { likeMessages } from "@/lib/data";
-import { useSectionInView } from "@/lib/hooks";
-import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useMemo, useOptimistic, useTransition } from "react";
-import toast from "react-hot-toast";
-import { BsArrowRight, BsLinkedin } from "react-icons/bs";
-import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa";
-import { HiDownload } from "react-icons/hi";
-import { SiLinktree } from "react-icons/si";
-import Counter from "./counter";
-import { SparklesCore } from "./ui/sparkles";
+import { incrementLikeCount, incrementVisitCount } from "@/actions/count"
+import { useActiveSectionContext } from "@/context/active-section-context"
+import { likeMessages } from "@/lib/data"
+import { useSectionInView } from "@/lib/hooks"
+import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
+import Image from "next/image"
+import Link from "next/link"
+import { useEffect, useMemo, useOptimistic, useTransition } from "react"
+import toast from "react-hot-toast"
+import { BsArrowRight, BsLinkedin } from "react-icons/bs"
+import { FaGithubSquare, FaTwitterSquare } from "react-icons/fa"
+import { HiDownload } from "react-icons/hi"
+import { SiLinktree } from "react-icons/si"
+import Counter from "./counter"
+import { SparklesCore } from "./ui/sparkles"
 
 export default function Intro({
   likeCount,
-  visitCount,
+  visitCount
 }: {
-  likeCount: number;
-  visitCount: number;
+  likeCount: number
+  visitCount: number
 }) {
   useEffect(() => {
-    incrementVisitCount();
-  }, []);
-  const [isIncrementing, startIncrementing] = useTransition();
+    incrementVisitCount()
+  }, [])
+  const [isIncrementing, startIncrementing] = useTransition()
 
   const [optimisticLikeCount, incrementOptimisticLikeCount] = useOptimistic(
     likeCount,
-    (currentState, optimisticValue: number) => optimisticValue,
-  );
+    (currentState, optimisticValue: number) => optimisticValue
+  )
 
   const memoSparkles = useMemo(
     () => (
@@ -42,20 +42,20 @@ export default function Intro({
         className="absolute top-0 -left-[50%] w-screen h-full z-[-1]"
       />
     ),
-    [],
-  );
+    []
+  )
 
-  const { theme } = useTheme();
+  const { theme } = useTheme()
   const style = {
     background: theme === "light" ? "white" : "black",
     color: theme === "light" ? "black" : "white",
     border:
       theme === "light"
         ? "1px solid rgba(0, 0, 0, 0.05)"
-        : "1px solid rgba(255, 255, 255,0.25)",
-  };
-  const { ref } = useSectionInView("Home", 0.5);
-  const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
+        : "1px solid rgba(255, 255, 255,0.25)"
+  }
+  const { ref } = useSectionInView("Home", 0.5)
+  const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext()
 
   return (
     <section
@@ -71,16 +71,16 @@ export default function Intro({
             animate={{ opacity: 1, scale: 1 }}
             transition={{
               type: "tween",
-              duration: 0.2,
+              duration: 0.2
             }}
           >
             <Image
               src="/me.png"
               alt="Subhranshu portrait"
-              width="250"
-              height="250"
+              width="500"
+              height="500"
               quality="100"
-              className="size-24 rounded-lg object-cover border-[0.15rem] border-white shadow-2xl"
+              className="size-40 rounded-lg object-cover border-[0.15rem] border-white shadow-2xl"
               priority
             />
           </motion.div>
@@ -95,38 +95,38 @@ export default function Intro({
               type: "spring",
               stiffness: 125,
               delay: 0.1,
-              duration: 0.7,
+              duration: 0.7
             }}
             onClick={async () => {
               try {
                 const likeMsg =
-                  likeMessages[Math.floor(Math.random() * likeMessages.length)];
+                  likeMessages[Math.floor(Math.random() * likeMessages.length)]
 
                 startIncrementing(async () => {
                   try {
-                    incrementOptimisticLikeCount(optimisticLikeCount + 1);
+                    incrementOptimisticLikeCount(optimisticLikeCount + 1)
                     toast.promise(
                       incrementLikeCount(),
                       {
                         loading: "Incrementing...",
                         success: () => `${likeMsg.message}!`,
-                        error: () => "Rate limit exceeded. Retry again soon.",
+                        error: () => "Rate limit exceeded. Retry again soon."
                       },
                       {
                         style,
                         success: {
                           icon: likeMsg.flag,
-                          style,
-                        },
-                      },
-                    );
+                          style
+                        }
+                      }
+                    )
                   } catch (error) {
-                    console.error("Error incrementing count:", error);
+                    console.error("Error incrementing count:", error)
                   }
-                });
+                })
               } catch (error) {
-                console.error("Error in click handler:", error);
-                toast.error("Something went wrong");
+                console.error("Error in click handler:", error)
+                toast.error("Something went wrong")
               }
             }}
           >
@@ -141,7 +141,7 @@ export default function Intro({
             type: "tween",
             duration: 1,
             ease: "easeInOut",
-            delay: 0.25,
+            delay: 0.25
           }}
         >
           <Counter likeCount={optimisticLikeCount} visitCount={visitCount} />
@@ -164,7 +164,7 @@ export default function Intro({
         <span className="font-extrabold italic bg-yellow-200 dark:bg-yellow-600/50">
           {Number(
             (new Date().getTime() - new Date(2023, 4, 1).getTime()) /
-              (1000 * 60 * 60 * 24 * 365),
+              (1000 * 60 * 60 * 24 * 365)
           ).toFixed(1)}{" "}
           years
         </span>{" "}
@@ -182,15 +182,15 @@ export default function Intro({
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 0.1,
+          delay: 0.1
         }}
       >
         <Link
           href="#contact"
           className="flex items-center gap-2 py-3 text-white transition bg-gray-900 rounded-full outline-none group px-7 focus:scale-110 hover:scale-110 dark:bg-black dark:border-white border hover:bg-gray-950 active:scale-105"
           onClick={() => {
-            setActiveSection("Contact");
-            setTimeOfLastClick(Date.now());
+            setActiveSection("Contact")
+            setTimeOfLastClick(Date.now())
           }}
         >
           Contact me here{" "}
@@ -238,5 +238,5 @@ export default function Intro({
         </a>
       </motion.div>
     </section>
-  );
+  )
 }
