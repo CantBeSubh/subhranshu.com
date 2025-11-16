@@ -122,15 +122,6 @@ export const projectsData = [
     link: "https://youtu.be/_lw3qa5kXpY"
   },
   {
-    title: "HeyEthica",
-    description:
-      "I worked as a Product Engineer on this startup project for 1 year. Simplified the process of house buying and selling by using AI.",
-    tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
-    imageUrl: heyEthica,
-    status: true,
-    link: "https://heyethica.com/"
-  },
-  {
     title: "RudeGPT",
     description:
       "An unconventional ChatGPT bootleg with an attitude, achived by using prompt engineering and a customized prompt engine.",
@@ -147,15 +138,6 @@ export const projectsData = [
     tags: ["Next.js", "Shadcn UI", "TailwindCSS", "Hugging Face"],
     status: true,
     link: "https://sentiment-analyzer.subhranshu.com/"
-  },
-  {
-    title: "Omnic Outlet",
-    description:
-      "A modern e-commerce platform for online shopping, built around the theme of popular video game Overwatch.",
-    tags: ["Next.js", "Supabase", "Tailwind", "Prisma", "OpenAI"],
-    imageUrl: omnic,
-    status: false,
-    link: "https://omnic-outlet.subhranshu.com/"
   },
   {
     title: "GetGud",
@@ -193,7 +175,6 @@ export const skillsData = [
     name: "Tailwind",
     icon: React.createElement(BiLogoTailwindCss)
   },
-
   {
     name: "Prisma",
     icon: React.createElement(SiPrisma)
@@ -202,7 +183,6 @@ export const skillsData = [
     name: "MongoDB",
     icon: React.createElement(SiMongodb)
   },
-
   {
     name: "Redux",
     icon: React.createElement(SiRedux)
@@ -211,7 +191,6 @@ export const skillsData = [
     name: "Zustand",
     icon: React.createElement(CgWorkAlt)
   },
-
   {
     name: "Zod",
     icon: React.createElement(SiZod)
