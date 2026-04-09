@@ -75,12 +75,12 @@ export default function Intro({
             }}
           >
             <Image
-            src="/me.jpg"
+              src="/me_clean.png"
               alt="Subhranshu portrait"
               width="400"
               height="400"
               quality="100"
-              className="size-40 rounded-lg object-cover border-[0.15rem] border-white shadow-2xl"
+              className="size-40 rounded-lg object-cover border-[0.15rem] border-black shadow-2xl"
               priority
             />
           </motion.div>
@@ -164,7 +164,7 @@ export default function Intro({
         <span className="font-extrabold italic bg-yellow-200 dark:bg-yellow-600/50">
           {Number(
             (new Date().getTime() - new Date(2024, 4, 1).getTime()) /
-              (1000 * 60 * 60 * 24 * 365)
+            (1000 * 60 * 60 * 24 * 365)
           ).toFixed(1)}{" "}
           years
         </span>{" "}
