@@ -75,7 +75,7 @@ export default function Intro({
             }}
           >
             <Image
-              src="/me.png"
+            src="/me.jpg"
               alt="Subhranshu portrait"
               width="400"
               height="400"
