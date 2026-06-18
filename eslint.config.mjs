@@ -1,5 +1,4 @@
 import { defineConfig } from "eslint/config";
-import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import react from "eslint-plugin-react";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import prettier from "eslint-plugin-prettier";
@@ -21,6 +20,18 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([{
+  ignores: [
+    ".next/**",
+    "node_modules/**",
+    "out/**",
+    "build/**",
+    "eslint.config.mjs",
+    "next.config.js",
+    "postcss.config.js",
+    ".prettierrc.js",
+    "next-env.d.ts",
+  ],
+}, {
   extends: [
     ...compat.extends("eslint:recommended"),
     ...compat.extends("plugin:react/recommended"),
@@ -28,8 +39,7 @@ export default defineConfig([{
     ...compat.extends("plugin:prettier/recommended"),
     ...compat.extends("plugin:jsx-a11y/strict"),
     ...compat.extends("plugin:tailwindcss/recommended"),
-    ...nextCoreWebVitals,
-    ...compat.extends("@everstar/eslint-config/next.js")
+    ...compat.extends("next/core-web-vitals"),
   ],
 
   plugins: {
@@ -57,7 +67,6 @@ export default defineConfig([{
   settings: {
     tailwindcss: {
       callees: ["cn", "cva"],
-      config: "tailwind.config.js",
     },
   },
 
