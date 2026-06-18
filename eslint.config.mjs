@@ -15,89 +15,89 @@ import { FlatCompat } from "@eslint/eslintrc";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all
 });
 
 export default defineConfig([{
-    extends: [
-        ...compat.extends("eslint:recommended"),
-        ...compat.extends("plugin:react/recommended"),
-        ...compat.extends("plugin:@typescript-eslint/recommended"),
-        ...compat.extends("plugin:prettier/recommended"),
-        ...compat.extends("plugin:jsx-a11y/strict"),
-        ...compat.extends("plugin:tailwindcss/recommended"),
-        ...nextCoreWebVitals,
-        ...compat.extends("@everstar/eslint-config/next.js")
-    ],
+  extends: [
+    ...compat.extends("eslint:recommended"),
+    ...compat.extends("plugin:react/recommended"),
+    ...compat.extends("plugin:@typescript-eslint/recommended"),
+    ...compat.extends("plugin:prettier/recommended"),
+    ...compat.extends("plugin:jsx-a11y/strict"),
+    ...compat.extends("plugin:tailwindcss/recommended"),
+    ...nextCoreWebVitals,
+    ...compat.extends("@everstar/eslint-config/next.js")
+  ],
 
-    plugins: {
-        react,
-        "@typescript-eslint": typescriptEslint,
-        prettier,
-        "jsx-a11y": jsxA11Y,
-        tailwindcss,
+  plugins: {
+    react,
+    "@typescript-eslint": typescriptEslint,
+    prettier,
+    "jsx-a11y": jsxA11Y,
+    tailwindcss,
+  },
+
+  languageOptions: {
+    globals: {
+      ...globals.browser,
     },
 
-    languageOptions: {
-        globals: {
-            ...globals.browser,
-        },
+    parser: tsParser,
+    ecmaVersion: 5,
+    sourceType: "script",
 
-        parser: tsParser,
-        ecmaVersion: 5,
-        sourceType: "script",
-
-        parserOptions: {
-            project: true,
-        },
+    parserOptions: {
+      project: true,
     },
+  },
 
-    settings: {
-        tailwindcss: {
-            callees: ["cn", "cva"],
-            config: "tailwind.config.js",
-        },
+  settings: {
+    tailwindcss: {
+      callees: ["cn", "cva"],
+      config: "tailwind.config.js",
     },
+  },
 
-    rules: {
-        "prettier/prettier": "warn",
-        "react-hooks/exhaustive-deps": "error",
-        "no-var": "error",
-        "brace-style": "error",
-        "prefer-template": "error",
-        radix: "error",
-        "space-before-blocks": "error",
-        "import/prefer-default-export": "off",
-        "tailwindcss/no-custom-classname": "off",
-        "@typescript-eslint/no-explicit-any": "off",
+  rules: {
+    "prettier/prettier": "warn",
+    "react-hooks/exhaustive-deps": "error",
+    "no-var": "error",
+    "brace-style": "error",
+    "prefer-template": "error",
+    radix: "error",
+    "space-before-blocks": "error",
+    "import/prefer-default-export": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "semi": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {
+      argsIgnorePattern: "^_",
+      varsIgnorePattern: "^_",
+      caughtErrorsIgnorePattern: "^_",
+    }],
 
-        "@typescript-eslint/no-unused-vars": ["error", {
-            argsIgnorePattern: "^_",
-            varsIgnorePattern: "^_",
-            caughtErrorsIgnorePattern: "^_",
-        }],
+    "no-console": ["error", {
+      allow: ["warn", "error"],
+    }],
 
-        "no-console": ["error", {
-            allow: ["warn", "error"],
-        }],
-
-        curly: "error",
-    },
+    curly: "error",
+  },
 }, {
-    files: [
-        "**/*.test.js",
-        "**/*.test.jsx",
-        "**/*.test.tsx",
-        "**/*.spec.js",
-        "**/*.spec.jsx",
-        "**/*.spec.tsx",
-    ],
+  files: [
+    "**/*.test.js",
+    "**/*.test.jsx",
+    "**/*.test.tsx",
+    "**/*.spec.js",
+    "**/*.spec.jsx",
+    "**/*.spec.tsx",
+  ],
 
-    languageOptions: {
-        globals: {
-            ...globals.jest,
-        },
+  languageOptions: {
+    globals: {
+      ...globals.jest,
     },
+  },
 }]);
