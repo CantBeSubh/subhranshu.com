@@ -3,7 +3,7 @@
 import { experiencesData } from "@/lib/data"
 import { useSectionInView } from "@/lib/hooks"
 import { useTheme } from "next-themes"
-import { StaticImageData } from "next/image"
+import Image, { StaticImageData } from "next/image"
 import React from "react"
 import {
   VerticalTimeline,
@@ -17,8 +17,8 @@ const generateIcon = (
 ): React.ReactNode => {
   if (icon?.src) {
     return (
-      <img
-        src={icon?.src}
+      <Image
+        src={icon}
         alt="icon"
         className="p-2 dark:invert min-[1170px]:p-4"
       />

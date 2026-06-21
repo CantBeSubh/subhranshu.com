@@ -39,7 +39,7 @@ export default function Intro({
       <SparklesCore
         background="transparent"
         particleDensity={10}
-        className="absolute -left-[50%] top-0 z-[-1] h-full w-screen"
+        className="absolute -left-1/2 top-0 z-[-1] h-full w-screen"
       />
     ),
     []
@@ -154,9 +154,9 @@ export default function Intro({
         animate={{ opacity: 1, y: 0 }}
       >
         <span className="bg-gradient-to-r from-emerald-500 to-indigo-500 bg-clip-text font-bold text-transparent">
-          Hello, I'm Subh.
+          Hello, I&apos;m Subh.
         </span>
-        <br /> I'm a{" "}
+        <br /> I&apos;m a{" "}
         <span className="font-bold">
           Fullstack Developer with <br /> focus on Generative AI.
         </span>
@@ -164,7 +164,7 @@ export default function Intro({
         <span className="bg-yellow-200 font-extrabold italic dark:bg-yellow-600/50">
           {Number(
             (new Date().getTime() - new Date(2024, 4, 1).getTime()) /
-            (1000 * 60 * 60 * 24 * 365)
+              (1000 * 60 * 60 * 24 * 365)
           ).toFixed(1)}{" "}
           years
         </span>{" "}

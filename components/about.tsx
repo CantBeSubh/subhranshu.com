@@ -18,13 +18,13 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-        Hi, I'm Subh, a{" "}
+        Hi, I&apos;m Subh, a{" "}
         <span className="font-medium">Software Engineer at Everstar</span>. I
         studied{" "}
         <span className="font-medium">
           Computer Science with AI and Robotics
         </span>
-        . I've been tinkering with{" "}
+        . I&apos;ve been tinkering with{" "}
         <span className="text-lg font-extrabold text-teal-500">
           Generative AI
         </span>{" "}
@@ -39,10 +39,10 @@ export default function About() {
       </p>
 
       <p>
-        <span className="italic">When I'm not coding</span>, I enjoy playing
-        video games, watching movies, and spend time with my family. I also
-        enjoy <span className="font-medium">learning new things</span>. I am
-        currently learning about{" "}
+        <span className="italic">When I&apos;m not coding</span>, I enjoy
+        playing video games, watching movies, and spend time with my family. I
+        also enjoy <span className="font-medium">learning new things</span>. I
+        am currently learning about{" "}
         <span className="font-medium">home automation</span>.
       </p>
     </motion.section>

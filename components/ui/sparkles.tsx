@@ -27,7 +27,6 @@ export const SparklesCore = (props: ParticlesProps) => {
     minSize,
     maxSize,
     speed,
-    particleColor,
     particleDensity
   } = props
   const [init, setInit] = useState(false)
