@@ -22,6 +22,7 @@ export function useLikeMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
+    mutationKey: ["counter", "like"],
     mutationFn: incrementLikeCount,
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: counterQueryKey });
@@ -49,6 +50,7 @@ export function useVisitMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
+    mutationKey: ["counter", "visit"],
     mutationFn: incrementVisitCount,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: counterQueryKey });

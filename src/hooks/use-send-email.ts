@@ -5,6 +5,7 @@ import { sendEmail } from "@/actions/send-email";
 
 export function useSendEmailMutation() {
   return useMutation({
+    mutationKey: ["sendEmail"],
     mutationFn: sendEmail,
   });
 }
