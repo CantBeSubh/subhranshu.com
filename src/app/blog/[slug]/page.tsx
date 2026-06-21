@@ -9,18 +9,22 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function getSortedPosts() {
-  return [...allPosts].sort((a, b) => {
-    if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-      return -1;
-    }
-    return 1;
-  });
+  return [...allPosts]
+    .filter((post) => post.published)
+    .sort((a, b) => {
+      if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    });
 }
 
 export async function generateStaticParams() {
-  return allPosts.map((post) => ({
-    slug: post._meta.path.replace(/\.mdx$/, ""),
-  }));
+  return allPosts
+    .filter((post) => post.published)
+    .map((post) => ({
+      slug: post._meta.path.replace(/\.mdx$/, ""),
+    }));
 }
 
 export async function generateMetadata({
@@ -31,7 +35,9 @@ export async function generateMetadata({
   }>;
 }): Promise<Metadata | undefined> {
   const { slug } = await params;
-  const post = allPosts.find((p) => p._meta.path.replace(/\.mdx$/, "") === slug);
+  const post = allPosts.find(
+    (p) => p.published && p._meta.path.replace(/\.mdx$/, "") === slug
+  );
 
   if (!post) {
     return undefined;

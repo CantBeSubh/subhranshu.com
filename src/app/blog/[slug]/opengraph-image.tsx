@@ -129,7 +129,9 @@ export default async function Image({
     try {
         const fontData = await getFontData();
         const { slug } = await params;
-        const post = allPosts.find((p) => p._meta.path.replace(/\.mdx$/, "") === slug);
+        const post = allPosts.find(
+            (p) => p.published && p._meta.path.replace(/\.mdx$/, "") === slug
+        );
         const imageUrl = DATA.avatarUrl
             ? new URL(DATA.avatarUrl, DATA.url).toString()
             : undefined;

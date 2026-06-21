@@ -1,0 +1,68 @@
+---
+title: "Best Books for System Design"
+publishedAt: "2026-01-15"
+updatedAt: "2026-01-15"
+author: "Subhranshu Pati"
+summary: "A curated list of system design books for beginners through advanced practitioners."
+image: "https://images.unsplash.com/photo-1532012197267-da84d127e965?w=800&h=192&fit=crop"
+---
+
+# Best Books for System Design
+
+System design is a broad field, so the "best" book depends on your specific goals and expertise level - whether you're prepping for interviews, architecting your first distributed system, or trying to understand how companies like Google run production infrastructure at scale. Here's a curated list, grouped by where you are in your journey.
+
+## Beginner-Friendly
+
+### [Designing Data-Intensive Applications](https://dataintensive.net/) by Martin Kleppmann
+
+- **Focus:** Core principles of designing scalable and reliable systems.
+- **Why it's good:** Offers a deep dive into distributed systems, databases, and architecture patterns with practical examples. Widely considered the most thorough single book on how modern data systems actually work under the hood - replication, partitioning, transactions, and consistency models all get rigorous treatment.
+
+### [Grokking the System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview) by Alex Xu (also published as _System Design Interview_)
+
+- **Focus:** System design interview preparation and understanding design fundamentals.
+- **Why it's good:** Easy-to-follow examples of system designs like URL shorteners, social networks, and message queues. A great on-ramp if your goal is interview readiness rather than deep theory.
+
+## Intermediate/Advanced
+
+### [Site Reliability Engineering: How Google Runs Production Systems](https://sre.google/sre-book/table-of-contents/) by Niall Richard Murphy et al
+
+- **Focus:** Building and maintaining scalable systems with reliability in mind.
+- **Why it's good:** A Google-centric view of large-scale system management - covers error budgets, on-call practices, and the organizational side of reliability. Free to read online from Google.
+
+### [The Art of Scalability](https://www.amazon.com/Art-Scalability-Architecture-Organizations-Enterprise/dp/0134032802) by Martin L. Abbott and Michael T. Fisher
+
+- **Focus:** Principles of scalable system design and organizational strategies.
+- **Why it's good:** Combines technical and organizational approaches to scaling systems - useful if you care as much about team structure and process as you do about architecture diagrams.
+
+### [Building Microservices](https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/) by Sam Newman
+
+- **Focus:** Microservices architecture and design principles.
+- **Why it's good:** Practical advice for breaking systems into microservices, with examples and pitfalls. Doesn't oversell microservices - spends real time on when _not_ to use them.
+
+## Specialized Topics
+
+### [Release It!: Design and Deploy Production-Ready Software](https://pragprog.com/titles/mnee2/release-it-second-edition/) by Michael T. Nygard
+
+- **Focus:** Designing software that can survive real-world production issues.
+- **Why it's good:** Addresses operational concerns often overlooked in system design - circuit breakers, bulkheads, timeouts, and the failure patterns that take down systems in production.
+
+### [Distributed Systems: Principles and Paradigms](https://www.distributed-systems.net/index.php/books/ds3/) by Andrew S. Tanenbaum and Maarten Van Steen
+
+- **Focus:** Distributed systems design fundamentals.
+- **Why it's good:** A comprehensive guide to distributed algorithms, consistency, and replication. More academic in tone - pairs well with Kleppmann's book if you want theory and practice side by side.
+
+## Online Resources (Supplementary)
+
+- **[System Design Primer](https://github.com/donnemartin/system-design-primer) (GitHub):** Open-source repository with well-explained system design problems, complete with diagrams and Anki flashcards for spaced-repetition review.
+- **[High Scalability](http://highscalability.com/) (Blog):** Long-running blog with articles and real-world case studies of how companies scaled their architecture.
+
+## Which one should you start with?
+
+- **Prepping for interviews soon?** Start with _Grokking the System Design Interview_, then skim the System Design Primer for extra practice problems.
+- **Want deep, lasting fundamentals?** _Designing Data-Intensive Applications_ is the highest-leverage read on this list.
+- **Already building distributed systems at work?** _Site Reliability Engineering_ and _Release It!_ will sharpen how you think about failure and operations.
+
+## Wrap-up
+
+There's no single "correct" path through system design - pick the book that matches what you're optimizing for right now, and treat the rest as a reading list to come back to as your systems (and your questions) get more complex.
