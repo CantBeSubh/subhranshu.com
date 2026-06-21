@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import { projectsData } from "@/lib/data";
-import { useSectionInView } from "@/lib/hooks";
-import React from "react";
-import Project from "./project";
-import SectionHeading from "./section-heading";
+import { projectsData } from "@/lib/data"
+import { useSectionInView } from "@/lib/hooks"
+import React from "react"
+import Project from "./project"
+import SectionHeading from "./section-heading"
 
 export default function Projects() {
-  const { ref } = useSectionInView("Projects", 0.25);
+  const { ref } = useSectionInView("Projects", 0.25)
 
   return (
-    <section ref={ref} id="projects" className="scroll-mt-28 mb-28">
+    <section ref={ref} id="projects" className="mb-28 scroll-mt-28">
       <SectionHeading>My projects</SectionHeading>
       <div>
         {projectsData.map((project, index) => (
@@ -20,5 +20,5 @@ export default function Projects() {
         ))}
       </div>
     </section>
-  );
+  )
 }

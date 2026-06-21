@@ -65,9 +65,7 @@ const levelToColor = (level: 0 | 1 | 2 | 3 | 4): string => {
   return colorMap[level]
 }
 
-const calculateStatistics = (
-  contributions: ApiContribution[]
-): Statistics => {
+const calculateStatistics = (contributions: ApiContribution[]): Statistics => {
   const activeDays = contributions.filter(c => c.count > 0).length
   const totalContributions = contributions.reduce((sum, c) => sum + c.count, 0)
   const inactiveDays = contributions.length - activeDays
@@ -154,7 +152,9 @@ export const GithubHeatMap = () => {
         const response = await fetch(
           `https://github-contributions-api-one.vercel.app/v4/${username}?y=${selectedYear}`
         )
-        if (!response.ok) throw new Error("Failed to fetch data")
+        if (!response.ok) {
+          throw new Error("Failed to fetch data")
+        }
         const result: ApiResponse = await response.json()
         const transformedData = transformApiResponse(result)
         setData(transformedData)
@@ -172,12 +172,12 @@ export const GithubHeatMap = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="mb-28 max-w-[45rem] text-center leading-8 sm:mb-40 scroll-mt-28"
+      className="mb-28 max-w-[45rem] scroll-mt-28 text-center leading-8 sm:mb-40"
     >
       <div className="rounded-lg p-4">
         <SectionHeading>GitHub Contributions</SectionHeading>
-        <div className="flex flex-col md:flex-row items-center justify-center w-full mb-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
+        <div className="mb-6 flex w-full flex-col items-center justify-center md:flex-row">
+          <div className="mt-4 flex flex-col items-center gap-4 md:mt-0 md:flex-row">
             <span className="text-sm text-muted-foreground">
               {data?.statistics.total_contributions || 0} contributions in{" "}
               {selectedYear}
@@ -198,7 +198,7 @@ export const GithubHeatMap = () => {
         </div>
 
         {/* Statistics Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-8 max-w-[45rem] mx-auto">
+        <div className="mx-auto mb-8 grid max-w-[45rem] grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
           <div className="space-y-1 text-center">
             <div className="text-muted-foreground">Active Days</div>
             <div className="text-4xl font-bold">
@@ -226,13 +226,13 @@ export const GithubHeatMap = () => {
         </div>
 
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-full max-w-full md:max-w-4xl rounded-lg bg-secondary/5 p-4">
-            <div className="flex gap-1 items-center justify-center">
+          <div className="w-full max-w-full rounded-lg bg-secondary/5 p-4 md:max-w-4xl">
+            <div className="flex items-center justify-center gap-1">
               <TooltipProvider>
                 {Array.from({ length: 53 }).map((_, weekIndex) => (
                   <div
                     key={crypto.randomUUID()}
-                    className="grid grid-rows-7 gap-1"
+                    className="grid-rows-7 grid gap-1"
                   >
                     {Array.from({ length: 7 }).map((_, dayIndex) => {
                       const contributionIndex = weekIndex * 7 + dayIndex
@@ -247,7 +247,7 @@ export const GithubHeatMap = () => {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               transition={{ delay: contributionIndex * 0.001 }}
-                              className="w-[11px] aspect-square rounded-sm cursor-pointer transition-all duration-200 hover:scale-125"
+                              className="aspect-square w-[11px] cursor-pointer rounded-sm transition-all duration-200 hover:scale-125"
                               style={{
                                 backgroundColor: contribution.colorCode
                               }}
@@ -260,7 +260,7 @@ export const GithubHeatMap = () => {
                       ) : (
                         <div
                           key={`empty-${weekIndex}-${dayIndex}`}
-                          className="w-[11px] aspect-square rounded-sm bg-[#ebedf0]"
+                          className="aspect-square w-[11px] rounded-sm bg-[#ebedf0]"
                         />
                       )
                     })}
@@ -284,7 +284,7 @@ export const GithubHeatMap = () => {
                   key={color}
                   initial={{ opacity: 0.6 }}
                   whileHover={{ opacity: 1 }}
-                  className="w-3 h-3 rounded-sm"
+                  className="h-3 w-3 rounded-sm"
                   style={{ backgroundColor: color }}
                 />
               ))}

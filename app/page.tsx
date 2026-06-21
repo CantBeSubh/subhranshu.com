@@ -28,7 +28,7 @@ export default async function Home() {
           <Experience />
         </main>
       </TracingBeam>
-      <div className="flex items-center justify-center w-full">
+      <div className="flex w-full items-center justify-center">
         <Contact />
       </div>
     </>
