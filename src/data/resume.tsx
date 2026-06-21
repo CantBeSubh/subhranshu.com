@@ -13,15 +13,15 @@ import { Java } from "@/components/ui/svgs/java";
 import { Csharp } from "@/components/ui/svgs/csharp";
 
 export const DATA = {
-  name: "Dillion Verma",
-  initials: "DV",
-  url: "https://dillion.io",
-  location: "San Francisco, CA",
-  locationLink: "https://www.google.com/maps/place/sanfrancisco",
+  name: "Subhranshu Pati",
+  initials: "SP",
+  url: "https://subhranshu.com",
+  location: "Delhi, IN",
+  locationLink: "https://www.google.com/maps/place/delhi",
   description:
-    "Software Engineer turned Entrepreneur. I love building things and helping people. Very active on Twitter.",
+    "Generative AI Engineer. From idea to production, building software that scales with both users and ambition.",
   summary:
-    "At the end of 2022, I quit my job as a software engineer to go fulltime into building and scaling my own SaaS businesses. In the past, [I pursued a double degree in computer science and business](/#education), [interned at big tech companies in Silicon Valley](https://www.youtube.com/watch?v=d-LJ2e5qKdE), and [competed in over 21 hackathons for fun](/#hackathons). I also had the pleasure of being a part of the first ever in-person cohort of buildspace called [buildspace sf1](https://buildspace.so/sf1).",
+    "Currently building AI-powered compliance software at [Everstar](https://www.everstar.ai) while pursuing a Master's in Computer Science (AI) through [Georgia Tech's OMSCS program](https://omscs.gatech.edu). I enjoy solving hard technical problems across agents, retrieval systems, AI infrastructure, and large-scale knowledge systems.",
   avatarUrl: "/me.png",
   skills: [
     { name: "React", icon: ReactLight },
@@ -41,8 +41,8 @@ export const DATA = {
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
   ],
   contact: {
-    email: "hello@example.com",
-    tel: "+123456789",
+    email: "work.suhbranshu@gmail.com",
+    tel: "+919289059666",
     social: {
       GitHub: {
         name: "GitHub",
