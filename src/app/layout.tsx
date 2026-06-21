@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import Metrics from "@/components/metrics";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -71,6 +72,7 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
+        <Metrics />
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
