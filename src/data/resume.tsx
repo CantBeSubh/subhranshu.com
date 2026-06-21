@@ -114,7 +114,7 @@ export const DATA = {
       school: "Georgia Institute of Technology",
       href: "https://omscs.gatech.edu",
       degree: "Master's Degree of Computer Science (OMSCS)",
-      logoUrl: "/gt.png",
+      logoUrl: "/gtech.png",
       start: "2026",
       end: "2028",
     },
