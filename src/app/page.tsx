@@ -17,50 +17,72 @@ import HackathonsSection from "@/components/section/hackathons-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "lucide-react";
+import { getLikeCount, getVisitCount } from "@/actions/count";
+import {
+  HeroStatsProvider,
+  LikeBadge,
+  VisitLikeCounter,
+} from "@/components/hero-stats";
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default function Page() {
+export default async function Page() {
+  const [likeCount, visitCount] = await Promise.all([
+    getLikeCount(),
+    getVisitCount(),
+  ]);
+
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
-            <div className="gap-2 flex flex-col order-2 md:order-1">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-              />
-              <BlurFadeText
-                className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
+        <HeroStatsProvider
+          initialLikeCount={likeCount}
+          initialVisitCount={visitCount}
+        >
+          <div className="mx-auto w-full max-w-2xl space-y-8">
+            <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
+              <div className="gap-2 flex flex-col order-2 md:order-1">
+                <BlurFadeText
+                  delay={BLUR_FADE_DELAY}
+                  className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
+                  yOffset={8}
+                  text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                />
+                <BlurFadeText
+                  className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
+                  delay={BLUR_FADE_DELAY}
+                  text={DATA.description}
+                />
+                <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                  <VisitLikeCounter />
+                </BlurFade>
+              </div>
+              <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
+                <div className="relative">
+                  <Dialog>
+                    <DialogTrigger className="cursor-pointer transition-transform hover:scale-105">
+                      <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
+                        <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                        <AvatarFallback>{DATA.initials}</AvatarFallback>
+                      </Avatar>
+                    </DialogTrigger>
+                    <DialogContent className="aspect-square border-none bg-transparent p-0 shadow-none [&>button]:hidden">
+                      <DialogTitle className="sr-only">{DATA.name}</DialogTitle>
+                      <DialogClose asChild>
+                        <img
+                          src={DATA.avatarUrl}
+                          alt={DATA.name}
+                          className="size-full cursor-pointer rounded-2xl object-cover"
+                        />
+                      </DialogClose>
+                    </DialogContent>
+                  </Dialog>
+                  <LikeBadge />
+                </div>
+              </BlurFade>
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
-              <Dialog>
-                <DialogTrigger className="cursor-pointer transition-transform hover:scale-105">
-                  <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                    <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                    <AvatarFallback>{DATA.initials}</AvatarFallback>
-                  </Avatar>
-                </DialogTrigger>
-                <DialogContent className="aspect-square border-none bg-transparent p-0 shadow-none [&>button]:hidden">
-                  <DialogTitle className="sr-only">{DATA.name}</DialogTitle>
-                  <DialogClose asChild>
-                    <img
-                      src={DATA.avatarUrl}
-                      alt={DATA.name}
-                      className="size-full cursor-pointer rounded-2xl object-cover"
-                    />
-                  </DialogClose>
-                </DialogContent>
-              </Dialog>
-            </BlurFade>
           </div>
-        </div>
+        </HeroStatsProvider>
       </section>
       <section id="about">
         <div className="flex min-h-0 flex-col gap-y-4">
