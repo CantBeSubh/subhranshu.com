@@ -2,6 +2,13 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -33,10 +40,24 @@ export default function Page() {
               />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
-              <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
+              <Dialog>
+                <DialogTrigger className="cursor-pointer transition-transform hover:scale-105">
+                  <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
+                    <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                    <AvatarFallback>{DATA.initials}</AvatarFallback>
+                  </Avatar>
+                </DialogTrigger>
+                <DialogContent className="aspect-square border-none bg-transparent p-0 shadow-none [&>button]:hidden">
+                  <DialogTitle className="sr-only">{DATA.name}</DialogTitle>
+                  <DialogClose asChild>
+                    <img
+                      src={DATA.avatarUrl}
+                      alt={DATA.name}
+                      className="size-full cursor-pointer rounded-2xl object-cover"
+                    />
+                  </DialogClose>
+                </DialogContent>
+              </Dialog>
             </BlurFade>
           </div>
         </div>
