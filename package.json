@@ -7,14 +7,16 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@content-collections/mdx": "^0.2.2",
     "@next/third-parties": "^16.2.9",
+    "@prisma/client": "^6.0.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.17",
@@ -57,6 +59,7 @@
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.1",
     "postcss": "^8.5.6",
+    "prisma": "^6.0.0",
     "typescript": "^5.9.3",
     "zod": "^4.3.5"
   }
