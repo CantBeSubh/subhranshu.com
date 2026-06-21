@@ -3,11 +3,29 @@
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { sendEmail } from "@/actions/send-email";
+import { useSendEmailMutation } from "@/hooks/use-send-email";
 import SubmitBtn from "./contact-submit-button";
 import { toast } from "sonner";
+import type { FormEvent } from "react";
 
 export default function ContactSection() {
+  const mutation = useSendEmailMutation();
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    mutation.mutate(formData, {
+      onSuccess: (result) => {
+        if (result.error) {
+          toast.error(result.error);
+          return;
+        }
+        toast.success("Email sent successfully!");
+      },
+    });
+  };
+
   return (
     <div className="border rounded-xl p-10 relative">
       <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-4 py-1 left-1/2 -translate-x-1/2">
@@ -30,16 +48,7 @@ export default function ContactSection() {
         </h2>
         <form
           className="mt-4 flex w-full max-w-md flex-col gap-3"
-          action={async (formData: FormData) => {
-            const { error } = await sendEmail(formData);
-
-            if (error) {
-              toast.error(error);
-              return;
-            }
-
-            toast.success("Email sent successfully!");
-          }}
+          onSubmit={handleSubmit}
         >
           <Input
             name="senderEmail"
@@ -55,7 +64,7 @@ export default function ContactSection() {
             placeholder="Your message"
             className="min-h-32"
           />
-          <SubmitBtn />
+          <SubmitBtn isPending={mutation.isPending} />
         </form>
       </div>
     </div>

@@ -1,20 +1,13 @@
 "use client";
 
 import { Loader2Icon, SendIcon } from "lucide-react";
-import { useFormStatus } from "react-dom";
 
 import { Button } from "@/components/ui/button";
 
-export default function SubmitBtn() {
-  const { pending } = useFormStatus();
-
+export default function SubmitBtn({ isPending }: { isPending: boolean }) {
   return (
-    <Button
-      type="submit"
-      disabled={pending}
-      className="h-11 w-32 rounded-full"
-    >
-      {pending ? (
+    <Button type="submit" disabled={isPending} className="h-11 w-32 rounded-full">
+      {isPending ? (
         <Loader2Icon className="size-4 animate-spin" />
       ) : (
         <>
