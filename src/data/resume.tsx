@@ -48,37 +48,37 @@ export const DATA = {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://dub.sh/dillion-github",
+        url: "https://dub.subhranshu.com/subh-github",
         icon: Icons.github,
         navbar: true,
       },
 
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://dub.sh/dillion-linkedin",
+        url: "https://dub.subhranshu.com/subh-linkedin",
         icon: Icons.linkedin,
 
         navbar: true,
       },
       X: {
         name: "X",
-        url: "https://dub.sh/dillion-twitter",
+        url: "https://dub.subhranshu.com/subh-x",
         icon: Icons.x,
 
-        navbar: true,
+        navbar: false,
       },
       Youtube: {
         name: "Youtube",
-        url: "https://dub.sh/dillion-youtube",
+        url: "https://dub.subhranshu.com/subh-youtube",
         icon: Icons.youtube,
         navbar: true,
       },
       email: {
         name: "Send Email",
-        url: "#",
+        url: "mailto:work.suhbranshu@gmail.com",
         icon: Icons.email,
 
-        navbar: false,
+        navbar: true,
       },
     },
   },
