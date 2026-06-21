@@ -210,5 +210,5 @@ export const DATA = {
       image: "/getgud.png",
     },
   ],
-  hackathons: [],
+  hackathons: [] as any[],
 } as const;
