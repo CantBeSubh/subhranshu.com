@@ -75,7 +75,7 @@ export default function Intro({
             }}
           >
             <Image
-              src="/me_clean.png"
+              src="/me.png"
               alt="Subhranshu portrait"
               width="400"
               height="400"
@@ -164,7 +164,7 @@ export default function Intro({
         <span className="bg-yellow-200 font-extrabold italic dark:bg-yellow-600/50">
           {Number(
             (new Date().getTime() - new Date(2024, 4, 1).getTime()) /
-              (1000 * 60 * 60 * 24 * 365)
+            (1000 * 60 * 60 * 24 * 365)
           ).toFixed(1)}{" "}
           years
         </span>{" "}
