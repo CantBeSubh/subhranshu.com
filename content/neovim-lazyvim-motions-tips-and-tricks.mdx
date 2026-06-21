@@ -1,0 +1,226 @@
+---
+title: "Neovim + LazyVim: Motions, Tips, and Tricks from Beginner to Advanced"
+publishedAt: "2026-06-21"
+updatedAt: "2026-06-21"
+author: "Subhranshu Pati"
+summary: "A practical reference for Vim motions and LazyVim-specific keymaps, organized from first-day basics to power-user workflows."
+image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=192&fit=crop"
+---
+
+# Neovim + LazyVim: Motions, Tips, and Tricks from Beginner to Advanced
+
+Vim's editing model rewards a small, compounding investment: every motion you internalize makes every future edit faster. [LazyVim](https://www.lazyvim.org/) layers a sane, batteries-included config on top of Neovim — file pickers, LSP, git, diagnostics — without taking away any of the underlying Vim muscle memory.
+
+This is a reference you can work through in order, or jump into wherever you currently are.
+
+## Beginner: the modal mindset
+
+Vim has modes. You spend most of your time in two of them:
+
+- **Normal mode** — for moving and editing (the default; `<Esc>` always gets you back here).
+- **Insert mode** — for typing text (`i`, `a`, `o`, etc. get you in).
+
+### Core movement
+
+| Keys | Action |
+| --- | --- |
+| `h` `j` `k` `l` | left / down / up / right |
+| `w` / `b` | jump to next / previous word start |
+| `e` | jump to end of word |
+| `0` / `^` | start of line / first non-blank character |
+| `$` | end of line |
+| `gg` / `G` | first line / last line of file |
+| `{n}G` or `:{n}` | jump to line `n` |
+| `f{char}` / `F{char}` | jump forward/backward to next occurrence of `char` on the line |
+| `t{char}` / `T{char}` | jump up to (just before) `char` |
+| `;` / `,` | repeat the last `f`/`t`/`F`/`T`, forward / reversed |
+
+A habit that pays off immediately: **prefix any motion with a count.** `5j` moves down 5 lines, `3w` jumps 3 words forward, `2dd` deletes 2 lines. You rarely need to mash a key — tell Vim how many times to do it.
+
+### Basic editing
+
+| Keys | Action |
+| --- | --- |
+| `i` / `a` | insert before / after cursor |
+| `I` / `A` | insert at start / end of line |
+| `o` / `O` | open new line below / above |
+| `x` | delete character under cursor |
+| `dd` / `yy` | delete / yank (copy) current line |
+| `p` / `P` | paste after / before cursor |
+| `u` / `<C-r>` | undo / redo |
+| `.` | repeat the last change — this one is huge, see below |
+
+### The repeat-dot habit
+
+`.` repeats whatever the last change was — a single character edit, an entire `dd`, a `ciw`, all of it. Make one deliberate edit, then move to the next spot and hit `.` instead of repeating the full keystroke sequence. This single habit eliminates a large fraction of manual repetition.
+
+## Intermediate: operators, text objects, and registers
+
+### Operators + motions = edits
+
+Vim's real power comes from composing an **operator** with a **motion** or **text object**:
+
+| Operator | Meaning |
+| --- | --- |
+| `d` | delete |
+| `c` | change (delete + enter insert mode) |
+| `y` | yank |
+| `>` / `<` | indent / unindent |
+| `gu` / `gU` | lowercase / uppercase |
+
+So `d` + `w` = `dw` (delete to next word), `c` + `$` = `c$` (change to end of line), `y` + `gg` = `ygg` (yank to top of file).
+
+### Text objects: edit by structure, not by counting characters
+
+This is the biggest beginner→intermediate jump. Instead of counting characters or words, target a structural unit:
+
+| Text object | Targets |
+| --- | --- |
+| `iw` / `aw` | inner word / a word (with surrounding space) |
+| `i"` / `a"` | inside quotes / including quotes |
+| `i(` `ib` | inside parentheses |
+| `i{` `iB` | inside braces |
+| `i[` | inside brackets |
+| `it` / `at` | inside / around an HTML/JSX tag |
+| `ip` / `ap` | inside / around a paragraph |
+
+Examples: `ci"` rewrites a quoted string, `da(` deletes a parenthesized argument including the parens, `dit` clears the contents of a tag, `yap` yanks a whole paragraph. These compose with **any** operator, so once you know the text objects you get dozens of edits for free.
+
+### Visual mode
+
+| Keys | Action |
+| --- | --- |
+| `v` | character-wise visual |
+| `V` | line-wise visual |
+| `<C-v>` | block (column) visual |
+| `gv` | reselect the last visual selection |
+| `o` | swap which end of the selection is active |
+
+In visual mode, operators apply to the selection: select with `v`/`V`, then `d`, `c`, `y`, `>`, `gu`, etc.
+
+### Registers
+
+Every yank/delete goes into a register. `"ayy` yanks a line into register `a`; `"ap` pastes from it. Useful ones:
+
+- `"_` — the **black hole register**: `"_dd` deletes a line without clobbering your last yank.
+- `"0` — always holds the most recent **yank** (not delete), handy after a `dd` you didn't mean to paste over.
+- `:reg` — see what's in every register right now.
+
+### Marks
+
+`ma` sets mark `a` at the cursor. `` `a `` jumps back to that exact position; `'a` jumps to the start of that line. `` `` ` `` `` (backtick-backtick) jumps to your position before the last jump — great for "go look at something else, then come straight back."
+
+### Search and substitute
+
+- `*` / `#` — search forward/backward for the word under the cursor.
+- `:%s/foo/bar/g` — replace every `foo` with `bar` in the file; add `c` to confirm each one.
+- `:%s/\<foo\>/bar/g` — same, but only whole-word matches.
+- `gn` after a search — operate on the next search match as a text object, e.g. `cgn` to change it and `.` to repeat onto the next match.
+
+## Advanced: macros, jumps, and bulk edits
+
+### Macros
+
+1. `qa` — start recording into register `a`.
+2. Perform the edit once.
+3. `q` — stop recording.
+4. `@a` — replay it. `@@` replays whatever macro you last ran.
+5. `10@a` — replay it 10 times, or `:%normal @a` to apply it to every line in the file (skips lines where it errors, instead of stopping).
+
+Macros turn "I need to do this exact edit on 40 lines" into a 10-second job.
+
+### Jumplist and changelist
+
+- `<C-o>` / `<C-i>` — back / forward through your **jump** history (across files too).
+- `g;` / `g,` — back / forward through your **change** history.
+
+### Folds
+
+`za` toggles a fold under the cursor, `zR` opens all folds, `zM` closes all folds — useful for collapsing a function or class to see the shape of a file.
+
+### Increment/decrement and block editing
+
+- `<C-a>` / `<C-x>` — increment / decrement the number under the cursor. With visual block selection over a column of numbers, `g<C-a>` increments them **sequentially** (1, 2, 3, …) instead of by the same amount — great for generating numbered lists.
+- `<C-v>` to select a block, then `I` to insert or `A` to append on every selected line at once (press `<Esc>` to apply to all lines).
+
+### Ex command ranges
+
+Most people only ever type `:%s`. The range syntax is more general than that:
+
+- `:'<,'>` — operates on the last visual selection.
+- `:g/pattern/d` — delete every line matching `pattern`.
+- `:g/pattern/normal @a` — run macro `a` on every matching line.
+
+## LazyVim-specific keymaps
+
+LazyVim's leader key is `<Space>`. Hit it and pause — `which-key` pops up a menu of everything available, grouped by prefix, so you genuinely don't need to memorize this list before you can use it.
+
+### Finding things
+
+| Keys | Action |
+| --- | --- |
+| `<leader><space>` | find files in project root |
+| `<leader>ff` | find files (root dir) |
+| `<leader>fr` | recent files |
+| `<leader>fb` | switch buffer |
+| `<leader>/` or `<leader>sg` | live grep across the project |
+| `<leader>sw` | grep the word under the cursor |
+| `<leader>sk` | search keymaps (when you forget one of these) |
+
+(LazyVim ships with `snacks.nvim` as the picker by default; if you've enabled the Telescope or fzf-lua extras instead, the same `<leader>f*`/`<leader>s*` keys are remapped to those pickers.)
+
+### LSP
+
+| Keys | Action |
+| --- | --- |
+| `gd` | go to definition |
+| `gD` | go to declaration |
+| `gr` | list references |
+| `gI` | go to implementation |
+| `gy` | go to type definition |
+| `K` | hover documentation |
+| `gK` | signature help |
+| `<leader>ca` | code action |
+| `<leader>cr` | rename symbol |
+| `<leader>co` | organize imports |
+| `]d` / `[d` | next / previous diagnostic |
+| `]e` / `[e` | next / previous error specifically |
+| `<leader>cd` | show diagnostics for the current line |
+
+### Comments, lines, and indenting
+
+| Keys | Action |
+| --- | --- |
+| `gcc` | toggle comment on the current line |
+| `gc` (visual mode) | toggle comment on the selection |
+| `gco` / `gcO` | add a comment below / above and enter insert mode |
+| `<A-j>` / `<A-k>` | move the current line (or visual selection) down / up |
+
+### Buffers and windows
+
+| Keys | Action |
+| --- | --- |
+| `<S-h>` / `<S-l>` | previous / next buffer |
+| `<leader>bb` | switch to the other (last) buffer |
+| `<leader>bd` | delete current buffer |
+| `<C-h/j/k/l>` | move focus between windows |
+| `<leader>-` / `<leader>\|` | split window below / right |
+| `<leader>wd` | close window |
+| `<leader>wm` | zoom the current window |
+
+### Diagnostics, git, and terminal
+
+| Keys | Action |
+| --- | --- |
+| `<leader>xx` | open Trouble (project diagnostics list) |
+| `<leader>gg` | open lazygit |
+| `<leader>gs` | git status (picker) |
+| `<C-/>` | toggle a terminal |
+
+### Everything else
+
+`<leader>u*` is the UI toggles group (line numbers, wrap, spellcheck, inlay hints, …) and `<leader>x*` is diagnostics/quickfix/loclist. If you forget a mapping, `<leader>sk` opens a searchable list of every active keymap — which doubles as the best way to explore what your specific LazyVim setup has enabled, since extras can add or override any of the above.
+
+## Wrap-up
+
+You don't need all of this on day one. Start with movement plus `d`/`c`/`y` and `.`, add text objects once those feel automatic, then layer in macros and the LazyVim leader-key groups as you hit friction in real editing. The `<leader>` + `which-key` popup is there specifically so you can discover the rest as you go instead of front-loading memorization.
