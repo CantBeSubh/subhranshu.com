@@ -1,14 +1,11 @@
 "use client";
 
-import { incrementLikeCount, incrementVisitCount } from "@/actions/count";
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useOptimistic,
-  useTransition,
-  type ReactNode,
-} from "react";
+  useCounterQuery,
+  useLikeMutation,
+  useVisitMutation,
+} from "@/hooks/use-counter";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
 import { toast } from "sonner";
 
 type HeroStatsContextValue = {
@@ -37,36 +34,34 @@ export function HeroStatsProvider({
   initialVisitCount: number;
   children: ReactNode;
 }) {
-  const [likeCount, setOptimisticLikeCount] = useOptimistic(
-    initialLikeCount,
-    (_current: number, optimisticValue: number) => optimisticValue
-  );
-  const [isPending, startTransition] = useTransition();
+  const { data } = useCounterQuery({
+    likeCount: initialLikeCount,
+    visitCount: initialVisitCount,
+  });
+  const likeMutation = useLikeMutation();
+  const visitMutation = useVisitMutation();
 
   useEffect(() => {
-    incrementVisitCount();
+    visitMutation.mutate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const like = () => {
-    startTransition(async () => {
-      setOptimisticLikeCount(likeCount + 1);
-      try {
-        await toast
-          .promise(incrementLikeCount(), {
-            loading: "Incrementing...",
-            success: "Thanks for the wave!",
-            error: "Rate limit exceeded. Retry again soon.",
-          })
-          .unwrap();
-      } catch {
-        // toast already surfaced the error
-      }
+    toast.promise(likeMutation.mutateAsync(), {
+      loading: "Incrementing...",
+      success: "Thanks for the wave!",
+      error: "Rate limit exceeded. Retry again soon.",
     });
   };
 
   return (
     <HeroStatsContext.Provider
-      value={{ likeCount, visitCount: initialVisitCount, isPending, like }}
+      value={{
+        likeCount: data.likeCount,
+        visitCount: data.visitCount,
+        isPending: likeMutation.isPending,
+        like,
+      }}
     >
       {children}
     </HeroStatsContext.Provider>

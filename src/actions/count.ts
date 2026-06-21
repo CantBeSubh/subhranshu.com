@@ -26,33 +26,26 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(5, "5 s"),
 });
 
-export const getLikeCount = async () => {
-  try {
-    const count = await db.counter.findFirst({
-      where: {
-        id: 1,
-      },
-    });
-
-    return count?.likeCount ?? 96;
-  } catch (error) {
-    console.error("Error getting like count:", error);
-    return 96;
-  }
+export type Counter = {
+  likeCount: number;
+  visitCount: number;
 };
 
-export const getVisitCount = async () => {
+export const getCounter = async (): Promise<Counter> => {
   try {
-    const count = await db.counter.findFirst({
+    const counter = await db.counter.findFirst({
       where: {
         id: 1,
       },
     });
 
-    return count?.visitCount ?? 96;
+    return {
+      likeCount: counter?.likeCount ?? 96,
+      visitCount: counter?.visitCount ?? 96,
+    };
   } catch (error) {
-    console.error("Error getting visit count:", error);
-    return 96;
+    console.error("Error getting counter:", error);
+    return { likeCount: 96, visitCount: 96 };
   }
 };
 

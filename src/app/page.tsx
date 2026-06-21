@@ -17,7 +17,7 @@ import HackathonsSection from "@/components/section/hackathons-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "lucide-react";
-import { getLikeCount, getVisitCount } from "@/actions/count";
+import { getCounter } from "@/actions/count";
 import {
   HeroStatsProvider,
   LikeBadge,
@@ -27,10 +27,7 @@ import {
 const BLUR_FADE_DELAY = 0.04;
 
 export default async function Page() {
-  const [likeCount, visitCount] = await Promise.all([
-    getLikeCount(),
-    getVisitCount(),
-  ]);
+  const { likeCount, visitCount } = await getCounter();
 
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
