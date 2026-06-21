@@ -1,6 +1,11 @@
-import Link from "next/link";
+"use client";
+
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
-import { DATA } from "@/data/resume";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { sendEmail } from "@/actions/send-email";
+import SubmitBtn from "./contact-submit-button";
+import { toast } from "sonner";
 
 export default function ContactSection() {
   return (
@@ -23,21 +28,36 @@ export default function ContactSection() {
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
           Get in Touch
         </h2>
-        <p className="mx-auto max-w-lg text-muted-foreground text-balance">
-          Want to chat? Just shoot me a dm{" "}
-          <Link
-            href={DATA.contact.social.X.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-          >
-            with a direct question on twitter
-          </Link>{" "}
-          and I&apos;ll respond whenever I can. I will ignore all
-          soliciting.
-        </p>
+        <form
+          className="mt-4 flex w-full max-w-md flex-col gap-3"
+          action={async (formData: FormData) => {
+            const { error } = await sendEmail(formData);
+
+            if (error) {
+              toast.error(error);
+              return;
+            }
+
+            toast.success("Email sent successfully!");
+          }}
+        >
+          <Input
+            name="senderEmail"
+            type="email"
+            required
+            maxLength={500}
+            placeholder="Your email"
+          />
+          <Textarea
+            name="message"
+            required
+            maxLength={5000}
+            placeholder="Your message"
+            className="min-h-32"
+          />
+          <SubmitBtn />
+        </form>
       </div>
     </div>
   );
 }
-
