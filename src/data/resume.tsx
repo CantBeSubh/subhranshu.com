@@ -9,8 +9,6 @@ import { Golang } from "@/components/ui/svgs/golang";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
 import { Docker } from "@/components/ui/svgs/docker";
 import { Kubernetes } from "@/components/ui/svgs/kubernetes";
-import { Java } from "@/components/ui/svgs/java";
-import { Csharp } from "@/components/ui/svgs/csharp";
 
 export const DATA = {
   name: "Subhranshu Pati",
@@ -33,8 +31,6 @@ export const DATA = {
     { name: "Postgres", icon: Postgresql },
     { name: "Docker", icon: Docker },
     { name: "Kubernetes", icon: Kubernetes },
-    { name: "Java", icon: Java },
-    { name: "C++", icon: Csharp },
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -83,16 +79,16 @@ export const DATA = {
 
   work: [
     {
-      company: "Atomic Finance",
-      href: "https://atomic.finance",
+      company: "Everstar",
+      href: "https://everstar.ai",
       badges: [],
       location: "Remote",
-      title: "Bitcoin Protocol Engineer",
-      logoUrl: "/atomic.png",
-      start: "May 2021",
-      end: "Oct 2022",
+      title: "Founding Software Engineer",
+      logoUrl: "/everstar.svg",
+      start: "May 2024",
+      end: "June, 2026",
       description:
-        "Implemented the Bitcoin discreet log contract (DLC) protocol specifications as an open source Typescript SDK. Dockerized all microservices and setup production kubernetes cluster. Architected a data lake using AWS S3 and Athena for historical backtesting of bitcoin trading strategies. Built a mobile app using react native and typescript.",
+        "Designed and deployed AI infrastructure on GCP using Kubernetes, Airflow, FastAPI, MongoDB, and OpenSearch. Built large-scale retrieval systems over 3M+ regulatory documents powering semantic search, citations, and knowledge discovery. Developed agentic AI workflows, document ingestion pipelines, and automated document generation systems capable of producing and revising thousand-page regulatory submissions. Shipped production-grade AI experiences including streaming chat, search, and compliance-focused drafting tools.",
     },
     {
       company: "Shopify",
