@@ -37,6 +37,7 @@
     "remark-gfm": "^4.0.1",
     "resend": "^6.14.0",
     "shiki": "^3.20.0",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
     "tailwindcss-animate": "^1.0.7",
