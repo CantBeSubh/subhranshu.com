@@ -50,11 +50,17 @@ export function HeroStatsProvider({
   const like = () => {
     startTransition(async () => {
       setOptimisticLikeCount(likeCount + 1);
-      toast.promise(incrementLikeCount(), {
-        loading: "Incrementing...",
-        success: "Thanks for the wave!",
-        error: "Rate limit exceeded. Retry again soon.",
-      });
+      try {
+        await toast
+          .promise(incrementLikeCount(), {
+            loading: "Incrementing...",
+            success: "Thanks for the wave!",
+            error: "Rate limit exceeded. Retry again soon.",
+          })
+          .unwrap();
+      } catch {
+        // toast already surfaced the error
+      }
     });
   };
 
@@ -75,7 +81,8 @@ export function LikeBadge() {
       type="button"
       aria-label="Send a wave"
       onClick={like}
-      className="absolute bottom-0 right-0 flex size-9 items-center justify-center rounded-full border bg-background text-lg shadow-md ring-2 ring-background transition-transform hover:scale-110 active:scale-90"
+      disabled={isPending}
+      className="absolute bottom-0 right-0 flex size-9 items-center justify-center rounded-full border bg-background text-lg shadow-md ring-2 ring-background transition-transform hover:scale-110 active:scale-90 disabled:cursor-not-allowed disabled:opacity-70"
     >
       {isPending ? "🙌" : "👋"}
     </button>
