@@ -101,7 +101,7 @@ export const DATA = {
       badges: [],
       href: "https://www.heyethica.com",
       location: "Remote",
-      title: "Software Engineer",
+      title: "Product Engineer",
       logoUrl: "/ethica.png",
       start: "September, 2023",
       end: "April 2024",
@@ -116,7 +116,7 @@ export const DATA = {
       degree: "Master's Degree of Computer Science (OMSCS)",
       logoUrl: "/gtech.png",
       start: "2026",
-      end: "2028",
+      end: "Expected 2028",
     },
     {
       school: "Vellore Institute of Technology",
