@@ -177,7 +177,7 @@ export const DATA = {
     },
     {
       title: "Sentiment Analyzer",
-      href: "https://sentiment-analyzer.subhranshu.com/",
+      href: "https://sentiment.subhranshu.com/",
       dates: "2024",
       active: true,
       description:
