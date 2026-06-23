@@ -129,6 +129,28 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "Smart Home MCP Server",
+      href: "https://github.com/CantBeSubh/homelab/tree/main/homelab_mcp",
+      dates: "2025",
+      active: true,
+      description:
+        "An MCP server that connects Claude to my homelab, letting it control smart home devices through Home Assistant  built with FastMCP and deployed remotely behind an NGINX proxy.",
+      technologies: ["FastMCP", "MCP", "Python", "GenAI"],
+      links: [
+        {
+          type: "GitHub",
+          href: "https://github.com/CantBeSubh/homelab/tree/main/homelab_mcp",
+          icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: "Demo",
+          href: "https://youtu.be/q76U42HhziY?si=gfeHgNsyLeRah9jA",
+          icon: <Icons.youtube className="size-3" />,
+        },
+      ],
+      image: "/homelab_mcp.png",
+    },
+    {
       title: "RAG Ollama",
       href: "https://youtu.be/_lw3qa5kXpY",
       dates: "2023",
@@ -192,23 +214,7 @@ export const DATA = {
       ],
       image: "/analyzer.png",
     },
-    {
-      title: "GetGud",
-      href: "https://getgud.subhranshu.com/",
-      dates: "2024",
-      active: true,
-      description:
-        "A todos and habits tracker with sleek and elegant UI and UX, built with custom styling and animations.",
-      technologies: ["Next.js", "Firebase", "SCSS"],
-      links: [
-        {
-          type: "Website",
-          href: "https://getgud.subhranshu.com/",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "/getgud.png",
-    },
+
   ],
   hackathons: [] as any[],
 } as const;
