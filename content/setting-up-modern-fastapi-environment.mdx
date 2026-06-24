@@ -1,0 +1,140 @@
+---
+title: "Setting Up a Modern Python + FastAPI Environment with uv, Ruff, and Husky"
+publishedAt: "2026-06-24"
+updatedAt: "2026-06-24"
+author: "John Doe"
+summary: "A practical walkthrough of bootstrapping a FastAPI backend with uv, locking down Ruff rules that actually fit FastAPI's style, and enforcing it all with a pre-commit hook."
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=192&fit=crop"
+published: false
+---
+
+# Setting Up a Modern Python + FastAPI Environment with uv, Ruff, and Husky
+
+The Python tooling landscape finally feels settled: [uv](https://docs.astral.sh/uv/) for environments and dependencies, [Ruff](https://docs.astral.sh/ruff/) for linting and formatting, and a pre-commit hook so the rules actually get enforced instead of living in a README nobody reads.
+
+Here's the setup, end to end.
+
+## Bootstrap with uv
+
+`uv` replaces `pip` + `venv` + `pip-tools` with one fast, Rust-based tool. Starting from an existing project:
+
+```bash
+git clone <repo> backend
+cd backend
+uv python pin 3.11   # downloads 3.11 if needed, writes .python-version
+uv lock               # resolve dependencies against the pinned version
+uv sync               # create .venv and install everything
+```
+
+`uv sync` creates `.venv` and installs every dependency from `uv.lock` in milliseconds. No more "works on my machine" because someone's global Python drifted.
+
+## Pin the Python version everywhere - not just once
+
+It's easy to pin a version in one place and forget the other two. There are three spots that all need to agree:
+
+```toml
+# pyproject.toml
+[project]
+requires-python = ">=3.11"
+```
+
+```text
+# .python-version
+3.11
+```
+
+```dockerfile
+# Dockerfile
+FROM python:3.11-slim-bullseye
+```
+
+If the Dockerfile still says `3.12` while `pyproject.toml` says `3.11`, your container build and your local `uv sync` are silently running different interpreters.
+
+## Configure Ruff for how FastAPI actually looks
+
+Ruff's docs are explicit: don't start with `select = ["ALL"]`. It's noisy and churns with every release. Start with a curated set instead:
+
+```toml
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle
+    "F",        # Pyflakes
+    "I",        # isort
+    "B",        # flake8-bugbear
+    "C4",       # comprehensions
+    "UP",       # pyupgrade
+    "ARG",      # unused arguments
+    "SIM",      # simplify
+    "RUF",      # Ruff-specific
+]
+```
+
+FastAPI's dependency-injection style leans on function calls as default argument values - `q: str = Query(None)`, `dependencies=[Depends(get_token)]`. That's exactly the pattern `flake8-bugbear`'s `B008` rule exists to catch ("don't call functions in default args, they only evaluate once"). Disabling B008 entirely throws out a useful check. Ruff has a sharper tool for this:
+
+```toml
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Header",
+    "fastapi.Cookie",
+    "fastapi.Form",
+    "fastapi.File",
+    "fastapi.Security",
+]
+```
+
+This allowlists FastAPI's own helpers as "known immutable," so B008 still fires on everything else.
+
+## Wire up a Makefile
+
+Small, but it means nobody has to remember the exact `uv run` invocation:
+
+```makefile
+.PHONY: dev lint format format-check fix
+
+dev:
+	uv run fastapi dev
+
+lint:
+	uv run ruff check .
+
+format-check:
+	uv run ruff format --check .
+
+fix:
+	uv run ruff check --fix .
+
+format:
+	uv run ruff format .
+```
+
+`make dev`, `make lint`, `make fix` - done.
+
+## Enforce it with a pre-commit hook (via Husky)
+
+Linting that only runs in CI catches problems an hour too late. A `pre-commit` git hook catches them before the commit even exists. [Husky](https://typicode.github.io/husky/) is normally a JS tool, but it's a perfectly good place to manage hooks for a *whole* repo, even a Python backend living in a subdirectory - especially once a frontend shows up alongside it.
+
+```bash
+bun add --dev husky
+bunx husky init
+```
+
+That sets `core.hooksPath` to `.husky/_` and scaffolds `.husky/pre-commit`. Point it at the backend:
+
+```bash
+# .husky/pre-commit
+cd backend && make lint && make format-check
+```
+
+Now a non-zero exit from either command blocks the commit - no bad formatting or lint errors sneak into history. The one catch: hooks live outside git history, so every clone needs one `bun install` (it runs the `prepare` script that wires the hook up) before the hook is active locally.
+
+## Wrap-up
+
+None of these pieces are exotic on their own, but together they remove an entire category of "wait, why is the linter different on CI" conversations: one interpreter version pinned three places, one curated Ruff config that understands FastAPI's idioms instead of fighting them, and one hook that enforces both before a bad commit ever lands.
