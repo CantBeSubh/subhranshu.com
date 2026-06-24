@@ -1,0 +1,142 @@
+---
+title: "A Field Guide to ECMAScript Versions: ES6 Through ES2025"
+publishedAt: "2026-06-24"
+updatedAt: "2026-06-24"
+author: "Subhranshu Pati"
+summary: "What each yearly ECMAScript release actually added, why ES6 and ES2015 are the same thing, and how to think about target versions in 2026."
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=192&fit=crop"
+published: true
+---
+
+# A Field Guide to ECMAScript Versions: ES6 Through ES2025
+
+JavaScript is the language; ECMAScript (ES) is the spec it implements. Every time someone says "this needs ES2020" or "is optional chaining ES9 or ES11?", they're really asking which yearly TC39 release introduced a feature. Here's the full timeline, what's actually in each version, and how much of this you need to remember day to day (not much).
+
+## Why the naming is confusing
+
+Before 2015, ES versions shipped irregularly and were just numbered (ES5 in 2009, ES3 a decade earlier). Starting with ES6, TC39 moved to a **yearly release train** and renamed versions after their ship year - so ES6 and ES2015 are the exact same spec. The old numeric names stuck around informally (ES7, ES8...) even after the official name became year-based, which is why you'll see both used interchangeably for anything after ES6.
+
+## The cheat sheet
+
+| Name   | Also called | Year | What it added (relevant highlights)                                                                                                                           |
+| ------ | ----------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ES6    | ES2015      | 2015 | `let`/`const`, arrow functions, classes, template literals, destructuring, Promises, `import`/`export`, `Map`/`Set`                                           |
+| ES7    | ES2016      | 2016 | `Array.includes()`, `**` exponent operator                                                                                                                    |
+| ES2017 | ES8         | 2017 | `async`/`await`, `Object.values()`/`Object.entries()`, `String.padStart()`                                                                                    |
+| ES2018 | ES9         | 2018 | Object spread `{...obj}`, `for await...of`, `Promise.finally()`                                                                                               |
+| ES2019 | ES10        | 2019 | `Array.flat()`/`flatMap()`, `Object.fromEntries()`                                                                                                            |
+| ES2020 | ES11        | 2020 | Optional chaining `?.`, nullish coalescing `??`, `Promise.allSettled()`, `BigInt`                                                                             |
+| ES2021 | ES12        | 2021 | `String.replaceAll()`, `Promise.any()`, logical assignment (`\|\|=`, `&&=`, `??=`), `WeakRef`                                                                 |
+| ES2022 | ES13        | 2022 | Top-level `await`, private fields `#field`, `Array.at()`, `Object.hasOwn()`, static class blocks                                                              |
+| ES2023 | ES14        | 2023 | Non-mutating array methods: `toSorted()`, `toReversed()`, `toSpliced()`, `with()`, `findLast()`/`findLastIndex()`                                             |
+| ES2024 | ES15        | 2024 | `Object.groupBy()`/`Map.groupBy()`, `Promise.withResolvers()`, resizable `ArrayBuffer`, regex `v` flag                                                        |
+| ES2025 | ES16        | 2025 | Iterator helpers (`.map()`, `.filter()`, `.take()` on iterators), `Set` methods (`union`, `intersection`, `difference`), `Promise.try()`, JSON module imports |
+
+## ES6 / ES2015: the one that actually changed how we write JS
+
+Every other release on this list is incremental. ES6 was a rewrite of JavaScript's vocabulary:
+
+```js
+// before ES6
+var users = data.filter(function (u) {
+  return u.active;
+});
+
+// ES6
+const users = data.filter((u) => u.active);
+
+const { name, email } = user;
+const greeting = `Hello, ${name}`;
+
+class User {
+  #role; // not ES6 itself, but the class syntax is
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+new Promise((resolve) => resolve(42)).then((v) => console.log(v));
+```
+
+Everything from arrow functions to `Promise` to `class` to native modules came from this single release. If your mental model of "modern JS" predates `async`/`await`, it's ES6 you're picturing.
+
+## ES2017: async/await built on ES6's Promises
+
+`Promise` shipped in ES6, but writing chains of `.then()` never felt great. ES2017 added syntax that makes promise-based code read like synchronous code:
+
+```js
+async function getUser(id) {
+  const res = await fetch(`/api/users/${id}`);
+  return res.json();
+}
+```
+
+## ES2020: the two operators everyone reaches for now
+
+```js
+const city = user?.address?.city; // optional chaining
+const name = user.name ?? "Anonymous"; // nullish coalescing
+```
+
+`?.` short-circuits to `undefined` instead of throwing on a missing intermediate property. `??` only falls back when the left side is `null`/`undefined` - unlike `||`, it won't override `0` or `""`.
+
+## ES2022: private fields finally mean private
+
+```js
+class Counter {
+  #count = 0;
+  increment() {
+    this.#count += 1;
+    return this.#count;
+  }
+}
+
+const c = new Counter();
+c.increment();
+c.#count; // SyntaxError outside the class - this is real privacy, not a `_` convention
+```
+
+Top-level `await` shipped the same year, which is what lets a module do `const data = await fetch(...)` at the top of a file without wrapping it in an async IIFE.
+
+## ES2023: array methods that don't mutate
+
+```js
+const sorted = scores.toSorted(); // scores itself is untouched
+const reversed = scores.toReversed();
+```
+
+These exist specifically so you stop reaching for `[...scores].sort()` just to avoid mutating the original array.
+
+## ES2025: working with iterators and sets like collections
+
+```js
+function* take(n, iter) {
+  let i = 0;
+  for (const v of iter) {
+    if (i++ >= n) return;
+    yield v;
+  }
+}
+
+// ES2025: the same thing, built in
+naturals()
+  .take(5)
+  .map((n) => n * 2)
+  .toArray();
+
+const allowed = new Set(["read", "write"]);
+const requested = new Set(["read", "delete"]);
+requested.intersection(allowed); // Set(1) {"read"}
+```
+
+## How much of this should change what you write today
+
+Practically none of this requires manual tracking:
+
+- **Browsers and Node.js auto-update** to support new syntax within a release or two - check [caniuse.com](https://caniuse.com) or [node.green](https://node.green) if you need a specific feature on a specific runtime.
+- **Bundlers and `tsconfig.json`/Babel targets** handle the gap - set `"target": "ES2020"` (or whatever your support matrix requires) and let the compiler downlevel anything newer.
+- **TC39's process is the real source of truth**: proposals move through stages 0-4, and only Stage 4 proposals ship in a given year's release. Decorators and the pipe operator (`|>`) are examples still working through this pipeline as of ES2025.
+
+## Wrap-up
+
+ES6/ES2015 is the version that matters most to understand deeply - it's the foundation everything since has built on top of. Everything after it is TC39 shipping a handful of well-scoped, Stage-4-proven features every June. You don't need to memorize which year added `Object.hasOwn()`; you need to know the table exists so you can look it up the one time a linter or a colleague mentions a feature you haven't seen yet.
