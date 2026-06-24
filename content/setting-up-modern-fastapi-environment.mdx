@@ -5,7 +5,7 @@ updatedAt: "2026-06-24"
 author: "John Doe"
 summary: "A practical walkthrough of bootstrapping a FastAPI backend with uv, locking down Ruff rules that actually fit FastAPI's style, and enforcing it all with a pre-commit hook."
 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=192&fit=crop"
-published: false
+published: true
 ---
 
 # Setting Up a Modern Python + FastAPI Environment with uv, Ruff, and Husky
@@ -100,26 +100,26 @@ Small, but it means nobody has to remember the exact `uv run` invocation:
 .PHONY: dev lint format format-check fix
 
 dev:
-	uv run fastapi dev
+ uv run fastapi dev
 
 lint:
-	uv run ruff check .
+ uv run ruff check .
 
 format-check:
-	uv run ruff format --check .
+ uv run ruff format --check .
 
 fix:
-	uv run ruff check --fix .
+ uv run ruff check --fix .
 
 format:
-	uv run ruff format .
+ uv run ruff format .
 ```
 
 `make dev`, `make lint`, `make fix` - done.
 
 ## Enforce it with a pre-commit hook (via Husky)
 
-Linting that only runs in CI catches problems an hour too late. A `pre-commit` git hook catches them before the commit even exists. [Husky](https://typicode.github.io/husky/) is normally a JS tool, but it's a perfectly good place to manage hooks for a *whole* repo, even a Python backend living in a subdirectory - especially once a frontend shows up alongside it.
+Linting that only runs in CI catches problems an hour too late. A `pre-commit` git hook catches them before the commit even exists. [Husky](https://typicode.github.io/husky/) is normally a JS tool, but it's a perfectly good place to manage hooks for a _whole_ repo, even a Python backend living in a subdirectory - especially once a frontend shows up alongside it.
 
 ```bash
 bun add --dev husky
