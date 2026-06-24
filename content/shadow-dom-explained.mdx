@@ -1,0 +1,202 @@
+---
+title: "Shadow DOM Explained: True Encapsulation for the Web"
+publishedAt: "2026-06-24"
+updatedAt: "2026-06-24"
+author: "Subhranshu Pati"
+summary: "What Shadow DOM actually is, how style and markup encapsulation works under the hood, slots, open vs closed mode, and where you've been using it for years without noticing."
+image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=192&fit=crop"
+published: true
+---
+
+# Shadow DOM Explained: True Encapsulation for the Web
+
+CSS has no namespaces. `querySelector` searches the whole document. Every class name you write is one collision away from breaking someone else's component. Shadow DOM is the browser's native answer to that problem: a way to attach a hidden, scoped DOM subtree to an element, with its own styles and its own query boundary, that the rest of the page can't accidentally reach into.
+
+## You've already used it
+
+Open devtools, inspect a `<video>` element with controls, an `<input type="range">`, or a `<details>` element, and you'll see nothing - just the tag, no children. Enable **"Show user agent shadow DOM"** in devtools settings and inspect again:
+
+```html
+<video controls>
+  <!-- #shadow-root (user-agent) -->
+  <div pseudo="-webkit-media-controls">
+    <div pseudo="-webkit-media-controls-panel">
+      <!-- play button, scrubber, volume slider... -->
+    </div>
+  </div>
+</video>
+```
+
+The browser has been rendering complex, internally-styled widgets this way for decades. Shadow DOM just opens that mechanism up to anyone's custom elements.
+
+## Light DOM vs. shadow DOM
+
+A normal element's children are **light DOM** - regular, visible, queryable from outside. Calling `element.attachShadow()` gives that element a separate **shadow root**, a document fragment that:
+
+- Renders visually inside the element, in place of (or alongside) its light DOM children
+- Has its own `<style>` scope - selectors inside don't leak out, page styles don't leak in (mostly - more on that below)
+- Is invisible to `document.querySelector()` unless you explicitly pierce into it
+
+```js
+class InfoBadge extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.innerHTML = `
+      <style>
+        span { background: #222; color: #fff; padding: 2px 8px; border-radius: 999px; }
+      </style>
+      <span><slot></slot></span>
+    `;
+  }
+}
+
+customElements.define("info-badge", InfoBadge);
+```
+
+```html
+<info-badge>Beta</info-badge>
+```
+
+Nothing on the page can accidentally override that `span` rule with a global `span { margin: 0 }`, and `document.querySelectorAll("span")` won't find it either.
+
+## Open vs. closed mode
+
+`attachShadow({ mode })` takes either `"open"` or `"closed"`:
+
+```js
+const open = this.attachShadow({ mode: "open" });
+element.shadowRoot; // → the shadow root, fully accessible
+
+const closed = this.attachShadow({ mode: "closed" });
+element.shadowRoot; // → null, even though one exists
+```
+
+Closed mode doesn't make anything more secure - the reference is still reachable if your own constructor holds onto it - it just blocks casual outside access via `element.shadowRoot`. In practice **almost everyone uses `open`**. Closed mode mostly breaks debugging and third-party tooling (testing libraries, password managers, accessibility tools) without buying real protection, since the content is still fully visible to anyone reading the page source or devtools' "show all shadow roots" option.
+
+## Slots: letting light DOM show through
+
+A shadow root can punch holes for the host element's original children to render through, using `<slot>`:
+
+```js
+shadow.innerHTML = `
+  <style>
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+    .title { font-weight: 600; }
+  </style>
+  <div class="card">
+    <div class="title"><slot name="title">Untitled</slot></div>
+    <div><slot>No content provided.</slot></div>
+  </div>
+`;
+```
+
+```html
+<my-card>
+  <span slot="title">Q3 Report</span>
+  <p>Revenue is up 12% quarter over quarter.</p>
+</my-card>
+```
+
+The `<span>` projects into the named `title` slot; the `<p>` (no `slot` attribute) projects into the default slot. The fallback text (`Untitled`, `No content provided.`) only renders if the host element provides nothing for that slot - this is the same mental model as a React component's `children` prop with a default, just expressed in markup.
+
+## Styling across the boundary, on purpose
+
+Encapsulation isn't all-or-nothing. Three mechanisms exist specifically to let a component author expose _intentional_ styling hooks:
+
+```css
+/* inside the shadow root */
+:host {
+  display: block; /* style the host element itself */
+  --badge-bg: #222; /* define a default for a custom property */
+}
+
+:host(.large) {
+  font-size: 1.25rem; /* style the host conditionally, based on its own attributes/classes */
+}
+
+::slotted(p) {
+  margin: 0; /* style projected light-DOM content - but only top-level slotted nodes */
+}
+```
+
+```css
+/* from outside the component, in a regular page stylesheet */
+info-badge {
+  --badge-bg: #0a5; /* custom properties DO pierce the shadow boundary */
+}
+
+info-badge::part(label) {
+  font-weight: 700; /* ::part() styles elements the author explicitly exposed */
+}
+```
+
+```html
+<!-- inside the shadow root's template -->
+<span part="label"><slot></slot></span>
+```
+
+CSS custom properties (`--*`) inherit through shadow boundaries by design - that's the sanctioned escape hatch for theming. `::part()` is the other one: the component author marks specific internal elements with a `part` attribute, and only those become stylable from outside. Everything else stays genuinely private.
+
+## Events still cross the boundary
+
+A click inside a shadow tree dispatches and bubbles like normal, but by default it's **retargeted** at the host element once it crosses the boundary - code outside sees the event as having come from `<info-badge>`, not from the `<span>` buried inside it. That's correct: outside code never had a reference to your internal `<span>` to begin with, so retargeting prevents leaking implementation details through `event.target`.
+
+Custom events you dispatch yourself need `composed: true` to cross the boundary at all:
+
+```js
+this.dispatchEvent(
+  new CustomEvent("badge-clicked", { bubbles: true, composed: true }),
+);
+```
+
+Without `composed: true`, the event dies at the shadow boundary and outside listeners never see it.
+
+## Declarative Shadow DOM: making this work with SSR
+
+For years, Shadow DOM was JS-only - the server could render the light DOM, but the shadow tree had to be attached client-side, causing a flash of unstyled content on first paint. **Declarative Shadow DOM** fixes this with a `<template shadowrootmode>`:
+
+```html
+<info-badge>
+  <template shadowrootmode="open">
+    <style>
+      span {
+        background: #222;
+        color: #fff;
+      }
+    </style>
+    <span><slot></slot></span>
+  </template>
+  Beta
+</info-badge>
+```
+
+The browser attaches this as a real shadow root during HTML parsing, before any JavaScript runs - no flash, no client-side hydration step just to get styles applied. Support landed across all major engines by 2023-2024, which is what made shadow DOM viable for server-rendered, JS-light sites rather than just SPA widgets.
+
+## Shadow DOM vs. the alternatives
+
+| Approach                             | Style isolation                       | DOM isolation                         | Cost                                                       |
+| ------------------------------------ | ------------------------------------- | ------------------------------------- | ---------------------------------------------------------- |
+| Global CSS + naming convention (BEM) | Discipline-enforced, not real         | None                                  | Free, but fragile at scale                                 |
+| CSS Modules / scoped CSS-in-JS       | Compile-time, real                    | None                                  | Build tooling required                                     |
+| `<iframe>`                           | Total                                 | Total - separate document             | Heavy: separate context, no shared JS state, layout quirks |
+| Shadow DOM                           | Real, with intentional escape hatches | Real, with intentional escape hatches | Native, no build step, but a real API surface to learn     |
+
+The iframe row is the useful comparison: an iframe gives you _more_ isolation than you usually want (separate `window`, separate event loop participation, awkward sizing) for the same goal Shadow DOM solves more surgically - one document, one JS context, scoped styles and markup.
+
+## Where this actually shows up in 2026
+
+- **Design system component libraries** built as native Web Components (Lit, Stencil, FAST) lean on Shadow DOM as their primary isolation mechanism instead of CSS Modules.
+- **Third-party embeddable widgets** (chat bubbles, support widgets, ad units) use it so the embedding page's CSS can't accidentally break the widget, and vice versa.
+- **React and most meta-frameworks still don't use Shadow DOM internally** - React relies on CSS Modules, CSS-in-JS, or Tailwind's utility classes for isolation instead, partly because Shadow DOM's event retargeting and the historical lack of SSR support didn't fit React's model well. You'll still meet it when consuming a third-party custom element from inside a React app, though - styling it requires `::part()` or CSS custom properties, not your usual `className` props.
+
+## Common pitfalls
+
+- **Global stylesheets don't reach in.** A `<link>` in `<head>` never styles shadow content - each shadow root needs its own `<style>` or adopted stylesheet (`shadowRoot.adoptedStyleSheets`).
+- **`document.querySelector` stops at the boundary.** Testing libraries and scrapers that assume a flat DOM tree will silently miss shadow content unless they explicitly walk into `shadowRoot`s.
+- **Focus and form association need extra work.** Putting a real `<input>` inside a shadow root mostly works, but custom form-associated elements need the `ElementInternals` API (`attachInternals()`) to participate properly in a surrounding `<form>`'s validation and submission.
+- **SEO is generally fine** - search engine crawlers render shadow DOM content - but verify with site-specific tooling if a page leans heavily on client-rendered (non-declarative) shadow roots.
+
+## Wrap-up
+
+Shadow DOM gives you what `<iframe>` always promised and over-delivered on: real encapsulation without leaving the document. The boundary is firm by default and porous exactly where you choose to make it porous - custom properties for theming, `::part()` for structure, `composed` events for communication. If you're shipping a component that other teams will drop into pages you don't control, it's the difference between "please don't have a class called `.title`" and not having to ask.
