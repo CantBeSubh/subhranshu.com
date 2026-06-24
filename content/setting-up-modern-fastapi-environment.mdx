@@ -19,8 +19,9 @@ Here's the setup, end to end.
 `uv` replaces `pip` + `venv` + `pip-tools` with one fast, Rust-based tool. Starting from an existing project:
 
 ```bash
-git clone <repo> backend
+git clone https://github.com/astral-sh/uv-fastapi-example backend
 cd backend
+rm -rf .git/
 uv python pin 3.11   # downloads 3.11 if needed, writes .python-version
 uv lock               # resolve dependencies against the pinned version
 uv sync               # create .venv and install everything
