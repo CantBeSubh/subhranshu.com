@@ -1,0 +1,158 @@
+---
+title: "Crawl4AI Content Filters: Pruning, BM25, and LLM-Based Extraction Compared"
+publishedAt: "2026-06-25"
+updatedAt: "2026-06-25"
+author: "Subhranshu Pati"
+summary: "Crawl4AI hands you raw_markdown and fit_markdown from every crawl - here's what actually produces fit_markdown: PruningContentFilter, BM25ContentFilter, LLMContentFilter, and when to reach for each."
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=192&fit=crop"
+published: true
+---
+
+# Crawl4AI Content Filters: Pruning, BM25, and LLM-Based Extraction Compared
+
+Crawl a real page with [Crawl4AI](https://github.com/unclecode/crawl4ai) and `result.markdown.raw_markdown` is still full of nav bars, cookie banners, related-article widgets, and footer link farms converted faithfully to Markdown - because that's exactly what a literal HTML-to-Markdown pass should do. Dumping that into an LLM context window or a vector store wastes tokens on boilerplate that has nothing to do with the page's actual content.
+
+Content filters are the layer that sits between the raw conversion and `result.markdown.fit_markdown`: they decide which chunks of the page are worth keeping *before* Markdown generation finishes. Crawl4AI ships three, and they trade off cost, precision, and how much you need to know about the page in advance.
+
+## Where filters sit in the pipeline
+
+A content filter doesn't replace `DefaultMarkdownGenerator` - it plugs into it:
+
+```python
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+from crawl4ai.content_filter_strategy import PruningContentFilter
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+
+md_generator = DefaultMarkdownGenerator(
+    content_filter=PruningContentFilter(threshold=0.4, threshold_type="fixed")
+)
+
+config = CrawlerRunConfig(
+    cache_mode=CacheMode.BYPASS,
+    markdown_generator=md_generator,
+)
+
+async with AsyncWebCrawler() as crawler:
+    result = await crawler.arun("https://news.ycombinator.com", config=config)
+    print("Raw:", len(result.markdown.raw_markdown))
+    print("Fit:", len(result.markdown.fit_markdown))
+```
+
+No filter, no `fit_markdown` - `result.markdown.fit_markdown` and `fit_html` only populate when a `content_filter` is set. Everything else on the `MarkdownGenerationResult` object stays available regardless: `raw_markdown` (the unfiltered conversion), `markdown_with_citations` (links rewritten as numbered footnotes), and `references_markdown` (the footnote list itself) - useful if you want citation-style output even without filtering.
+
+## PruningContentFilter: heuristics, no query needed
+
+`PruningContentFilter` is the default reach-for-it filter when you don't have a specific question in mind - just "strip the boilerplate." It scores every text block in the DOM on five weighted metrics and drops anything under the threshold:
+
+| Metric | Weight | What it rewards |
+|---|---|---|
+| Text density | 40% | High ratio of text to surrounding markup |
+| Link density | 20% | *Penalizes* blocks that are mostly `<a>` tags - nav menus, link farms |
+| Tag weight | 20% | `<article>`, `<p>`, `<h1>`-`<h3>` score higher than `<div>`/`<span>` |
+| Class/ID weight | 10% | Heuristics on class/id names (`sidebar`, `nav`, `comment` score down) |
+| Text length | 10% | Longer blocks score higher |
+
+```python
+prune_filter = PruningContentFilter(
+    threshold=0.45,           # lower → keep more, higher → prune more
+    threshold_type="dynamic",  # "fixed" or "dynamic"
+    min_word_threshold=5,      # drop blocks with fewer words outright
+)
+```
+
+`threshold_type="fixed"` means every block needs to clear the same bar. `"dynamic"` adjusts the bar per-block using `tag_importance` (an `<article>` gets a more forgiving threshold than a `<div>`) - it's the better default on pages with inconsistent markup, since a fixed cutoff that works for article bodies often guts legitimate `<div>`-wrapped content elsewhere on the same page.
+
+This is a pure heuristic - no network calls, no query, runs in milliseconds. It won't know that your page is *about* anything; it just knows what boilerplate generally looks like structurally.
+
+## BM25ContentFilter: relevance to a query
+
+When you know what you're looking for, `BM25ContentFilter` ranks blocks by the same [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scoring algorithm search engines use, against a query you supply:
+
+```python
+from crawl4ai.content_filter_strategy import BM25ContentFilter
+
+bm25_filter = BM25ContentFilter(
+    user_query="transformer attention mechanism",
+    bm25_threshold=1.2,   # raise to keep fewer blocks, lower to keep more
+    use_stemming=True,    # match "learn", "learning", "learnt" as one term
+    language="english",
+)
+```
+
+If you skip `user_query`, it falls back to page metadata (title, description) or a generic scoring pass - workable, but BM25 is built to rank *against* something, so results are noticeably better with an explicit query. This is the filter to use when crawling search results, a documentation site, or any page where "relevant" means "relevant to this specific topic" rather than "structurally not boilerplate."
+
+### Chaining filters
+
+Because `filter_content()` just takes HTML and returns a list of text chunks, nothing stops you from running pruning first to strip obvious chrome, then BM25 on what's left to rank by topic:
+
+```python
+pruning_filter = PruningContentFilter(threshold=0.5, min_word_threshold=50)
+pruned_chunks = pruning_filter.filter_content(raw_html)
+pruned_html = "\n".join(pruned_chunks)
+
+bm25_filter = BM25ContentFilter(user_query="machine learning", bm25_threshold=1.2)
+bm25_chunks = bm25_filter.filter_content(pruned_html)
+```
+
+This avoids re-crawling between passes - both filters just operate on the HTML string you already fetched.
+
+## LLMContentFilter: when heuristics aren't precise enough
+
+`PruningContentFilter` and `BM25ContentFilter` are both fast and free, but neither understands semantics - they can't tell "this paragraph is the actual tutorial" from "this paragraph is a long-winded ad disguised as prose." `LLMContentFilter` hands the page to an LLM with a natural-language instruction instead:
+
+```python
+from crawl4ai import LLMConfig
+from crawl4ai.content_filter_strategy import LLMContentFilter
+
+filter = LLMContentFilter(
+    llm_config=LLMConfig(provider="openai/gpt-4o", api_token="your-api-token"),
+    instruction="""
+    Focus on extracting the core educational content.
+    Include:
+    - Key concepts and explanations
+    - Important code examples
+    - Essential technical details
+    Exclude:
+    - Navigation elements
+    - Sidebars
+    - Footer content
+    Format the output as clean markdown with proper code blocks and headers.
+    """,
+    chunk_token_threshold=4096,  # splits large pages into LLM-sized chunks
+    verbose=True,
+)
+
+md_generator = DefaultMarkdownGenerator(content_filter=filter, options={"ignore_links": True})
+```
+
+`chunk_token_threshold` matters because pages routinely exceed a single context window - the filter splits the page into chunks around that size, runs the instruction against each, and reassembles `fit_markdown` from the results. The tradeoff is exactly what you'd expect: real semantic judgment (it *can* tell ad copy from tutorial content), at the cost of latency and a per-crawl LLM bill instead of a free heuristic pass.
+
+## Picking one
+
+| Filter | Needs a query? | Cost | Best for |
+|---|---|---|---|
+| `PruningContentFilter` | No | Free, instant | General boilerplate removal, unknown page structure |
+| `BM25ContentFilter` | Works best with one | Free, instant | Topic/keyword relevance, search-style filtering |
+| `LLMContentFilter` | Instruction, not a query | LLM tokens + latency | Semantic distinctions heuristics can't make |
+
+A reasonable default: start with `PruningContentFilter` for everything, since it's free and catches the obvious chrome. Reach for `BM25ContentFilter` once you have a concrete query to rank against. Save `LLMContentFilter` for pages where the first two keep letting through content that's structurally fine but semantically irrelevant - it's the only one of the three that can act on meaning rather than shape.
+
+## Writing a custom filter
+
+All three subclass `RelevantContentFilter`, and so can you:
+
+```python
+from crawl4ai.content_filter_strategy import RelevantContentFilter
+
+class MyCustomFilter(RelevantContentFilter):
+    def filter_content(self, html, min_word_threshold=None):
+        # parse html, apply your own logic - a classifier, a site-specific
+        # heuristic, whatever the built-ins don't cover
+        return [block for block in parsed_blocks if meets_my_condition(block)]
+```
+
+Drop an instance into `DefaultMarkdownGenerator(content_filter=MyCustomFilter())` and it slots into the same pipeline - useful if you're crawling one site type repeatedly and know its boilerplate patterns better than a general heuristic ever will.
+
+## Wrap-up
+
+`raw_markdown` is what the HTML actually says; `fit_markdown` is what's worth keeping, and the content filter you choose is what defines "worth." Pruning answers "is this structurally boilerplate," BM25 answers "is this relevant to my query," and LLM filtering answers "does this matter, semantically" - three different questions, and the right filter depends entirely on which one you're actually asking.
