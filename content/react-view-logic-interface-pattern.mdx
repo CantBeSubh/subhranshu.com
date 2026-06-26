@@ -1,0 +1,168 @@
+---
+title: "How I Structure React Features: The View / Logic / Interface Pattern"
+publishedAt: "2026-06-26"
+updatedAt: "2026-06-26"
+author: "Subhranshu Pati"
+summary: "A file-based separation of concerns that keeps React pages readable, testable, and easy to navigate — without reaching for a state management library."
+image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=192&fit=crop"
+published: true
+---
+
+# How I Structure React Features: The View / Logic / Interface Pattern
+
+Most React projects start clean and then quietly become hard to navigate. The first sign is a `page.tsx` that scrolls for three minutes — `useState`, `useMutation`, inline dialog components, column definitions, and the actual JSX all tangled together.
+
+The pattern I've settled on is straightforward: every feature gets a dedicated folder with three files that each do exactly one thing.
+
+## The problem with monolithic page files
+
+In a Next.js App Router project, `app/dashboard/sources/page.tsx` is a natural dumping ground. You add a `useQuery`, then a `useState` for a dialog, then the dialog component itself — and before long the file is 250 lines and impossible to scan.
+
+The deeper issue is that **concerns at different altitudes live in the same file**. Data fetching logic sits next to pixel-level JSX. Types are either inline or missing entirely. Finding "where does the delete mutation live?" means grepping through a wall of JSX.
+
+## The pattern
+
+All feature UI moves to a `views/` folder that mirrors the `app/` route structure. The route file becomes a three-liner:
+
+```tsx
+// app/dashboard/sources/page.tsx
+import { SourcesView } from "@/views/dashboard/sources/view"
+
+export default function SourcesPage() {
+  return <SourcesView />
+}
+```
+
+Inside `views/dashboard/sources/` there are three files:
+
+```
+views/dashboard/sources/
+  constants.ts    ← view-level constants
+  interface.ts    ← types introduced by this view
+  logic.ts        ← the custom hook
+  view.tsx        ← JSX only
+```
+
+### `logic.ts` — the custom hook
+
+Everything stateful goes here: `useState`, `useQuery`, `useMutation`, `useRef`, event handlers. It exports a single hook that returns what the view needs.
+
+```ts
+// views/dashboard/sources/logic.ts
+export function useSourcesPage() {
+  const queryClient = useQueryClient()
+
+  const { data: sources = [], isLoading } = useQuery({
+    queryKey: ["sources"],
+    queryFn: getSources,
+    refetchInterval: (query) => {
+      const data = query.state.data
+      if (!data?.length) return false
+      return data.some((s) => PENDING.includes(s.status)) ? 3000 : false
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteSource,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sources"] }),
+  })
+
+  return {
+    sources,
+    isLoading,
+    handleDelete: (id: string) => deleteMutation.mutate(id),
+    invalidate: () => queryClient.invalidateQueries({ queryKey: ["sources"] }),
+  }
+}
+```
+
+### `interface.ts` — new types only
+
+Only types that this view introduces live here. If a type already comes from `@/server/` or a library, it stays there. I don't re-export for the sake of it.
+
+```ts
+// views/dashboard/sources/interface.ts
+export interface SourceRowActions {
+  onDelete: (id: string) => void
+}
+```
+
+If there are no new types, the file is simply omitted.
+
+### `view.tsx` — JSX that calls the hook
+
+The view component calls the hook, unpacks what it needs, and passes values down. No logic lives here.
+
+```tsx
+// views/dashboard/sources/view.tsx
+"use client"
+
+export function SourcesView() {
+  const { sources, isLoading, handleDelete, invalidate } = useSourcesPage()
+  const columns = getColumns(handleDelete)
+
+  return (
+    <div className="p-6 space-y-6">
+      {/* header + actions */}
+      {isLoading ? <Spinner /> : <DataTable columns={columns} data={sources} />}
+    </div>
+  )
+}
+```
+
+Note that `"use client"` belongs here, not on `page.tsx`. The route file stays a Server Component — a meaningful win in Next.js App Router.
+
+### `constants.ts` — view-level constants
+
+Anything that's shared across the three files above but doesn't belong in a global config goes here.
+
+```ts
+// views/dashboard/sources/constants.ts
+export const PENDING = ["queued", "crawling", "processing"] as const
+```
+
+## Sub-components in `_components/`
+
+When a piece of UI is complex enough to extract — a dialog, a panel, a form — it moves to `_components/` inside the same folder. Sub-components follow the same split:
+
+```
+views/dashboard/sources/
+  _components/
+    add-url-dialog/
+      interface.ts    ← AddUrlDialogProps
+      logic.ts        ← useAddUrlDialog hook
+      view.tsx        ← AddUrlDialog component
+    upload-file-dialog/
+      interface.ts
+      logic.ts
+      view.tsx
+    columns.tsx       ← stateless factory, no split needed
+```
+
+### When not to split
+
+The split exists to separate concerns that actually exist. A stateless component — a column definition factory, a static layout card — doesn't have logic or new types to extract. Forcing three files where one will do is noise. The rule: **split only when there's something to split**.
+
+### No barrel files
+
+`_components/` does not get an `index.ts`. Import directly from the file path. Barrel files cause bundlers to include entire directories when you only needed one export — a real cost in Next.js where each page's bundle is optimised separately.
+
+## Promoting to shared components
+
+The components in `_components/` are local by default. If a component gets used in a second place, that's fine — two usages don't justify abstraction. When a third unrelated view needs the same component, move it to `src/components/common/` and update the imports. Don't extract preemptively.
+
+## Why this works
+
+**Scanning is fast.** Open `logic.ts` and every piece of state is visible in one scroll. Open `view.tsx` and it's almost entirely JSX.
+
+**Testing is easy.** The hook in `logic.ts` is a plain function. You can test it with `renderHook` without mounting any UI. The view is correspondingly simple to test because it has no logic.
+
+**The client boundary is explicit.** One `"use client"` on `view.tsx` and the route file is a server component. That's a concrete architectural choice that the pattern enforces by default.
+
+**Reuse happens at the right moment.** You don't design for reuse upfront — you wait for the third usage and then extract. By then the interface is battle-tested.
+
+## The mental model
+
+Think of it as altitude. `page.tsx` is at the highest altitude — it knows only that a `SourcesView` exists. `view.tsx` knows the structure of the page. `logic.ts` knows about data and state. `_components/` knows about individual UI pieces. Each altitude has one job and talks to the altitude directly below it.
+
+It's not a framework. It's a folder convention — and that's the point.
