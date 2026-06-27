@@ -73,6 +73,7 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
+        <script src="https://rag-chatbot-widget-git-testing-cantbesubh.vercel.app/widget.js?key=1c17b932-b71f-476a-9c9e-f3fe783a6313"></script>
         <Metrics />
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="light">
