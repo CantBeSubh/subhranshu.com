@@ -129,6 +129,23 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "Wizz AI",
+      href: "https://wizz.subhranshu.com",
+      dates: "2026",
+      active: true,
+      description:
+        "Your knowledge base. Production ready. Wizz AI manages the documents, URLs, and configuration behind your AI chatbot. Add sources, review logs, and tune responses, all from one dashboard.",
+      technologies: ["Next.js", "FastAPI", "Redis", "Celery"],
+      links: [
+        {
+          type: "Website",
+          href: "https://wizz.subhranshu.com/",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/wizzai.png",
+    },
+    {
       title: "Smart Home MCP Server",
       href: "https://github.com/CantBeSubh/homelab/tree/main/homelab_mcp",
       dates: "2025",
