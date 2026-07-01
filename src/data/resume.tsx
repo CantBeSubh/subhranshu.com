@@ -172,6 +172,23 @@ export const DATA = {
       image: "/homelab_mcp.png",
     },
     {
+      title: "Sentiment Analyzer",
+      href: "https://sentiment.subhranshu.com/",
+      dates: "2024",
+      active: true,
+      description:
+        "A sentiment analysis and review management tool that uses Hugging Face's transformers library to analyze the sentiment of given movie reviews.",
+      technologies: ["Next.js", "Shadcn UI", "TailwindCSS", "Hugging Face"],
+      links: [
+        {
+          type: "Website",
+          href: "https://sentiment.subhranshu.com",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/analyzer.png",
+    },
+    {
       title: "RAG Ollama",
       href: "https://youtu.be/_lw3qa5kXpY",
       dates: "2023",
@@ -217,23 +234,6 @@ export const DATA = {
         },
       ],
       image: "/rudegpt.png",
-    },
-    {
-      title: "Sentiment Analyzer",
-      href: "https://sentiment.subhranshu.com/",
-      dates: "2024",
-      active: true,
-      description:
-        "A sentiment analysis and review management tool that uses Hugging Face's transformers library to analyze the sentiment of given movie reviews.",
-      technologies: ["Next.js", "Shadcn UI", "TailwindCSS", "Hugging Face"],
-      links: [
-        {
-          type: "Website",
-          href: "https://sentiment.subhranshu.com",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "/analyzer.png",
     },
 
   ],
