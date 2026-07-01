@@ -12,6 +12,8 @@ import { Airflow } from "@/components/ui/svgs/airflow";
 import { Fastapi } from "@/components/ui/svgs/fastapi";
 import { Mongodb } from "@/components/ui/svgs/mongodb";
 import { Opensearch } from "@/components/ui/svgs/opensearch";
+import { Celery } from "@/components/ui/svgs/celery";
+import { Redis } from "@/components/ui/svgs/redis";
 
 export const DATA = {
   name: "Subhranshu Pati",
@@ -35,6 +37,8 @@ export const DATA = {
     { name: "MongoDB", icon: Mongodb },
     { name: "Opensearch", icon: Opensearch },
     { name: "Postgres", icon: Postgresql },
+    { name: "Redis", icon: Redis },
+    { name: "Celery", icon: Celery },
     { name: "Docker", icon: Docker },
     { name: "Kubernetes", icon: Kubernetes },
   ],
@@ -135,7 +139,7 @@ export const DATA = {
       active: true,
       description:
         "Your knowledge base. Production ready. Wizz AI manages the documents, URLs, and configuration behind your AI chatbot. Add sources, review logs, and tune responses, all from one dashboard.",
-      technologies: ["Next.js", "FastAPI", "Redis", "Celery"],
+      technologies: ["Next.js", "FastAPI", "Redis", "Celery", "Crawl4AI", "HuggingFace"],
       links: [
         {
           type: "Website",
@@ -152,7 +156,7 @@ export const DATA = {
       active: true,
       description:
         "An MCP server that connects Claude to my homelab, letting it control smart home devices through Home Assistant  built with FastMCP and deployed remotely behind an NGINX proxy.",
-      technologies: ["FastMCP", "MCP", "Python", "GenAI"],
+      technologies: ["FastMCP", "MCP", "Python", "GenAI", "NGINX"],
       links: [
         {
           type: "GitHub",
@@ -193,7 +197,7 @@ export const DATA = {
     },
     {
       title: "RudeGPT",
-      href: "https://youtu.be/6XJ6II8VIl8?si=9pXdpFJqz-afEltb",
+      href: "https://youtu.be/6XJ6II8VIl8",
       dates: "2023",
       active: true,
       description:
@@ -208,7 +212,7 @@ export const DATA = {
       links: [
         {
           type: "Demo",
-          href: "https://youtu.be/6XJ6II8VIl8?si=9pXdpFJqz-afEltb",
+          href: "https://youtu.be/6XJ6II8VIl8",
           icon: <Icons.youtube className="size-3" />,
         },
       ],
@@ -225,7 +229,7 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://sentiment-analyzer.subhranshu.com/",
+          href: "https://sentiment.subhranshu.com",
           icon: <Icons.globe className="size-3" />,
         },
       ],
